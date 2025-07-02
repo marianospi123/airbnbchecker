@@ -31,14 +31,13 @@ app.get("/proxy", async (req, res) => {
   }
 });
 
-// Sirve la carpeta de React (luego de hacer `npm run build`)
+// Sirve los archivos del frontend desde /build
 app.use(express.static(path.join(__dirname, "../build")));
 
-// Catch-all para rutas del frontend
+// Catch-all para rutas del frontend (SPA)
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
-// Puerto para Replit
 const PORT = process.env.PORT || 4004;
 app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));

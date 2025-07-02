@@ -5,11 +5,9 @@
   "description": "Proyecto React con backend proxy para consultar disponibilidad Airbnb",
   "main": "server/server.js",
   "scripts": {
-    "start": "react-scripts start",
-    "backend": "node server/server.js",
+    "start": "node server/server.js",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "@fullcalendar/daygrid": "^6.1.17",
@@ -30,7 +28,6 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "http://localhost:4004",
   "eslintConfig": {
     "extends": [
       "react-app",
