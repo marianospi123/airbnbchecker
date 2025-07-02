@@ -5,6 +5,12 @@ import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import './App.css';
+
+const BASE_URL = process.env.NODE_ENV === "production"
+  ? "https://airbnbchecker-production.up.railway.app"
+  : "http://localhost:4004";
+
 
 const calendars = [
   {
@@ -404,6 +410,8 @@ const calendars = [
 
 
 
+
+
 function App() {
   const [dateRange, setDateRange] = useState([
     {
@@ -440,9 +448,10 @@ function App() {
     for (const cal of calendars) {
       if (cal.capacity < people) continue;
       try {
-        const proxyUrl = `http://localhost:4004/proxy?url=${encodeURIComponent(cal.url)}`;
+        const proxyUrl = `${BASE_URL}/proxy?url=${encodeURIComponent(cal.url)}`;
         const res = await fetch(proxyUrl);
         const text = await res.text();
+
 
         const jcalData = ICAL.parse(text);
         const comp = new ICAL.Component(jcalData);
@@ -523,47 +532,37 @@ const eTotalPrice = (eSubtotal + ePlatformFee - eDiscount).toFixed(2);
     setResults(output);
     setLoading(false);
   };
-return (
-  <div style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
-    <h2>Selecciona tus fechas y personas</h2>
+ return (
+    <div className="app-container">
+      <h2>Selecciona tus fechas y personas</h2>
 
-    <DateRange
-      editableDateInputs
-      onChange={item => setDateRange([item.selection])}
-      moveRangeOnFirstSelection={false}
-      ranges={dateRange}
-      minDate={new Date()}
-      rangeColors={['#3d91ff']}
-    />
+      <DateRange
+        editableDateInputs
+        onChange={item => setDateRange([item.selection])}
+        moveRangeOnFirstSelection={false}
+        ranges={dateRange}
+        minDate={new Date()}
+        rangeColors={['#3d91ff']}
+      />
 
-    <label style={{ display: 'block', margin: '1rem 0' }}>
-      Personas:{' '}
-      <select value={people} onChange={e => setPeople(Number(e.target.value))}>
-        {[...Array(6).keys()].map(n => (
-          <option key={n + 1} value={n + 1}>{n + 1}</option>
-        ))}
-      </select>
-    </label>
+      <label style={{ display: 'block', margin: '1rem 0' }}>
+        Personas:{' '}
+        <select value={people} onChange={e => setPeople(Number(e.target.value))}>
+          {[...Array(6).keys()].map(n => (
+            <option key={n + 1} value={n + 1}>{n + 1}</option>
+          ))}
+        </select>
+      </label>
 
-    <button onClick={checkAvailability} style={{ padding: '0.5rem 1rem' }}>
-      Consultar
-    </button>
+      <button onClick={checkAvailability} style={{ padding: '0.5rem 1rem' }}>
+        Consultar
+      </button>
 
-    <div style={{ marginTop: '2rem' }}>
-      {loading && <p>Cargando...</p>}
-      {!loading &&
-        results.map((r, i) => (
-          <div key={i} style={{
-            display: 'flex',
-            gap: '2rem',
-            marginBottom: '2rem',
-            padding: '1rem',
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            alignItems: 'flex-start',
-            flexWrap: 'wrap'
-          }}>
-            <div style={{ flex: 1 }}>
+      <div style={{ marginTop: '2rem' }}>
+        {loading && <p>Cargando...</p>}
+        {!loading && results.map((r, i) => (
+          <div key={i} className="result-item">
+            <div className="result-info">
               <h3>📍 {r.name}</h3>
               <p>({r.rooms} hab / {r.baths} baños · Máx. {r.capacity} personas)</p>
               {r.isAvailable ? (
@@ -610,31 +609,13 @@ return (
 
                     return (
                       <>
-                        <div style={{
-                          background: '#f9fafb',
-                          border: '1px dashed #999',
-                          padding: '1rem',
-                          marginTop: '1rem',
-                          borderRadius: '6px',
-                          whiteSpace: 'pre-wrap',
-                          fontFamily: 'inherit',
-                          lineHeight: '1.6'
-                        }}>{airbnbText}</div>
-                        <button onClick={() => copyToClipboard(airbnbText)} style={{ marginTop: '0.5rem' }}>
+                        <div className="copy-text-box">{airbnbText}</div>
+                        <button className="copy-button" onClick={() => copyToClipboard(airbnbText)}>
                           📋 Copiar texto Airbnb
                         </button>
 
-                        <div style={{
-                          background: '#f9fafb',
-                          border: '1px dashed #999',
-                          padding: '1rem',
-                          marginTop: '1rem',
-                          borderRadius: '6px',
-                          whiteSpace: 'pre-wrap',
-                          fontFamily: 'inherit',
-                          lineHeight: '1.6'
-                        }}>{esteiText}</div>
-                        <button onClick={() => copyToClipboard(esteiText)} style={{ marginTop: '0.5rem' }}>
+                        <div className="copy-text-box">{esteiText}</div>
+                        <button className="copy-button" onClick={() => copyToClipboard(esteiText)}>
                           📋 Copiar texto Estei
                         </button>
                       </>
@@ -646,16 +627,8 @@ return (
               )}
             </div>
 
-            <div style={{ width: '360px', position: 'relative' }}>
-              <div style={{
-                position: 'absolute',
-                right: 0,
-                top: 0,
-                fontWeight: 'bold',
-                background: '#fff',
-                padding: '0.2rem 0.4rem',
-                borderRadius: '4px'
-              }}>
+            <div className="calendar-container">
+              <div className="availability-badge">
                 {r.isAvailable ? '✅ Disponible' : '❌ No disponible'}
               </div>
               <CalendarioPropiedad
@@ -665,11 +638,10 @@ return (
               />
             </div>
           </div>
-        ))
-      }
+        ))}
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 export default App;
