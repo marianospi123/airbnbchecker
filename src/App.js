@@ -15,6 +15,7 @@ const BASE_URL = process.env.NODE_ENV === "production"
 const calendars = [
   {
     name: "Chacao",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1385011718927994475.ics?s=4e4d11b7c6db289a9012851c43364d23&locale=en",
     capacity: 4,
     rooms: 2,
@@ -27,7 +28,7 @@ const calendars = [
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
       discountWeek: 0.05,
-      discountMonth: 0.20,
+      discountMonth: 0.15,
       platformFeePercentage: 0.14 // 14.2%
     },
     estei: {
@@ -38,6 +39,7 @@ const calendars = [
   },
   {
     name: "Sebucán 2",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/964770823228978238.ics?s=18f5ceadceadf4e409822ee1c533f555&locale=en",
     capacity: 3,
     rooms: 1,
@@ -61,6 +63,7 @@ const calendars = [
   },
   {
     name: "Paraíso",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1442428798352266133.ics?s=32dd2a635d95604c8754d606ac0ba4a2&locale=en",
     capacity: 6,
     rooms: 3,
@@ -72,7 +75,7 @@ const calendars = [
       cleaningFee: 50,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
-      discountWeek: 0.05,
+      discountWeek: 0.10,
       discountMonth: 0.20,
       platformFeePercentage: 0.14
     },
@@ -84,6 +87,7 @@ const calendars = [
   },
   {
     name: "Campiña",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1332629584763087489.ics?s=d90bafbfe647f3451520a54fc98d2522&locale=en",
     capacity: 4,
     rooms: 2,
@@ -91,7 +95,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/lacampinaccs",
     esteiLink: "https://goo.su/orcTbU",
     airbnb: {
-      pricePerNight: 70,
+      pricePerNight: 65,
       cleaningFee: 35,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -107,6 +111,7 @@ const calendars = [
   },
   {
     name: "Sebucán 4",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/828812513697117205.ics?s=c5bd1934f996f8ee77b3742979342db6&locale=en",
     capacity: 5,
     rooms: 2,
@@ -131,6 +136,7 @@ const calendars = [
   },
   {
     name: "Sebucán 1",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/40759881.ics?s=e236ee10e178f24d224d1ea7f9e12925&locale=en",
     capacity: 5,
     rooms: 2,
@@ -143,7 +149,7 @@ const calendars = [
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
       discountWeek: 0.05,
-      discountMonth: 0.20,
+      discountMonth: 0.15,
       platformFeePercentage: 0.14
     },
     estei: {
@@ -154,7 +160,8 @@ const calendars = [
   },
   {
     name: "Castellana",
-    url: "https://www.airbnb.com/calendar/ical/1419766431038404560.ics?s=9fe0c131ba2c39be3af7230db3461881&locale=en",
+     estado: "Caracas",
+    url: "https://www.airbnb.com/calendar/ical/1052345592684699011.ics?s=b39c437d942da1cb8375fbd233e671a1&locale=en",
     capacity: 3,
     rooms: 1,
     baths: 1,
@@ -166,7 +173,7 @@ const calendars = [
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
       discountWeek: 0.05,
-      discountMonth: 0.20,
+      discountMonth: 0.15,
       platformFeePercentage: 0.14
     },
     estei: {
@@ -177,6 +184,7 @@ const calendars = [
   },
   {
     name: "POZ",
+     estado: "POZ",
     url: "https://www.airbnb.com/calendar/ical/1419766431038404560.ics?s=9fe0c131ba2c39be3af7230db3461881&locale=en",
     capacity: 4,
     rooms: 2,
@@ -188,8 +196,8 @@ const calendars = [
       cleaningFee: 35,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
-      discountWeek: 0.05,
-      discountMonth: 0.20,
+      discountWeek: 0,
+      discountMonth: 0.15,
       platformFeePercentage: 0.14
     },
     estei: {
@@ -200,6 +208,7 @@ const calendars = [
   },
   {
     name: "Trinidad",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/776060327262601969.ics?s=cb72b5158ad102d5754c8e8f0e81f693&locale=en",
     capacity: 5,
     rooms: 2,
@@ -223,6 +232,7 @@ const calendars = [
   },
   {
     name: "Altamira 2",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1376869011851689626.ics?s=143f61f625f9871c9445dd846750b66e&locale=en",
     capacity: 6,
     rooms: 3,
@@ -246,6 +256,7 @@ const calendars = [
   },
   {
     name: "Sebucán 3",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1298924651912966615.ics?s=a0857ac3afe38166c5df3e029f90b3f9&locale=en",
     capacity: 4,
     rooms: 2,
@@ -257,7 +268,7 @@ const calendars = [
       cleaningFee: 35,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
-      discountWeek: 0.05,
+      discountWeek: 0.10,
       discountMonth: 0.20,
       platformFeePercentage: 0.14
     },
@@ -269,6 +280,7 @@ const calendars = [
   },
   {
     name: "Boleita",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1343681520860355629.ics?s=a2d96f7fe387a7d3e27ce41d275f4a33&locale=en",
     capacity: 2,
     rooms: 1,
@@ -281,7 +293,7 @@ const calendars = [
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
       discountWeek: 0.05,
-      discountMonth: 0.20,
+      discountMonth: 0.05,
       platformFeePercentage: 0.14
     },
     estei: {
@@ -292,6 +304,7 @@ const calendars = [
   },
   {
     name: "Rosal 2",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1373858155228586698.ics?s=a184d3528e9f3531fe05dad8faf344d5&locale=en",
     capacity: 3,
     rooms: 1,
@@ -315,6 +328,7 @@ const calendars = [
   },
   {
     name: "Bosque",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/636792226561707165.ics?s=624b00af94ab746c0fda9e260815c4ff&locale=en",
     capacity: 2,
     rooms: 1,
@@ -328,7 +342,7 @@ const calendars = [
       maxGuestsIncluded: 2,
       discountWeek: 0.05,
       discountMonth: 0.20,
-      platformFeePercentage: 0.14
+      platformFeePercentage: 0.10
     },
     estei: {
       pricePerNight: 90,
@@ -338,6 +352,7 @@ const calendars = [
   },
   {
     name: "Campo Alegre",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1041478066555189255.ics?s=9eafad6bbfe0f40f8ef3db4df0d47177&locale=en",
     capacity: 3,
     rooms: 1,
@@ -350,7 +365,7 @@ const calendars = [
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
       discountWeek: 0.05,
-      discountMonth: 0.20,
+      discountMonth: 0.15,
       platformFeePercentage: 0.14
     },
     estei: {
@@ -361,6 +376,7 @@ const calendars = [
   },
   {
     name: "Rosal",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1184965554998685991.ics?s=0ef8c9534f70a74ace217830dd15203e&locale=en",
     capacity: 2,
     rooms: 1,
@@ -373,7 +389,7 @@ const calendars = [
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
       discountWeek: 0.05,
-      discountMonth: 0.20,
+      discountMonth: 0.15,
       platformFeePercentage: 0.14
     },
     estei: {
@@ -384,6 +400,7 @@ const calendars = [
   },
   {
     name: "Altamira 1",
+     estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/968382219685565525.ics?s=e625583fa5cfc2188515639424cac8a1&locale=en",
     capacity: 6,
     rooms: 3,
@@ -404,30 +421,188 @@ const calendars = [
       cleaningFee: 50,
       platformFeePercentage: 0.15
     },
+  },
+
+  {
+    name: "Barquisimeto",
+    estado: "Barquisimeto",
+    url: "https://www.airbnb.com/calendar/ical/1329992387476344688.ics?s=240d6400f1397c4acbfb22187cc80029&locale=en",
+    capacity: 6,
+    rooms: 3,
+    baths: 2,
+    airbnbLink: "https://www.airbnb.com/l/qr0k7RQY",
+    esteiLink: "https://estei.app/stay/17361284393152580414/profile?guests=1&arrival_date=2025-07-01&departure_date=2025-07-15",
+    airbnb: {
+      pricePerNight: 60,
+      cleaningFee: 35,
+      extraGuestFeePerNight: 5,
+      maxGuestsIncluded: 2,
+      discountWeek: 0.05,
+      discountMonth: 0.20,
+      platformFeePercentage: 0.14
+    },
+    estei: {
+      pricePerNight: 100,
+      cleaningFee: 40,
+      platformFeePercentage: 0.15
+    },
+  },
+
+  // ----------------------------- Margarita -----------------------------
+  {
+    name: "Margarita 1",
+    estado: "Margarita",
+    url: "https://www.airbnb.com/calendar/ical/1108208845727458623.ics?s=1ef7124628fe666c8ab5cd7ac8964a5b&locale=en",
+    capacity: 5,
+    rooms: 2,
+    baths: 2,
+    airbnbLink: "https://www.airbnb.com/l/Lwvqrtz5",
+    esteiLink: "#",
+    airbnb: {
+      pricePerNight: 49,
+      cleaningFee: 35,
+      extraGuestFeePerNight: 5,
+      maxGuestsIncluded: 2,
+      discountWeek: 0.05,
+      discountMonth: 0.20,
+      platformFeePercentage: 0.14
+    },
+    estei: {
+      pricePerNight: 85,
+      cleaningFee: 35,
+      platformFeePercentage: 0.15
+    },
+  },
+  {
+    name: "Margarita 2",
+    estado: "Margarita",
+    url: "https://www.airbnb.com/calendar/ical/1303210845707936867.ics?s=5233af9f7d3c6bf62ec0bd688f57182d&locale=en",
+    capacity: 6,
+    rooms: 2,
+    baths: 2,
+    airbnbLink: "https://www.airbnb.com/l/Ul8TUZZ6",
+    esteiLink: "#",
+    airbnb: {
+      pricePerNight: 80,
+      cleaningFee: 35,
+      extraGuestFeePerNight: 5,
+      maxGuestsIncluded: 2,
+      discountWeek: 0.10,
+      discountMonth: 0.20,
+      platformFeePercentage: 0.14
+    },
+    estei: {
+      pricePerNight: 100,
+      cleaningFee: 40,
+      platformFeePercentage: 0.15
+    },
+  },
+
+  // ----------------------------- La Guaira -----------------------------
+  {
+    name: "La Guaira",
+    estado: "La Guaira",
+    url: "https://www.airbnb.com/calendar/ical/943785244844973207.ics?s=76642b6add65ffeac42bc7977c4324b5&locale=en",
+    capacity: 5,
+    rooms: 2,
+    baths:2,
+    airbnbLink: "https://www.airbnb.com/l/WlpePz5e",
+    esteiLink: "#",
+    airbnb: {
+      pricePerNight: 90,
+      cleaningFee: 35,
+      extraGuestFeePerNight: 5,
+      maxGuestsIncluded: 2,
+      discountWeek: 0.05,
+      discountMonth: 0.10,
+      platformFeePercentage: 0.14
+    },
+    estei: {
+      pricePerNight: 85,
+      cleaningFee: 35,
+      platformFeePercentage: 0.15
+    },
+  },
+
+  // ----------------------------- Poz (nuevo) -----------------------------
+  {
+    name: "Poz 2",
+    estado: "POZ",
+    url: "https://www.airbnb.com/calendar/ical/979794923757351625.ics?s=3d9e5476cfa447b17e55000fc0aab93b&locale=en",
+    capacity: 6,
+    rooms: 3,
+    baths: 2,
+    airbnbLink: "https://www.airbnb.com/l/x3VtyZDq",
+    esteiLink: "https://estei.app/stay/17362986804439617945/profile?guests=1&arrival_date=2025-07-02&departure_date=2025-07-04",
+    airbnb: {
+      pricePerNight: 55,
+      cleaningFee: 35,
+      extraGuestFeePerNight: 5,
+      maxGuestsIncluded: 2,
+      discountWeek: 0.05,
+      discountMonth: 0.20,
+      platformFeePercentage: 0.14
+    },
+    estei: {
+      pricePerNight: 85,
+      cleaningFee: 40,
+      platformFeePercentage: 0.15
+    },
   }
 ];
 
 
 
 
-
-
 function App() {
-  const [dateRange, setDateRange] = useState([
-    {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 1),
-      key: 'selection'
-    }
-  ]);
-  const [people, setPeople] = useState(1);
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // Nuevo estado para guardar el estado seleccionado
+  const [selectedEstado, setSelectedEstado] = React.useState("Caracas");
 
+  // Estados existentes
+  const [dateRange, setDateRange] = React.useState([
+    { startDate: new Date(), endDate: addDays(new Date(), 1), key: "selection" },
+  ]);
+  const [people, setPeople] = React.useState(1);
+  const [customDiscounts, setCustomDiscounts] = React.useState(() => {
+    const saved = localStorage.getItem("customDiscounts");
+    return saved ? JSON.parse(saved) : {};
+  });
+  const [discountDateRanges, setDiscountDateRanges] = React.useState(() => {
+    const saved = localStorage.getItem("discountDateRanges");
+    if (!saved) return {};
+    const parsed = JSON.parse(saved);
+    for (const key in parsed) {
+      if (parsed[key]) {
+        parsed[key].startDate = new Date(parsed[key].startDate);
+        parsed[key].endDate = new Date(parsed[key].endDate);
+      }
+    }
+    return parsed;
+  });
+  const [showDiscounts, setShowDiscounts] = React.useState(false);
+  const [results, setResults] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+
+  // Obtengo la lista única de estados para el select (basado en el array calendars)
+  const estados = React.useMemo(() => {
+    const uniqueEstados = [...new Set(calendars.map((c) => c.estado))];
+    return uniqueEstados;
+  }, []);
+
+  // Función para revisar superposición de fechas (la tuya)
   function rangesOverlap(start1, end1, start2, end2) {
     return start1 < end2 && start2 < end1;
   }
 
+  // Guardar customDiscounts y discountDateRanges en localStorage (tu lógica ya está perfecta)
+  React.useEffect(() => {
+    localStorage.setItem("customDiscounts", JSON.stringify(customDiscounts));
+  }, [customDiscounts]);
+  React.useEffect(() => {
+    localStorage.setItem("discountDateRanges", JSON.stringify(discountDateRanges));
+  }, [discountDateRanges]);
+
+  // Función checkAvailability (igual a la tuya, pero filtrando por estado seleccionado)
   const checkAvailability = async () => {
     const from = dateRange[0].startDate;
     const to = dateRange[0].endDate;
@@ -445,29 +620,31 @@ function App() {
     setLoading(true);
     const output = [];
 
-    for (const cal of calendars) {
-      if (cal.capacity < people) continue;
+    // Filtrar solo los apartamentos del estado seleccionado
+    const filteredCalendars = calendars.filter(
+      (cal) => cal.estado === selectedEstado && cal.capacity >= people
+    );
+
+    for (const cal of filteredCalendars) {
       try {
         const proxyUrl = `${BASE_URL}/proxy?url=${encodeURIComponent(cal.url)}`;
         const res = await fetch(proxyUrl);
         const text = await res.text();
-
 
         const jcalData = ICAL.parse(text);
         const comp = new ICAL.Component(jcalData);
         const events = comp.getAllSubcomponents("vevent");
 
         const reservas = events
-          .map(e => {
+          .map((e) => {
             const ev = new ICAL.Event(e);
             return { start: ev.startDate.toJSDate(), end: ev.endDate.toJSDate() };
           })
-          .filter(r => r.start && r.end);
+          .filter((r) => r.start && r.end);
 
-        const isAvailable = !reservas.some(r => rangesOverlap(from, to, r.start, r.end));
+        const isAvailable = !reservas.some((r) => rangesOverlap(from, to, r.start, r.end));
 
-        // Airbnb price calc
-       // Airbnb price calc
+      // Airbnb price calc
 const a = cal.airbnb;
 const aExtraGuests = Math.max(0, people - a.maxGuestsIncluded);
 const aNightsPrice = a.pricePerNight * nights;
@@ -480,36 +657,32 @@ else if (nights >= 30) aDiscount = aNightsPrice * a.discountMonth;
 
 const aSubtotal = aNightsPrice + aExtraGuestPrice + aCleaningFee;
 const aSubtotalWithDiscount = aSubtotal - aDiscount;
-
 const aPlatformFee = aSubtotalWithDiscount * a.platformFeePercentage;
-const aTotalPrice = (aSubtotalWithDiscount + aPlatformFee).toFixed(2);
-// 👉 Función para calcular el fee fijo de plataforma Estei según noches
+let aTotalPrice = aSubtotalWithDiscount + aPlatformFee;
 
-
-// 👉 Cálculo completo del precio total Estei
+// Estei price calc
 const e = cal.estei;
-
-let eNightsPrice = e.pricePerNight * nights;
-let eExtraGuests = Math.max(0, people - (e.maxGuestsIncluded || 2));
-let eExtraGuestPrice = (e.extraGuestFeePerNight || 0) * eExtraGuests * nights;
-let eCleaningFee = e.cleaningFee || 0;
+const eNightsPrice = e.pricePerNight * nights;
+const eExtraGuests = Math.max(0, people - (e.maxGuestsIncluded || 2));
+const eExtraGuestPrice = (e.extraGuestFeePerNight || 0) * eExtraGuests * nights;
+const eCleaningFee = e.cleaningFee || 0;
 
 let eSubtotal = eNightsPrice + eExtraGuestPrice + eCleaningFee;
-
 let eDiscount = 0;
-if (nights >= 7 && nights < 30) {
-  eDiscount = eNightsPrice * (e.discountWeek || 0);
-} else if (nights >= 30) {
-  eDiscount = eNightsPrice * (e.discountMonth || 0);
-}
-
+if (nights >= 7 && nights < 30) eDiscount = eNightsPrice * (e.discountWeek || 0);
+else if (nights >= 30) eDiscount = eNightsPrice * (e.discountMonth || 0);
 const ePlatformFee = eSubtotal * (e.platformFeePercentage || 0);
+let eTotalPrice = eSubtotal + ePlatformFee - eDiscount;
 
+// Aplicar descuento personalizado solo si el rango de fecha del descuento se superpone con el rango buscado
+const discountPercent = customDiscounts[cal.name] || 0;
+const dr = discountDateRanges[cal.name];
+const hasDiscountRange = dr && dr.startDate && dr.endDate;
 
-const eTotalPrice = (eSubtotal + ePlatformFee - eDiscount).toFixed(2);
-
-
-
+if (discountPercent > 0 && hasDiscountRange && rangesOverlap(from, to, dr.startDate, dr.endDate)) {
+  aTotalPrice = aTotalPrice * (1 - discountPercent / 100);
+  eTotalPrice = eTotalPrice * (1 - discountPercent / 100);
+}
 
         output.push({
           name: cal.name,
@@ -518,11 +691,11 @@ const eTotalPrice = (eSubtotal + ePlatformFee - eDiscount).toFixed(2);
           rooms: cal.rooms,
           baths: cal.baths,
           airbnbLink: cal.airbnbLink,
+          esteiLink: cal.esteiLink,
           reservas,
           isAvailable,
-          airbnbPrice: aTotalPrice,
-          esteiPrice: eTotalPrice,
-          esteiLink: cal.esteiLink
+          airbnbPrice: aTotalPrice.toFixed(2),
+          esteiPrice: eTotalPrice.toFixed(2),
         });
       } catch (err) {
         console.error(`Error al procesar ${cal.name}`, err);
@@ -532,113 +705,196 @@ const eTotalPrice = (eSubtotal + ePlatformFee - eDiscount).toFixed(2);
     setResults(output);
     setLoading(false);
   };
- return (
-    <div className="app-container">
-      <h2>Selecciona tus fechas y personas</h2>
 
+  // Función copiar texto (igual)
+  const copyToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert("Texto copiado al portapapeles");
+    } catch {
+      alert("Error al copiar");
+    }
+  };
+
+  return (
+    <div className="app-container" style={{ maxWidth: 900, margin: "auto", padding: 20 }}>
+      {/* Select para escoger estado */}
+      <div style={{ marginBottom: 20 }}>
+        <label htmlFor="estadoSelect" style={{ marginRight: 8, fontWeight: "bold" }}>
+          Escoge el estado:
+        </label>
+        <select
+          id="estadoSelect"
+          value={selectedEstado}
+          onChange={(e) => setSelectedEstado(e.target.value)}
+          style={{ padding: "0.3rem 0.5rem" }}
+        >
+          {estados.map((estado) => (
+            <option key={estado} value={estado}>
+              {estado}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Botón para mostrar u ocultar campos de descuento */}
+      <h2>Asignar descuentos personalizados a apartamentos</h2>
+      <button
+        style={{ marginBottom: 20, padding: "0.5rem 1rem", cursor: "pointer" }}
+        onClick={() => setShowDiscounts(!showDiscounts)}
+      >
+        {showDiscounts ? "Ocultar campos de descuento" : "Mostrar campos de descuento"}
+      </button>
+
+      {/* Campos de descuento personalizados */}
+      {showDiscounts &&
+        calendars
+          .filter((cal) => cal.estado === selectedEstado) // Solo mostrar campos descuentos para el estado seleccionado
+          .map((cal) => (
+            <div
+              key={cal.name}
+              style={{
+                marginBottom: "1.5rem",
+                border: "1px solid #ddd",
+                padding: 10,
+                borderRadius: 6,
+              }}
+            >
+              <label>
+                {cal.name} (% descuento):
+                <input
+                  type="number"
+                  min="0"
+                  max="100"
+                  placeholder="0"
+                  value={customDiscounts[cal.name] || ""}
+                  onChange={(e) => {
+                    const val = Math.min(100, Math.max(0, Number(e.target.value)));
+                    setCustomDiscounts((prev) => ({ ...prev, [cal.name]: val }));
+                  }}
+                  style={{ width: "60px", marginLeft: "0.5rem" }}
+                />
+              </label>
+              <div style={{ marginTop: 10 }}>
+                <DateRange
+                  ranges={[
+                    discountDateRanges[cal.name] || {
+                      startDate: new Date(),
+                      endDate: addDays(new Date(), 1),
+                      key: "selection",
+                    },
+                  ]}
+                  onChange={(item) => setDiscountDateRanges((prev) => ({ ...prev, [cal.name]: item.selection }))}
+                  editableDateInputs
+                  moveRangeOnFirstSelection={false}
+                  minDate={new Date()}
+                  rangeColors={["#10b981"]}
+                  showMonthAndYearPickers={true}
+                  direction="horizontal"
+                />
+              </div>
+            </div>
+          ))}
+
+      {/* Selección de fechas y personas */}
+      <h2>Selecciona fechas y personas</h2>
       <DateRange
         editableDateInputs
-        onChange={item => setDateRange([item.selection])}
+        onChange={(item) => setDateRange([item.selection])}
         moveRangeOnFirstSelection={false}
         ranges={dateRange}
         minDate={new Date()}
-        rangeColors={['#3d91ff']}
+        rangeColors={["#3d91ff"]}
       />
 
-      <label style={{ display: 'block', margin: '1rem 0' }}>
-        Personas:{' '}
-        <select value={people} onChange={e => setPeople(Number(e.target.value))}>
-          {[...Array(6).keys()].map(n => (
-            <option key={n + 1} value={n + 1}>{n + 1}</option>
+      <label style={{ display: "block", margin: "1rem 0" }}>
+        Personas:{" "}
+        <select value={people} onChange={(e) => setPeople(Number(e.target.value))}>
+          {[...Array(6).keys()].map((n) => (
+            <option key={n + 1} value={n + 1}>
+              {n + 1}
+            </option>
           ))}
         </select>
       </label>
 
-      <button onClick={checkAvailability} style={{ padding: '0.5rem 1rem' }}>
+      <button onClick={checkAvailability} style={{ padding: "0.5rem 1rem", cursor: "pointer" }}>
         Consultar
       </button>
 
-      <div style={{ marginTop: '2rem' }}>
+      {/* Resultados */}
+      <div style={{ marginTop: "2rem" }}>
         {loading && <p>Cargando...</p>}
-        {!loading && results.map((r, i) => (
-          <div key={i} className="result-item">
-            <div className="result-info">
-              <h3>📍 {r.name}</h3>
-              <p>({r.rooms} hab / {r.baths} baños · Máx. {r.capacity} personas)</p>
-              {r.isAvailable ? (
-                <>
-                  <p>✅ Disponible — Airbnb: ${r.airbnbPrice} / Estei: ${r.esteiPrice} en {r.nights} noches</p>
-                  <p>💳 Pay via Airbnb o Pago móvil, Tasa BCV, Transferencia y Zelle para Estei</p>
+
+        {!loading &&
+          results.map((r, i) => {
+            const airbnbText = `Ya revisé la disponibilidad para las fechas que me diste. Aquí te dejo los detalles de los apartamentos con el precio total, incluyendo todas las tasas y cargos.\n\n📍${r.name}\n(${r.rooms} hab / ${r.baths} baños, Máx. ${r.capacity} personas):\n\n✅ Precio total Airbnb: $${r.airbnbPrice} / ${r.nights} noches  / ${people} persona${people > 1 ? "s" : ""}\n\n💳 Método de pago: Airbnb (tarjeta de crédito, tarjeta de débito o PayPal).\n\n👉🏻¿Quieres reservarlo? Haz click aquí: ${r.airbnbLink}`;
+
+            const esteiText = `Ya revisé la disponibilidad para las fechas que me diste. Aquí te dejo los detalles de los apartamentos con el precio total, incluyendo todas las tasas y cargos.\n\n📍${r.name}\n(${r.rooms} hab / ${r.baths} baños, Máx. ${r.capacity} personas):\n\n✅ Precio total Estei: $${r.esteiPrice} / ${r.nights} noches  / ${people} persona${people > 1 ? "s" : ""}\n\n💳 Método de pago: Pago móvil, Tasa BCV, Transferencia y Zelle para Estei.\n\n👉🏻¿Quieres reservarlo? Haz click aquí: ${r.esteiLink}`;
+
+            return (
+              <div
+                key={i}
+                className="result-item"
+                style={{ borderBottom: "1px solid #ccc", paddingBottom: 15, marginBottom: 15 }}
+              >
+                <div className="result-info">
+                  <h3>📍 {r.name}</h3>
                   <p>
-                    <a href={r.airbnbLink} target="_blank" rel="noopener noreferrer">
-                      Ver en Airbnb
-                    </a>
+                    ({r.rooms} hab / {r.baths} baños · Máx. {r.capacity} personas)
                   </p>
+                  {r.isAvailable ? (
+                    <>
+                      <p>
+                        ✅ Disponible — Airbnb: ${r.airbnbPrice} / Estei: ${r.esteiPrice} en {r.nights} noches
+                      </p>
+                      <p>💳 Pay via Airbnb o Pago móvil, Tasa BCV, Transferencia y Zelle para Estei</p>
+                      <p>
+                        <a href={r.airbnbLink} target="_blank" rel="noopener noreferrer">
+                          Ver en Airbnb
+                        </a>
+                      </p>
 
-                  {(() => {
-                    const airbnbText = `Ya revisé la disponibilidad para las fechas que me diste. Aquí te dejo los detalles de los apartamentos con el precio total, incluyendo todas las tasas y cargos.
-
-📍${r.name}
-(${r.rooms} hab / ${r.baths} baños, Máx. ${r.capacity} personas):
-
-✅ Precio total Airbnb: $${r.airbnbPrice} / ${r.nights} noches  / ${people} persona${people > 1 ? 's' : ''}
-
-💳 Método de pago: Airbnb (tarjeta de crédito, tarjeta de débito o PayPal).
-
-👉🏻¿Quieres reservarlo? Haz click aquí: ${r.airbnbLink}`;
-
-                    const esteiText = `Ya revisé la disponibilidad para las fechas que me diste. Aquí te dejo los detalles de los apartamentos con el precio total, incluyendo todas las tasas y cargos.
-
-📍${r.name}
-(${r.rooms} hab / ${r.baths} baños, Máx. ${r.capacity} personas):
-
-✅ Precio total Estei: $${r.esteiPrice} / ${r.nights} noches  / ${people} persona${people > 1 ? 's' : ''}
-
-💳 Método de pago: Pago móvil, Tasa BCV, Transferencia y Zelle.
-
-👉🏻¿Quieres reservarlo? Haz click aquí: ${r.esteiLink}`;
-
-                    const copyToClipboard = async (text) => {
-                      try {
-                        await navigator.clipboard.writeText(text);
-                        alert('Texto copiado al portapapeles');
-                      } catch (err) {
-                        alert('Error al copiar');
-                      }
-                    };
-
-                    return (
-                      <>
-                        <div className="copy-text-box">{airbnbText}</div>
-                        <button className="copy-button" onClick={() => copyToClipboard(airbnbText)}>
-                          📋 Copiar texto Airbnb
-                        </button>
-
-                        <div className="copy-text-box">{esteiText}</div>
-                        <button className="copy-button" onClick={() => copyToClipboard(esteiText)}>
-                          📋 Copiar texto Estei
-                        </button>
-                      </>
-                    );
-                  })()}
-                </>
-              ) : (
-                <p style={{ color: '#dc2626' }}>❌ No disponible</p>
-              )}
-            </div>
-
-            <div className="calendar-container">
-              <div className="availability-badge">
-                {r.isAvailable ? '✅ Disponible' : '❌ No disponible'}
+                      <button
+                        className="copy-button"
+                        onClick={() => copyToClipboard(airbnbText)}
+                        style={{ marginRight: 10, padding: "0.3rem 0.6rem", cursor: "pointer" }}
+                      >
+                        📋 Copiar texto Airbnb
+                      </button>
+                      <button
+                        className="copy-button"
+                        onClick={() => copyToClipboard(esteiText)}
+                        style={{ padding: "0.3rem 0.6rem", cursor: "pointer" }}
+                      >
+                        📋 Copiar texto Estei
+                      </button>
+                    </>
+                  ) : (
+                    <p style={{ color: "#dc2626" }}>❌ No disponible</p>
+                  )}
+                </div>
+                <div className="calendar-container" style={{ marginTop: 10 }}>
+                  <div
+                    className="availability-badge"
+                    style={{
+                      display: "inline-block",
+                      padding: "2px 8px",
+                      borderRadius: 10,
+                      backgroundColor: r.isAvailable ? "#34d399" : "#f87171",
+                      color: "#fff",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {r.isAvailable ? "✅ Disponible" : "❌ No disponible"}
+                  </div>
+                  <div style={{ marginTop: 10 }}>
+                    <CalendarioPropiedad nombre={r.name} reservas={r.reservas} currentDate={dateRange[0].startDate} />
+                  </div>
+                </div>
               </div>
-              <CalendarioPropiedad
-                nombre={r.name}
-                reservas={r.reservas}
-                currentDate={dateRange[0].startDate}
-              />
-            </div>
-          </div>
-        ))}
+            );
+          })}
       </div>
     </div>
   );

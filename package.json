@@ -6,6 +6,9 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
+    "start:dev": "concurrently \"npm run dev:react\" \"npm run dev:server\"",
+    "dev:react": "react-scripts start",
+    "dev:server": "node server/server.js",
     "build": "react-scripts build",
     "postinstall": "npm run build"
   },
@@ -48,5 +51,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  }
 }
