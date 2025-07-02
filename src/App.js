@@ -1,5 +1,5 @@
 import ICAL from "ical.js";
-import React, { useState, useEffect } from 'react';
+import React, { useState,  } from 'react';
 import CalendarioPropiedad from './calendariopropiedad';
 import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns';
@@ -475,10 +475,7 @@ const aSubtotalWithDiscount = aSubtotal - aDiscount;
 const aPlatformFee = aSubtotalWithDiscount * a.platformFeePercentage;
 const aTotalPrice = (aSubtotalWithDiscount + aPlatformFee).toFixed(2);
 // 👉 Función para calcular el fee fijo de plataforma Estei según noches
-function platformFee(nights) {
-  if (nights < 2) return 0;
-  return 42 + (nights - 2) * 18;
-}
+
 
 // 👉 Cálculo completo del precio total Estei
 const e = cal.estei;

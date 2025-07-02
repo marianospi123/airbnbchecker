@@ -1,10 +1,12 @@
 const express = require("express");
 const fetch = require("node-fetch");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 app.use(cors());
 
+// Proxy endpoint
 app.get("/proxy", async (req, res) => {
   const icalUrl = req.query.url;
   if (!icalUrl) return res.status(400).send("Falta url");
@@ -29,5 +31,14 @@ app.get("/proxy", async (req, res) => {
   }
 });
 
-const PORT = 4004;
-app.listen(PORT, () => console.log(`Proxy corriendo en http://localhost:${PORT}`));
+// Sirve la carpeta de React (luego de hacer `npm run build`)
+app.use(express.static(path.join(__dirname, "../build")));
+
+// Catch-all para rutas del frontend
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
+});
+
+// Puerto para Replit
+const PORT = process.env.PORT || 4004;
+app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
