@@ -644,21 +644,24 @@ function App() {
 
         const isAvailable = !reservas.some((r) => rangesOverlap(from, to, r.start, r.end));
 
-      // Airbnb price calc
-const a = cal.airbnb;
-const aExtraGuests = Math.max(0, people - a.maxGuestsIncluded);
-const aNightsPrice = a.pricePerNight * nights;
-const aExtraGuestPrice = a.extraGuestFeePerNight * aExtraGuests * nights;
-const aCleaningFee = a.cleaningFee;
+   const a = cal.airbnb;
+        const aExtraGuests = Math.max(0, people - a.maxGuestsIncluded);
+        const aNightsPrice = a.pricePerNight * nights;
+        const aExtraGuestPrice = a.extraGuestFeePerNight * aExtraGuests * nights;
+        const aBase = aNightsPrice + aExtraGuestPrice;
 
-let aDiscount = 0;
-if (nights >= 7 && nights < 30) aDiscount = aNightsPrice * a.discountWeek;
-else if (nights >= 30) aDiscount = aNightsPrice * a.discountMonth;
+        let aBaseWithDiscount = aBase;
+        if (nights >= 7 && nights < 26) {
+          aBaseWithDiscount = aBase * (1 - a.discountWeek);
+        } else if (nights >= 26) {
+          aBaseWithDiscount = aBase * (1 - a.discountMonth);
+        }
 
-const aSubtotal = aNightsPrice + aExtraGuestPrice + aCleaningFee;
-const aSubtotalWithDiscount = aSubtotal - aDiscount;
-const aPlatformFee = aSubtotalWithDiscount * a.platformFeePercentage;
-let aTotalPrice = aSubtotalWithDiscount + aPlatformFee;
+        const aSubtotalWithCleaning = aBaseWithDiscount + a.cleaningFee;
+        const aPlatformFee = aSubtotalWithCleaning * 0.1411;
+        let aTotalPrice = aSubtotalWithCleaning + aPlatformFee;
+
+
 
 // Estei price calc
 const e = cal.estei;
