@@ -109,31 +109,7 @@ const calendars = [
       platformFeePercentage: 0.15
     },
   },
-  {
-    name: "Sebucán 4",
-     estado: "Caracas",
-    url: "https://www.airbnb.com/calendar/ical/828812513697117205.ics?s=c5bd1934f996f8ee77b3742979342db6&locale=en",
-    capacity: 5,
-    rooms: 2,
-    baths: 2,
-    airbnbLink: "airbnb.com/h/sebucan4",
-    esteiLink: "https://estei.app/stay/17332237155689559816/profile?guests=1&arrival_date=2025-07-01&departure_date=2025-07-03",
-    airbnb: {
-      pricePerNight: 55,
-      cleaningFee: 35,
-      extraGuestFeePerNight: 5,
-      maxGuestsIncluded: 2,
-      discountWeek: 0.05,
-      discountMonth: 0.20,
-      platformFeePercentage: 0.1
-    },
-     estei: {
-      pricePerNight: 90,
-      cleaningFee: 45,
-      platformFeePercentage: 0.15
-    },
-    
-  },
+
   {
     name: "Sebucán 1",
      estado: "Caracas",
@@ -254,54 +230,7 @@ const calendars = [
       platformFeePercentage: 0.15
     },
   },
-  {
-    name: "Sebucán 3",
-     estado: "Caracas",
-    url: "https://www.airbnb.com/calendar/ical/1298924651912966615.ics?s=a0857ac3afe38166c5df3e029f90b3f9&locale=en",
-    capacity: 3,
-    rooms: 1,
-    baths: 1,
-    airbnbLink: "airbnb.com/h/sebucan3",
-    esteiLink: "https://goo.su/zbxDmN",
-    airbnb: {
-      pricePerNight: 49,
-      cleaningFee: 35,
-      extraGuestFeePerNight: 5,
-      maxGuestsIncluded: 2,
-      discountWeek: 0.10,
-      discountMonth: 0.20,
-      platformFeePercentage: 0.14
-    },
-    estei: {
-      pricePerNight: 80,
-      cleaningFee: 40,
-      platformFeePercentage: 0.15
-    },
-  },
-  {
-    name: "Boleita",
-     estado: "Caracas",
-    url: "https://www.airbnb.com/calendar/ical/1343681520860355629.ics?s=a2d96f7fe387a7d3e27ce41d275f4a33&locale=en",
-    capacity: 2,
-    rooms: 1,
-    baths: 1,
-    airbnbLink: " airbnb.com/h/los2caminos",
-    esteiLink: "https://estei.app/stay/17382856932068656972/profile?guests=1&arrival_date=2025-07-01&departure_date=2025-07-03",
-    airbnb: {
-      pricePerNight: 100,
-      cleaningFee: 35,
-      extraGuestFeePerNight: 5,
-      maxGuestsIncluded: 2,
-      discountWeek: 0.05,
-      discountMonth: 0.05,
-      platformFeePercentage: 0.14
-    },
-    estei: {
-      pricePerNight: 95,
-      cleaningFee: 40,
-      platformFeePercentage: 0.15
-    },
-  },
+  
   {
     name: "Rosal 2",
      estado: "Caracas",
