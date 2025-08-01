@@ -29,7 +29,7 @@ const calendars = [
       maxGuestsIncluded: 2,
       discountWeek: 0.05,
       discountMonth: 0.15,
-      platformFeePercentage: 0.14 // 14.2%
+       platformFeePercentage: 0.1411
     },
     estei: {
       pricePerNight: 120,
@@ -258,9 +258,9 @@ const calendars = [
     name: "Sebucán 3",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1298924651912966615.ics?s=a0857ac3afe38166c5df3e029f90b3f9&locale=en",
-    capacity: 4,
-    rooms: 2,
-    baths: 2,
+    capacity: 3,
+    rooms: 1,
+    baths: 1,
     airbnbLink: "airbnb.com/h/sebucan3",
     esteiLink: "https://goo.su/zbxDmN",
     airbnb: {
@@ -644,22 +644,36 @@ function App() {
 
         const isAvailable = !reservas.some((r) => rangesOverlap(from, to, r.start, r.end));
 
-   const a = cal.airbnb;
-        const aExtraGuests = Math.max(0, people - a.maxGuestsIncluded);
-        const aNightsPrice = a.pricePerNight * nights;
-        const aExtraGuestPrice = a.extraGuestFeePerNight * aExtraGuests * nights;
-        const aBase = aNightsPrice + aExtraGuestPrice;
+        
+const a = cal.airbnb;
+const aExtraGuests = Math.max(0, people - a.maxGuestsIncluded);
+const aNightsPrice = a.pricePerNight * nights;
+const aExtraGuestPrice = a.extraGuestFeePerNight * aExtraGuests * nights;
 
-        let aBaseWithDiscount = aBase;
-        if (nights >= 7 && nights < 26) {
-          aBaseWithDiscount = aBase * (1 - a.discountWeek);
-        } else if (nights >= 26) {
-          aBaseWithDiscount = aBase * (1 - a.discountMonth);
-        }
+// Aplicar descuento SOLO sobre el precio base por noche
+let discountedNightsPrice = aNightsPrice;
+if (nights >= 7 && nights < 26) {
+  discountedNightsPrice *= (1 - a.discountWeek);
+} else if (nights >= 26) {
+  discountedNightsPrice *= (1 - a.discountMonth);
+}
 
-        const aSubtotalWithCleaning = aBaseWithDiscount + a.cleaningFee;
-        const aPlatformFee = aSubtotalWithCleaning * 0.1411;
-        let aTotalPrice = aSubtotalWithCleaning + aPlatformFee;
+// Precio base + huéspedes extra sin descuento
+const aBaseWithDiscount = discountedNightsPrice + aExtraGuestPrice;
+
+// Limpieza SIN impuestos
+const cleaningFee = a.cleaningFee;
+
+const aSubtotalWithCleaning = aBaseWithDiscount + cleaningFee;
+
+// Comisión plataforma
+const aPlatformFee = aSubtotalWithCleaning * (a.platformFeeRate || 0.1411);
+
+// Precio total redondeado
+let aTotalPrice = aSubtotalWithCleaning + aPlatformFee;
+aTotalPrice = Math.round(aTotalPrice * 100) / 100;
+
+
 
 
 
@@ -686,6 +700,7 @@ if (discountPercent > 0 && hasDiscountRange && rangesOverlap(from, to, dr.startD
   aTotalPrice = aTotalPrice * (1 - discountPercent / 100);
   eTotalPrice = eTotalPrice * (1 - discountPercent / 100);
 }
+
 
         output.push({
           name: cal.name,
@@ -719,188 +734,264 @@ if (discountPercent > 0 && hasDiscountRange && rangesOverlap(from, to, dr.startD
     }
   };
 
-  return (
-    <div className="app-container" style={{ maxWidth: 900, margin: "auto", padding: 20 }}>
-      {/* Select para escoger estado */}
-      <div style={{ marginBottom: 20 }}>
-        <label htmlFor="estadoSelect" style={{ marginRight: 8, fontWeight: "bold" }}>
-          Escoge el estado:
-        </label>
-        <select
-          id="estadoSelect"
-          value={selectedEstado}
-          onChange={(e) => setSelectedEstado(e.target.value)}
-          style={{ padding: "0.3rem 0.5rem" }}
-        >
-          {estados.map((estado) => (
-            <option key={estado} value={estado}>
-              {estado}
-            </option>
-          ))}
-        </select>
-      </div>
 
-      {/* Botón para mostrar u ocultar campos de descuento */}
-      <h2>Asignar descuentos personalizados a apartamentos</h2>
-      <button
-        style={{ marginBottom: 20, padding: "0.5rem 1rem", cursor: "pointer" }}
-        onClick={() => setShowDiscounts(!showDiscounts)}
+    const copyAvailableApartments = () => {
+    const availableApts = results.filter((r) => r.isAvailable);
+    if (availableApts.length === 0) {
+      alert("No hay apartamentos disponibles para copiar.");
+      return;
+    }
+
+    const combinedText = availableApts
+      .map((r) => {
+        return `📍 ${r.name}
+(${r.rooms} hab / ${r.baths} baños, máx. ${r.capacity} personas)
+
+🔹 Opción 1: Reserva por Airbnb
+💰 $${r.airbnbPrice} / ${r.nights} noches / ${people} persona${people > 1 ? "s" : ""}
+💳 Tarjeta crédito, débito en moneda extranjera o PayPal
+👉 ${r.airbnbLink}
+
+🔹 Opción 2: Reserva por Estei
+💰 $${r.esteiPrice} / ${r.nights} noches / ${people} persona${people > 1 ? "s" : ""}
+💳 Pago móvil (TASA BCV)
+👉 ${r.esteiLink}
+
+🔹 Opción 3: Reserva directa (fuera de plataformas)
+Depósito obligatorio 💵 (reembolsable al salir) | 💳 Zelle o efectivo disponibles para el pago.
+
+🅰️ Si pagás la reserva por adelantado (Zelle):
+ • El depósito lo entregás al llegar (efectivo) o lo enviás por Zelle/Pago móvil.
+
+🅱️ Si pagás la reserva en efectivo al llegar:
+ • El depósito debe enviarse antes por Zelle/Pago móvil para asegurar la reserva.
+
+————————————————————————
+`;
+      })
+      .join("\n");
+
+    copyToClipboard(combinedText);
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+return (
+  <div className="app-container" style={{ maxWidth: 900, margin: "auto", padding: 20 }}>
+    {/* Select para escoger estado */}
+    <div style={{ marginBottom: 20 }}>
+      <label htmlFor="estadoSelect" style={{ marginRight: 8, fontWeight: "bold" }}>
+        Escoge el estado:
+      </label>
+      <select
+        id="estadoSelect"
+        value={selectedEstado}
+        onChange={(e) => setSelectedEstado(e.target.value)}
+        style={{ padding: "0.3rem 0.5rem" }}
       >
-        {showDiscounts ? "Ocultar campos de descuento" : "Mostrar campos de descuento"}
-      </button>
+        {estados.map((estado) => (
+          <option key={estado} value={estado}>
+            {estado}
+          </option>
+        ))}
+      </select>
+    </div>
 
-      {/* Campos de descuento personalizados */}
-      {showDiscounts &&
-        calendars
-          .filter((cal) => cal.estado === selectedEstado) // Solo mostrar campos descuentos para el estado seleccionado
-          .map((cal) => (
+    {/* Botón para mostrar u ocultar campos de descuento */}
+    <h2>Asignar descuentos personalizados a apartamentos</h2>
+    <button
+      style={{ marginBottom: 20, padding: "0.5rem 1rem", cursor: "pointer" }}
+      onClick={() => setShowDiscounts(!showDiscounts)}
+    >
+      {showDiscounts ? "Ocultar campos de descuento" : "Mostrar campos de descuento"}
+    </button>
+
+    {/* Campos de descuento personalizados */}
+    {showDiscounts &&
+      calendars
+        .filter((cal) => cal.estado === selectedEstado) // Solo mostrar campos descuentos para el estado seleccionado
+        .map((cal) => (
+          <div
+            key={cal.name}
+            style={{
+              marginBottom: "1.5rem",
+              border: "1px solid #ddd",
+              padding: 10,
+              borderRadius: 6,
+            }}
+          >
+            <label>
+              {cal.name} (% descuento):
+              <input
+                type="number"
+                min="0"
+                max="100"
+                placeholder="0"
+                value={customDiscounts[cal.name] || ""}
+                onChange={(e) => {
+                  const val = Math.min(100, Math.max(0, Number(e.target.value)));
+                  setCustomDiscounts((prev) => ({ ...prev, [cal.name]: val }));
+                }}
+                style={{ width: "60px", marginLeft: "0.5rem" }}
+              />
+            </label>
+            <div style={{ marginTop: 10 }}>
+              <DateRange
+                ranges={[
+                  discountDateRanges[cal.name] || {
+                    startDate: new Date(),
+                    endDate: addDays(new Date(), 1),
+                    key: "selection",
+                  },
+                ]}
+                onChange={(item) =>
+                  setDiscountDateRanges((prev) => ({ ...prev, [cal.name]: item.selection }))
+                }
+                editableDateInputs
+                moveRangeOnFirstSelection={false}
+                minDate={new Date()}
+                rangeColors={["#10b981"]}
+                showMonthAndYearPickers={true}
+                direction="horizontal"
+              />
+            </div>
+          </div>
+        ))}
+
+        <button onClick={copyAvailableApartments}>
+  📋 Copiar todos los apartamentos disponibles
+</button>
+
+
+    {/* Selección de fechas y personas */}
+    <h2>Selecciona fechas y personas</h2>
+    <DateRange
+      editableDateInputs
+      onChange={(item) => setDateRange([item.selection])}
+      moveRangeOnFirstSelection={false}
+      ranges={dateRange}
+      minDate={new Date()}
+      rangeColors={["#3d91ff"]}
+    />
+
+    <label style={{ display: "block", margin: "1rem 0" }}>
+      Personas:{" "}
+      <select value={people} onChange={(e) => setPeople(Number(e.target.value))}>
+        {[...Array(6).keys()].map((n) => (
+          <option key={n + 1} value={n + 1}>
+            {n + 1}
+          </option>
+        ))}
+      </select>
+    </label>
+
+    <button onClick={checkAvailability} style={{ padding: "0.5rem 1rem", cursor: "pointer" }}>
+      Consultar
+    </button>
+{/* Resultados */}
+<div style={{ marginTop: "2rem" }}>
+  {loading && <p>Cargando...</p>}
+
+  {!loading &&
+    results.map((r, i) => {
+      return (
+        <div
+          key={i}
+          className="result-item"
+          style={{ borderBottom: "1px solid #ccc", paddingBottom: 15, marginBottom: 15 }}
+        >
+          <div className="result-info">
+            <h3>📍 {r.name}</h3>
+            <p>
+              ({r.rooms} hab / {r.baths} baños · Máx. {r.capacity} personas)
+            </p>
+            {r.isAvailable ? (
+              <>
+                <p>
+                  ✅ Disponible — Airbnb: ${r.airbnbPrice} / Estei: ${r.esteiPrice} en {r.nights} noches
+                </p>
+                <p>💳 Pay via Airbnb o Pago móvil, Tasa BCV, Transferencia y Zelle para Estei</p>
+                <p>
+                  <a href={r.airbnbLink} target="_blank" rel="noopener noreferrer">
+                    Ver en Airbnb
+                  </a>
+                </p>
+
+                <button
+                  className="copy-button"
+                  onClick={() => {
+                    const combinedText = 
+`📍 ${r.name}
+(${r.rooms} hab / ${r.baths} baños, máx. ${r.capacity} personas)
+
+🔹 Opción 1: Reserva por Airbnb
+💰 $${r.airbnbPrice} / ${r.nights} noches / ${people} persona${people > 1 ? "s" : ""}
+💳 Tarjeta crédito, débito en moneda extranjera o PayPal
+👉 ${r.airbnbLink}
+
+🔹 Opción 2: Reserva por Estei
+💰 $${r.esteiPrice} / ${r.nights} noches / ${people} persona${people > 1 ? "s" : ""}
+💳 Pago móvil (TASA BCV)
+👉 ${r.esteiLink}
+
+🔹 Opción 3: Reserva directa (fuera de plataformas)
+Depósito obligatorio 💵 (reembolsable al salir) | 💳 Zelle o efectivo disponibles para el pago.
+
+🅰️ Si pagás la reserva por adelantado (Zelle):
+ • El depósito lo entregás al llegar (efectivo) o lo enviás por Zelle/Pago móvil.
+
+🅱️ Si pagás la reserva en efectivo al llegar:
+ • El depósito debe enviarse antes por Zelle/Pago móvil para asegurar la reserva.
+`;
+                    copyToClipboard(combinedText);
+                  }}
+                  style={{ padding: "0.3rem 0.6rem", cursor: "pointer" }}
+                >
+                  📋 Copiar texto presupuesto completo
+                </button>
+              </>
+            ) : (
+              <p style={{ color: "#dc2626" }}>❌ No disponible</p>
+            )}
+          </div>
+          <div className="calendar-container" style={{ marginTop: 10 }}>
             <div
-              key={cal.name}
+              className="availability-badge"
               style={{
-                marginBottom: "1.5rem",
-                border: "1px solid #ddd",
-                padding: 10,
-                borderRadius: 6,
+                display: "inline-block",
+                padding: "2px 8px",
+                borderRadius: 10,
+                backgroundColor: r.isAvailable ? "#34d399" : "#f87171",
+                color: "#fff",
+                fontWeight: "bold",
               }}
             >
-              <label>
-                {cal.name} (% descuento):
-                <input
-                  type="number"
-                  min="0"
-                  max="100"
-                  placeholder="0"
-                  value={customDiscounts[cal.name] || ""}
-                  onChange={(e) => {
-                    const val = Math.min(100, Math.max(0, Number(e.target.value)));
-                    setCustomDiscounts((prev) => ({ ...prev, [cal.name]: val }));
-                  }}
-                  style={{ width: "60px", marginLeft: "0.5rem" }}
-                />
-              </label>
-              <div style={{ marginTop: 10 }}>
-                <DateRange
-                  ranges={[
-                    discountDateRanges[cal.name] || {
-                      startDate: new Date(),
-                      endDate: addDays(new Date(), 1),
-                      key: "selection",
-                    },
-                  ]}
-                  onChange={(item) => setDiscountDateRanges((prev) => ({ ...prev, [cal.name]: item.selection }))}
-                  editableDateInputs
-                  moveRangeOnFirstSelection={false}
-                  minDate={new Date()}
-                  rangeColors={["#10b981"]}
-                  showMonthAndYearPickers={true}
-                  direction="horizontal"
-                />
-              </div>
+              {r.isAvailable ? "✅ Disponible" : "❌ No disponible"}
             </div>
-          ))}
-
-      {/* Selección de fechas y personas */}
-      <h2>Selecciona fechas y personas</h2>
-      <DateRange
-        editableDateInputs
-        onChange={(item) => setDateRange([item.selection])}
-        moveRangeOnFirstSelection={false}
-        ranges={dateRange}
-        minDate={new Date()}
-        rangeColors={["#3d91ff"]}
-      />
-
-      <label style={{ display: "block", margin: "1rem 0" }}>
-        Personas:{" "}
-        <select value={people} onChange={(e) => setPeople(Number(e.target.value))}>
-          {[...Array(6).keys()].map((n) => (
-            <option key={n + 1} value={n + 1}>
-              {n + 1}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <button onClick={checkAvailability} style={{ padding: "0.5rem 1rem", cursor: "pointer" }}>
-        Consultar
-      </button>
-
-      {/* Resultados */}
-      <div style={{ marginTop: "2rem" }}>
-        {loading && <p>Cargando...</p>}
-
-        {!loading &&
-          results.map((r, i) => {
-            const airbnbText = `Ya revisé la disponibilidad para las fechas que me diste. Aquí te dejo los detalles de los apartamentos con el precio total, incluyendo todas las tasas y cargos.\n\n📍${r.name}\n(${r.rooms} hab / ${r.baths} baños, Máx. ${r.capacity} personas):\n\n✅ Precio total Airbnb: $${r.airbnbPrice} / ${r.nights} noches  / ${people} persona${people > 1 ? "s" : ""}\n\n💳 Método de pago: Airbnb (tarjeta de crédito, tarjeta de débito o PayPal).\n\n👉🏻¿Quieres reservarlo? Haz click aquí: ${r.airbnbLink}`;
-
-            const esteiText = `Ya revisé la disponibilidad para las fechas que me diste. Aquí te dejo los detalles de los apartamentos con el precio total, incluyendo todas las tasas y cargos.\n\n📍${r.name}\n(${r.rooms} hab / ${r.baths} baños, Máx. ${r.capacity} personas):\n\n✅ Precio total Estei: $${r.esteiPrice} / ${r.nights} noches  / ${people} persona${people > 1 ? "s" : ""}\n\n💳 Método de pago: Pago móvil, Tasa BCV, Transferencia y Zelle para Estei.\n\n👉🏻¿Quieres reservarlo? Haz click aquí: ${r.esteiLink}`;
-
-            return (
-              <div
-                key={i}
-                className="result-item"
-                style={{ borderBottom: "1px solid #ccc", paddingBottom: 15, marginBottom: 15 }}
-              >
-                <div className="result-info">
-                  <h3>📍 {r.name}</h3>
-                  <p>
-                    ({r.rooms} hab / {r.baths} baños · Máx. {r.capacity} personas)
-                  </p>
-                  {r.isAvailable ? (
-                    <>
-                      <p>
-                        ✅ Disponible — Airbnb: ${r.airbnbPrice} / Estei: ${r.esteiPrice} en {r.nights} noches
-                      </p>
-                      <p>💳 Pay via Airbnb o Pago móvil, Tasa BCV, Transferencia y Zelle para Estei</p>
-                      <p>
-                        <a href={r.airbnbLink} target="_blank" rel="noopener noreferrer">
-                          Ver en Airbnb
-                        </a>
-                      </p>
-
-                      <button
-                        className="copy-button"
-                        onClick={() => copyToClipboard(airbnbText)}
-                        style={{ marginRight: 10, padding: "0.3rem 0.6rem", cursor: "pointer" }}
-                      >
-                        📋 Copiar texto Airbnb
-                      </button>
-                      <button
-                        className="copy-button"
-                        onClick={() => copyToClipboard(esteiText)}
-                        style={{ padding: "0.3rem 0.6rem", cursor: "pointer" }}
-                      >
-                        📋 Copiar texto Estei
-                      </button>
-                    </>
-                  ) : (
-                    <p style={{ color: "#dc2626" }}>❌ No disponible</p>
-                  )}
-                </div>
-                <div className="calendar-container" style={{ marginTop: 10 }}>
-                  <div
-                    className="availability-badge"
-                    style={{
-                      display: "inline-block",
-                      padding: "2px 8px",
-                      borderRadius: 10,
-                      backgroundColor: r.isAvailable ? "#34d399" : "#f87171",
-                      color: "#fff",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {r.isAvailable ? "✅ Disponible" : "❌ No disponible"}
-                  </div>
-                  <div style={{ marginTop: 10 }}>
-                    <CalendarioPropiedad nombre={r.name} reservas={r.reservas} currentDate={dateRange[0].startDate} />
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-      </div>
-    </div>
-  );
+            <div style={{ marginTop: 10 }}>
+              <CalendarioPropiedad
+                nombre={r.name}
+                reservas={r.reservas}
+                currentDate={dateRange[0].startDate}
+              />
+            </div>
+          </div>
+        </div>
+      );
+    })}
+</div>
+  </div>
+);
 }
-
 export default App;
