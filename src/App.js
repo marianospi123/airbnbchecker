@@ -8,7 +8,7 @@ import 'react-date-range/dist/theme/default.css';
 import './App.css';
 
 const BASE_URL = process.env.NODE_ENV === "production"
-  ? "https://airbnbchecker-production.up.railway.app"
+  ? "https://airbnbchecker-3.onrender.com"
   : "http://localhost:4004";
 
 
