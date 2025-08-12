@@ -6,6 +6,7 @@ import { addDays } from 'date-fns';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import './App.css';
+import  { useState, useMemo, useEffect } from "react";
 
 const BASE_URL = process.env.NODE_ENV === "production"
   ? "https://airbnbchecker-3.onrender.com"
@@ -19,9 +20,9 @@ const calendars = [
     url: "https://www.airbnb.com/calendar/ical/1385011718927994475.ics?s=4e4d11b7c6db289a9012851c43364d23&locale=en",
     capacity: 4,
     rooms: 2,
-    baths: 2,
+    baths: 1,
     airbnbLink: "airbnb.com/h/chacaoccs",
-    esteiLink:  "https://estei.app/stay/17432889927468941438/profile?guests=1&arrival_date=2025-07-02&departure_date=2025-07-17",
+    esteiLink:  "https://surl.lu/cnsvgv",
     airbnb: {
       pricePerNight: 85,
       cleaningFee: 35,
@@ -45,7 +46,7 @@ const calendars = [
     rooms: 1,
     baths: 1,
     airbnbLink: "airbnb.com/h/sebucanii",
-    esteiLink: "https://estei.app/stay/17324639709782356499/profile",
+    esteiLink: "https://surl.li/fxdhwn",
     airbnb: {
       pricePerNight: 55,
       cleaningFee: 35,
@@ -67,9 +68,9 @@ const calendars = [
     url: "https://www.airbnb.com/calendar/ical/1442428798352266133.ics?s=32dd2a635d95604c8754d606ac0ba4a2&locale=en",
     capacity: 6,
     rooms: 3,
-    baths: 3,
+    baths: 2,
     airbnbLink: "airbnb.com/h/elparaisoccs",
-    esteiLink: "https://estei.app/stay/17503280947540278330/profile?guests=1&arrival_date=2025-07-01&departure_date=2025-07-15",
+    esteiLink: "https://surl.lu/lefqgb",
     airbnb: {
       pricePerNight: 50,
       cleaningFee: 50,
@@ -116,7 +117,7 @@ const calendars = [
     url: "https://www.airbnb.com/calendar/ical/40759881.ics?s=e236ee10e178f24d224d1ea7f9e12925&locale=en",
     capacity: 5,
     rooms: 2,
-    baths: 2,
+    baths: 1,
     airbnbLink: "airbnb.com/h/aptosebucanccs",
     esteiLink: "https://goo.su/oie40",
     airbnb: {
@@ -140,9 +141,9 @@ const calendars = [
     url: "https://www.airbnb.com/calendar/ical/1052345592684699011.ics?s=b39c437d942da1cb8375fbd233e671a1&locale=en",
     capacity: 3,
     rooms: 1,
-    baths: 1,
+    baths: 1.5,
     airbnbLink: "airbnb.com/h/lacastellanaccs",
-    esteiLink: "https://estei.app/stay/17339822030440348612/profile?guests=1&arrival_date=2025-06-25&departure_date=2025-06-28",
+    esteiLink: "https://surl.lu/iozjba",
     airbnb: {
       pricePerNight: 90,
       cleaningFee: 40,
@@ -164,9 +165,9 @@ const calendars = [
     url: "https://www.airbnb.com/calendar/ical/1419766431038404560.ics?s=9fe0c131ba2c39be3af7230db3461881&locale=en",
     capacity: 4,
     rooms: 2,
-    baths: 1,
+    baths: 2,
     airbnbLink: "airbnb.com/h/poz",
-    esteiLink: "https://estei.app/stay/17362986804439617945/profile?guests=1&arrival_date=2025-03-08&departure_date=2025-03-10",
+    esteiLink: "https://surl.lu/vszytm",
     airbnb: {
       pricePerNight: 60,
       cleaningFee: 35,
@@ -212,9 +213,9 @@ const calendars = [
     url: "https://www.airbnb.com/calendar/ical/1376869011851689626.ics?s=143f61f625f9871c9445dd846750b66e&locale=en",
     capacity: 6,
     rooms: 3,
-    baths: 3,
+    baths: 2,
     airbnbLink: "airbnb.com/h/altamiraccs2",
-    esteiLink: "https://estei.app/stay/17422034755364752882/profile",
+    esteiLink: "https://surl.li/gxctqa",
     airbnb: {
       pricePerNight: 90,
       cleaningFee: 50,
@@ -237,9 +238,9 @@ const calendars = [
     url: "https://www.airbnb.com/calendar/ical/1373858155228586698.ics?s=a184d3528e9f3531fe05dad8faf344d5&locale=en",
     capacity: 3,
     rooms: 1,
-    baths: 1,
+    baths: 2,
     airbnbLink: "airbnb.com/h/elrosalccs2",
-    esteiLink: "https://estei.app/stay/17411824245292709348/profile?guests=1&arrival_date=2025-07-01&departure_date=2025-07-03",
+    esteiLink: "https://surl.li/veqvvk",
     airbnb: {
       pricePerNight: 90,
       cleaningFee: 40,
@@ -261,9 +262,9 @@ const calendars = [
     url: "https://www.airbnb.com/calendar/ical/636792226561707165.ics?s=624b00af94ab746c0fda9e260815c4ff&locale=en",
     capacity: 2,
     rooms: 1,
-    baths: 1,
+    baths: 2,
     airbnbLink: "airbnb.com/h/elbosqueccs",
-    esteiLink: "https://estei.app/stay/17284832244356034483/profile?guests=1&arrival_date=2025-07-01&departure_date=2025-07-03",
+    esteiLink: "https://surl.lu/fazirv",
     airbnb: {
       pricePerNight: 65,
       cleaningFee: 40,
@@ -287,7 +288,7 @@ const calendars = [
     rooms: 1,
     baths: 1,
     airbnbLink: "airbnb.com/h/campoalegreccs",
-    esteiLink: "https://estei.app/stay/17333322201196982163/profile?guests=1&arrival_date=2025-07-01&departure_date=2025-07-03",
+    esteiLink: "https://surl.li/oewjkf",
     airbnb: {
       pricePerNight: 90,
       cleaningFee: 40,
@@ -311,7 +312,7 @@ const calendars = [
     rooms: 1,
     baths: 1,
     airbnbLink: "airbnb.com/h/elrosalccs",
-    esteiLink: "https://estei.app/stay/17334886485220080855/profile?guests=1&arrival_date=2025-07-01&departure_date=2025-07-03",
+    esteiLink: "https://surl.li/qeapdw",
     airbnb: {
       pricePerNight: 75,
       cleaningFee: 35,
@@ -333,9 +334,9 @@ const calendars = [
     url: "https://www.airbnb.com/calendar/ical/968382219685565525.ics?s=e625583fa5cfc2188515639424cac8a1&locale=en",
     capacity: 6,
     rooms: 3,
-    baths: 3,
+    baths: 2,
     airbnbLink: "airbnb.com/h/lafloresta-altamira",
-    esteiLink: "https://estei.app/stay/17325007819524651943/profile?guests=1&arrival_date=2025-07-01&departure_date=2025-07-03",
+    esteiLink: "https://surl.li/etwute",
     airbnb: {
       pricePerNight: 70,
       cleaningFee: 45,
@@ -360,7 +361,7 @@ const calendars = [
     rooms: 3,
     baths: 2,
     airbnbLink: "https://www.airbnb.com/l/qr0k7RQY",
-    esteiLink: "https://estei.app/stay/17361284393152580414/profile?guests=1&arrival_date=2025-07-01&departure_date=2025-07-15",
+    esteiLink: "https://surli.cc/uketkt",
     airbnb: {
       pricePerNight: 60,
       cleaningFee: 35,
@@ -462,7 +463,7 @@ const calendars = [
     rooms: 3,
     baths: 2,
     airbnbLink: "https://www.airbnb.com/l/x3VtyZDq",
-    esteiLink: "https://estei.app/stay/17362986804439617945/profile?guests=1&arrival_date=2025-07-02&departure_date=2025-07-04",
+    esteiLink: "https://surl.li/scjhju",
     airbnb: {
       pricePerNight: 55,
       cleaningFee: 35,
@@ -665,262 +666,240 @@ if (discountPercent > 0 && hasDiscountRange && rangesOverlap(from, to, dr.startD
 
 
     const copyAvailableApartments = () => {
-    const availableApts = results.filter((r) => r.isAvailable);
-    if (availableApts.length === 0) {
-      alert("No hay apartamentos disponibles para copiar.");
-      return;
-    }
+  const availableApts = results.filter((r) => r.isAvailable);
+  if (availableApts.length === 0) {
+    alert("No hay apartamentos disponibles para copiar.");
+    return;
+  }
 
-    const combinedText = availableApts
-      .map((r) => {
-        return `📍 ${r.name}
-(${r.rooms} hab / ${r.baths} baños, máx. ${r.capacity} personas)
-
-🔹 Opción 1: Reserva por Airbnb
-💰 $${r.airbnbPrice} / ${r.nights} noches / ${people} persona${people > 1 ? "s" : ""}
-💳 Tarjeta crédito, débito en moneda extranjera o PayPal
-👉 ${r.airbnbLink}
-
-🔹 Opción 2: Reserva por Estei
-💰 $${r.esteiPrice} / ${r.nights} noches / ${people} persona${people > 1 ? "s" : ""}
-💳 Pago móvil (TASA BCV)
-👉 ${r.esteiLink}
-
-🔹 Opción 3: Reserva directa (fuera de plataformas)
-Depósito obligatorio 💵 (reembolsable al salir) | 💳 Zelle o efectivo disponibles para el pago.
-
-🅰️ Si pagás la reserva por adelantado (Zelle):
- • El depósito lo entregás al llegar (efectivo) o lo enviás por Zelle/Pago móvil.
-
-🅱️ Si pagás la reserva en efectivo al llegar:
- • El depósito debe enviarse antes por Zelle/Pago móvil para asegurar la reserva.
-
-————————————————————————
+  const paymentInfo = `Formas de pago  
+Airbnb → Tarjeta moneda extranjera o PayPal (descuento)  
+Estei → Bs. (TASA BCV)  
+Directo → Zelle o efectivo (USD, descuento) + depósito reembolsable (aplica <15 días)  
+Si pagas en efectivo al llegar, el depósito debe enviarse antes por Zelle/Pago Móvil
 `;
-      })
-      .join("\n");
 
-    copyToClipboard(combinedText);
-  };
+  const combinedText = paymentInfo + "\n\n" + availableApts
+    .map((r, index) => {
+      return `📍 *${r.name}* (${r.rooms}H / ${r.baths}B / máx. ${r.capacity} pers.)
 
+Airbnb: $${r.airbnbPrice} → ${r.airbnbLink}  
+Estei: $${r.esteiPrice} → ${r.esteiLink}  
+Directo: $${r.airbnbPrice} + Depósito${index !== availableApts.length - 1 ? "\n\n────────────────────────\n" : ""}`;
+    })
+    .join("");
 
-
-
-
-
-
-
-
-
-
+  copyToClipboard(combinedText);
+};
 
 
   
-return (
-  <div className="app-container" style={{ maxWidth: 900, margin: "auto", padding: 20 }}>
-    {/* Select para escoger estado */}
-    <div style={{ marginBottom: 20 }}>
-      <label htmlFor="estadoSelect" style={{ marginRight: 8, fontWeight: "bold" }}>
-        Escoge el estado:
-      </label>
-      <select
-        id="estadoSelect"
-        value={selectedEstado}
-        onChange={(e) => setSelectedEstado(e.target.value)}
-        style={{ padding: "0.3rem 0.5rem" }}
-      >
-        {estados.map((estado) => (
-          <option key={estado} value={estado}>
-            {estado}
-          </option>
-        ))}
-      </select>
-    </div>
 
-    {/* Botón para mostrar u ocultar campos de descuento */}
-    <h2>Asignar descuentos personalizados a apartamentos</h2>
-    <button
-      style={{ marginBottom: 20, padding: "0.5rem 1rem", cursor: "pointer" }}
-      onClick={() => setShowDiscounts(!showDiscounts)}
-    >
-      {showDiscounts ? "Ocultar campos de descuento" : "Mostrar campos de descuento"}
-    </button>
 
-    {/* Campos de descuento personalizados */}
-    {showDiscounts &&
-      calendars
-        .filter((cal) => cal.estado === selectedEstado) // Solo mostrar campos descuentos para el estado seleccionado
-        .map((cal) => (
-          <div
-            key={cal.name}
-            style={{
-              marginBottom: "1.5rem",
-              border: "1px solid #ddd",
-              padding: 10,
-              borderRadius: 6,
-            }}
+  // You need to return your JSX from the App component:
+  return (
+    <div>
+      {/* If you have a reservasPorApartamento variable and want to conditionally render, add the logic here.
+          Otherwise, remove this conditional and keep only your main view. */}
+      {/* Example: {showGroupedReservations ? ( ... ) : ( ... )} */}
+      <>
+        {/* 👇 Tu vista principal actual: filtros, descuentos, resultados... */}
+
+        {/* Select para escoger estado */}
+        <div style={{ marginBottom: 20 }}>
+          <label htmlFor="estadoSelect" style={{ marginRight: 8, fontWeight: "bold" }}>
+            Escoge el estado:
+          </label>
+          <select
+            id="estadoSelect"
+            value={selectedEstado}
+            onChange={(e) => setSelectedEstado(e.target.value)}
+            style={{ padding: "0.3rem 0.5rem" }}
           >
-            <label>
-              {cal.name} (% descuento):
-              <input
-                type="number"
-                min="0"
-                max="100"
-                placeholder="0"
-                value={customDiscounts[cal.name] || ""}
-                onChange={(e) => {
-                  const val = Math.min(100, Math.max(0, Number(e.target.value)));
-                  setCustomDiscounts((prev) => ({ ...prev, [cal.name]: val }));
-                }}
-                style={{ width: "60px", marginLeft: "0.5rem" }}
-              />
-            </label>
-            <div style={{ marginTop: 10 }}>
-              <DateRange
-                ranges={[
-                  discountDateRanges[cal.name] || {
-                    startDate: new Date(),
-                    endDate: addDays(new Date(), 1),
-                    key: "selection",
-                  },
-                ]}
-                onChange={(item) =>
-                  setDiscountDateRanges((prev) => ({ ...prev, [cal.name]: item.selection }))
-                }
-                editableDateInputs
-                moveRangeOnFirstSelection={false}
-                minDate={new Date()}
-                rangeColors={["#10b981"]}
-                showMonthAndYearPickers={true}
-                direction="horizontal"
-              />
-            </div>
-          </div>
-        ))}
-
-        <button onClick={copyAvailableApartments}>
-  📋 Copiar todos los apartamentos disponibles
-</button>
-
-
-    {/* Selección de fechas y personas */}
-    <h2>Selecciona fechas y personas</h2>
-    <DateRange
-      editableDateInputs
-      onChange={(item) => setDateRange([item.selection])}
-      moveRangeOnFirstSelection={false}
-      ranges={dateRange}
-      minDate={new Date()}
-      rangeColors={["#3d91ff"]}
-    />
-
-    <label style={{ display: "block", margin: "1rem 0" }}>
-      Personas:{" "}
-      <select value={people} onChange={(e) => setPeople(Number(e.target.value))}>
-        {[...Array(6).keys()].map((n) => (
-          <option key={n + 1} value={n + 1}>
-            {n + 1}
-          </option>
-        ))}
-      </select>
-    </label>
-
-    <button onClick={checkAvailability} style={{ padding: "0.5rem 1rem", cursor: "pointer" }}>
-      Consultar
-    </button>
-{/* Resultados */}
-<div style={{ marginTop: "2rem" }}>
-  {loading && <p>Cargando...</p>}
-
-  {!loading &&
-    results.map((r, i) => {
-      return (
-        <div
-          key={i}
-          className="result-item"
-          style={{ borderBottom: "1px solid #ccc", paddingBottom: 15, marginBottom: 15 }}
-        >
-          <div className="result-info">
-            <h3>📍 {r.name}</h3>
-            <p>
-              ({r.rooms} hab / {r.baths} baños · Máx. {r.capacity} personas)
-            </p>
-            {r.isAvailable ? (
-              <>
-                <p>
-                  ✅ Disponible — Airbnb: ${r.airbnbPrice} / Estei: ${r.esteiPrice} en {r.nights} noches
-                </p>
-                <p>💳 Pay via Airbnb o Pago móvil, Tasa BCV, Transferencia y Zelle para Estei</p>
-                <p>
-                  <a href={r.airbnbLink} target="_blank" rel="noopener noreferrer">
-                    Ver en Airbnb
-                  </a>
-                </p>
-
-                <button
-                  className="copy-button"
-                  onClick={() => {
-                    const combinedText = 
-`📍 ${r.name}
-(${r.rooms} hab / ${r.baths} baños, máx. ${r.capacity} personas)
-
-🔹 Opción 1: Reserva por Airbnb
-💰 $${r.airbnbPrice} / ${r.nights} noches / ${people} persona${people > 1 ? "s" : ""}
-💳 Tarjeta crédito, débito en moneda extranjera o PayPal
-👉 ${r.airbnbLink}
-
-🔹 Opción 2: Reserva por Estei
-💰 $${r.esteiPrice} / ${r.nights} noches / ${people} persona${people > 1 ? "s" : ""}
-💳 Pago móvil (TASA BCV)
-👉 ${r.esteiLink}
-
-🔹 Opción 3: Reserva directa (fuera de plataformas)
-Depósito obligatorio 💵 (reembolsable al salir) | 💳 Zelle o efectivo disponibles para el pago.
-
-🅰️ Si pagás la reserva por adelantado (Zelle):
- • El depósito lo entregás al llegar (efectivo) o lo enviás por Zelle/Pago móvil.
-
-🅱️ Si pagás la reserva en efectivo al llegar:
- • El depósito debe enviarse antes por Zelle/Pago móvil para asegurar la reserva.
-`;
-                    copyToClipboard(combinedText);
-                  }}
-                  style={{ padding: "0.3rem 0.6rem", cursor: "pointer" }}
-                >
-                  📋 Copiar texto presupuesto completo
-                </button>
-              </>
-            ) : (
-              <p style={{ color: "#dc2626" }}>❌ No disponible</p>
-            )}
-          </div>
-          <div className="calendar-container" style={{ marginTop: 10 }}>
-            <div
-              className="availability-badge"
-              style={{
-                display: "inline-block",
-                padding: "2px 8px",
-                borderRadius: 10,
-                backgroundColor: r.isAvailable ? "#34d399" : "#f87171",
-                color: "#fff",
-                fontWeight: "bold",
-              }}
-            >
-              {r.isAvailable ? "✅ Disponible" : "❌ No disponible"}
-            </div>
-            <div style={{ marginTop: 10 }}>
-              <CalendarioPropiedad
-                nombre={r.name}
-                reservas={r.reservas}
-                currentDate={dateRange[0].startDate}
-              />
-            </div>
-          </div>
+            {estados.map((estado) => (
+              <option key={estado} value={estado}>
+                {estado}
+              </option>
+            ))}
+          </select>
         </div>
-      );
-    })}
-</div>
-  </div>
-);
+
+        {/* Botón para mostrar u ocultar campos de descuento */}
+        <h2>Asignar descuentos personalizados a apartamentos</h2>
+        <button
+          style={{ marginBottom: 20, padding: "0.5rem 1rem", cursor: "pointer" }}
+          onClick={() => setShowDiscounts(!showDiscounts)}
+        >
+          {showDiscounts ? "Ocultar campos de descuento" : "Mostrar campos de descuento"}
+        </button>
+
+        {/* Campos de descuento personalizados */}
+        {showDiscounts &&
+          calendars
+            .filter((cal) => cal.estado === selectedEstado)
+            .map((cal) => (
+              <div
+                key={cal.name}
+                style={{
+                  marginBottom: "1.5rem",
+                  border: "1px solid #ddd",
+                  padding: 10,
+                  borderRadius: 6,
+                }}
+              >
+                <label>
+                  {cal.name} (% descuento):
+                  <input
+                    type="number"
+                    min="0"
+                    max="100"
+                    placeholder="0"
+                    value={customDiscounts[cal.name] || ""}
+                    onChange={(e) => {
+                      const val = Math.min(100, Math.max(0, Number(e.target.value)));
+                      setCustomDiscounts((prev) => ({ ...prev, [cal.name]: val }));
+                    }}
+                    style={{ width: "60px", marginLeft: "0.5rem" }}
+                  />
+                </label>
+                <div style={{ marginTop: 10 }}>
+                  <DateRange
+                    ranges={[
+                      discountDateRanges[cal.name] || {
+                        startDate: new Date(),
+                        endDate: addDays(new Date(), 1),
+                        key: "selection",
+                      },
+                    ]}
+                    onChange={(item) =>
+                      setDiscountDateRanges((prev) => ({ ...prev, [cal.name]: item.selection }))
+                    }
+                    editableDateInputs
+                    moveRangeOnFirstSelection={false}
+                    minDate={new Date()}
+                    rangeColors={["#10b981"]}
+                    showMonthAndYearPickers={true}
+                    direction="horizontal"
+                  />
+                </div>
+              </div>
+            ))}
+
+        <button onClick={copyAvailableApartments}>📋 Copiar todos los apartamentos disponibles</button>
+
+        {/* Selección de fechas y personas */}
+        <h2>Selecciona fechas y personas</h2>
+        <DateRange
+          editableDateInputs
+          onChange={(item) => setDateRange([item.selection])}
+          moveRangeOnFirstSelection={false}
+          ranges={dateRange}
+          minDate={new Date()}
+          rangeColors={["#3d91ff"]}
+        />
+
+        <label style={{ display: "block", margin: "1rem 0" }}>
+          Personas:{" "}
+          <select value={people} onChange={(e) => setPeople(Number(e.target.value))}>
+            {[...Array(6).keys()].map((n) => (
+              <option key={n + 1} value={n + 1}>
+                {n + 1}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <button onClick={checkAvailability} style={{ padding: "0.5rem 1rem", cursor: "pointer" }}>
+          Consultar
+        </button>
+
+        {/* Resultados */}
+        <div style={{ marginTop: "2rem" }}>
+          {loading && <p>Cargando...</p>}
+
+          {!loading &&
+            results.map((r, i) => {
+              return (
+                <div
+                  key={i}
+                  className="result-item"
+                  style={{ borderBottom: "1px solid #ccc", paddingBottom: 15, marginBottom: 15 }}
+                >
+                  <div className="result-info">
+                    <h3>📍 {r.name}</h3>
+                    <p>
+                      ({r.rooms} hab / {r.baths} baños · Máx. {r.capacity} personas)
+                    </p>
+                    {r.isAvailable ? (
+                      <>
+                        <p>
+                          ✅ Disponible — Airbnb: ${r.airbnbPrice} / Estei: ${r.esteiPrice} en {r.nights} noches
+                        </p>
+                        <p>💳 Pay via Airbnb o Pago móvil, Tasa BCV, Transferencia y Zelle para Estei</p>
+                        <p>
+                          <a href={r.airbnbLink} target="_blank" rel="noopener noreferrer">
+                            Ver en Airbnb
+                          </a>
+                        </p>
+
+                        <button
+                          className="copy-button"
+                          onClick={() => {
+                            const combinedText = `📍 *${r.name}* (${r.rooms}H / ${r.baths}B / máx. ${r.capacity} pers.)
+
+Formas de pago  
+Airbnb → Tarjeta moneda extranjera o PayPal (descuento)  
+Estei → Bs. (TASA BCV)  
+Directo → Zelle o efectivo (USD, descuento) + depósito reembolsable (aplica <15 días)  
+_Si pagas en efectivo al llegar, el depósito debe enviarse antes por Zelle/Pago Móvil_
+
+────────────────────────
+
+Airbnb: $${r.airbnbPrice} → ${r.airbnbLink}  
+Estei: $${r.esteiPrice} → ${r.esteiLink}  
+Directo: $${r.airbnbPrice} + Depósito
+`;
+                            copyToClipboard(combinedText);
+                          }}
+                          style={{ padding: "0.3rem 0.6rem", cursor: "pointer" }}
+                        >
+                          📋 Copiar texto presupuesto completo
+                        </button>
+
+                      </>
+                    ) : (
+                      <p style={{ color: "#dc2626" }}>❌ No disponible</p>
+                    )}
+                  </div>
+                  <div className="calendar-container" style={{ marginTop: 10 }}>
+                    <div
+                      className="availability-badge"
+                      style={{
+                        display: "inline-block",
+                        padding: "2px 8px",
+                        borderRadius: 10,
+                        backgroundColor: r.isAvailable ? "#34d399" : "#f87171",
+                        color: "#fff",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {r.isAvailable ? "✅ Disponible" : "❌ No disponible"}
+                    </div>
+                    <div style={{ marginTop: 10 }}>
+                      <CalendarioPropiedad
+                        nombre={r.name}
+                        reservas={r.reservas}
+                        currentDate={dateRange[0].startDate}
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+      </>
+    </div>
+  );
 }
+
 export default App;
