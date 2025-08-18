@@ -215,7 +215,7 @@ const calendars = [
     rooms: 3,
     baths: 2,
     airbnbLink: "airbnb.com/h/altamiraccs2",
-    esteiLink: "https://surl.li/gxctqa",
+    esteiLink: "https://surl.li/ktbyuw",
     airbnb: {
       pricePerNight: 90,
       cleaningFee: 50,
@@ -313,6 +313,30 @@ const calendars = [
     baths: 1,
     airbnbLink: "airbnb.com/h/elrosalccs",
     esteiLink: "https://surl.li/qeapdw",
+    airbnb: {
+      pricePerNight: 75,
+      cleaningFee: 35,
+      extraGuestFeePerNight: 5,
+      maxGuestsIncluded: 2,
+      discountWeek: 0.05,
+      discountMonth: 0.15,
+      platformFeePercentage: 0.14
+    },
+    estei: {
+      pricePerNight: 100,
+      cleaningFee: 40,
+      platformFeePercentage: 0.15
+    },
+  },
+    {
+    name: "Rosal3",
+     estado: "Caracas",
+    url: "https://www.airbnb.com/calendar/ical/1486888471879683465.ics?s=34dd75f8aeb08666e2183229ef88af32&locale=es-XL",
+    capacity: 2,
+    rooms: 1,
+    baths: 1,
+    airbnbLink: "airbnb.com/h/rosal3-2hab",
+    esteiLink: "https://surl.lt/vffsdo",
     airbnb: {
       pricePerNight: 75,
       cleaningFee: 35,
