@@ -58,7 +58,7 @@
     "envioInfo": "",
     "checkin": "",
     "cada3dias": "",
-    "checkout": "",
+    "checkout": true,
     "notiCheckin": false,
     "notiEnvioInfo": false,
     "notiCheckout": false
@@ -90,7 +90,7 @@
     "envioInfo": "",
     "checkin": "",
     "cada3dias": "",
-    "checkout": "",
+    "checkout": true,
     "notiCheckin": false,
     "notiEnvioInfo": false,
     "notiCheckout": false
@@ -106,7 +106,7 @@
     "envioInfo": "",
     "checkin": "",
     "cada3dias": "",
-    "checkout": "",
+    "checkout": true,
     "notiCheckin": false,
     "notiEnvioInfo": false,
     "notiCheckout": false
@@ -202,7 +202,7 @@
     "envioInfo": "",
     "checkin": "",
     "cada3dias": "",
-    "checkout": "",
+    "checkout": true,
     "notiCheckin": false,
     "notiEnvioInfo": false,
     "notiCheckout": false

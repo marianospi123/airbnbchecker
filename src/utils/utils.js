@@ -30,11 +30,11 @@ export const getAlert = (reserva) => {
   const hoy = new Date();
   hoy.setHours(0, 0, 0, 0);
 
-  // Convertimos a booleano seguro
-  const checkin = !!reserva.checkin;
-  const checkout = !!reserva.checkout;
-  const cada3dias = !!reserva.cada3dias;
-  const envioInfo = reserva.envioInfo ? String(reserva.envioInfo).toLowerCase() === "listo" : false;
+  // Validamos estado como booleano seguro
+  const checkin = String(reserva.checkin || "").toLowerCase() === "listo";
+  const checkout = String(reserva.checkout || "").toLowerCase() === "listo";
+  const cada3dias = String(reserva.cada3dias || "").toLowerCase() === "listo";
+  const envioInfo = String(reserva.envioInfo || "").toLowerCase() === "listo";
 
   // 🟢 Check-in hoy
   if (checkinDate && checkinDate.toDateString() === hoy.toDateString() && !checkin) {
@@ -64,7 +64,6 @@ export const getAlert = (reserva) => {
 
   return "";
 };
-
 
 // ---------------------------------
 // Aplica clases según la alerta
