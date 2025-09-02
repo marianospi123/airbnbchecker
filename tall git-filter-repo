@@ -1,0 +1,278 @@
+[33mcommit 1a903522f7faec0b115a3cff61003c0300928b02[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Tue Sep 2 16:14:11 2025 -0400
+
+    CAMBIOS RESERVASs
+
+ server/server.js | 25 [32m++++++++++++++++++[m[31m-------[m
+ 1 file changed, 18 insertions(+), 7 deletions(-)
+
+[33mcommit a204f453ba21b288e6c6d79aec0d55b61a588ed3[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Tue Sep 2 16:06:51 2025 -0400
+
+    Ignorar archivos de credenciales y eliminar del historial
+
+ .gitignore | Bin [31m477[m -> [32m400[m bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+[33mcommit cea6d644b77403fd2feecedc11a59d0d774eac11[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Tue Sep 2 16:04:16 2025 -0400
+
+    Guardar cambios antes de rebase
+
+ server/reservas.json |  8 [32m++++[m[31m----[m
+ src/utils/utils.js   | 11 [32m+++++[m[31m------[m
+ 2 files changed, 9 insertions(+), 10 deletions(-)
+
+[33mcommit 974ddbb7692f3a6b43448e5a5f845f97f9e17ff9[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Tue Sep 2 12:21:35 2025 -0400
+
+    Tu mensaje de commit
+
+ repo-limpio | 1 [31m-[m
+ 1 file changed, 1 deletion(-)
+
+[33mcommit 6efc6dee6f9718dfd8c2c5a3b79edfc77daa9c24[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Tue Sep 2 11:26:08 2025 -0400
+
+    Agrega reservas
+
+ repo-limpio          |  1 [32m+[m
+ server/reservas.json | 10 [32m+++++[m[31m-----[m
+ src/utils/utils.js   | 17 [32m++++++++++++[m[31m-----[m
+ 3 files changed, 18 insertions(+), 10 deletions(-)
+
+[33mcommit e3d0ab053d3480dad58ac563b6eddd5169dda812[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Tue Sep 2 11:06:30 2025 -0400
+
+    Ignorar archivo de credenciales
+
+ .gitignore | Bin [31m310[m -> [32m477[m bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+[33mcommit 72e33f5d44fb0bda8b9dc9007fd0134b650db503[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Tue Sep 2 10:48:50 2025 -0400
+
+    Actualización con todos los cambios recientes
+
+ .firebaserc                     |    5 [31m-[m
+ enviarNotificacion.js           |   89 [32m++[m
+ package-lock.json               | 2259 [32m++++++++++++++++++++++++++++++++++++++[m[31m-[m
+ package.json                    |   11 [32m+[m[31m-[m
+ public/firebase-messaging-sw.js |   59 [32m+[m
+ server/reservas.json            |  501 [32m+++++++++[m
+ server/server.js                |  204 [32m+++[m[31m-[m
+ server/tokens.json              |    5 [32m+[m
+ src/App.js                      |  376 [32m+++[m[31m----[m
+ src/components/excel.js         |  420 [32m++++++++[m
+ src/excelImport.js              |   46 [32m+[m
+ src/firebase.js                 |   16 [32m+[m
+ src/utils/seedReservas.js       |   55 [32m+[m
+ src/utils/utils.js              |   72 [32m++[m
+ test-fcm.js                     |   42 [32m+[m
+ tokens.json                     |    1 [32m+[m
+ 16 files changed, 3918 insertions(+), 243 deletions(-)
+
+[33mcommit f91131da8944db888f07f3789675f50ad11aaa62[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Mon Aug 18 10:26:56 2025 -0400
+
+    Subiendo cambios para deploy
+
+ src/App.js | 10 [32m+++++[m[31m-----[m
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+[33mcommit b558342532c69e79c27ae6e561999c0e03f20a34[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Mon Aug 18 10:18:57 2025 -0400
+
+    Subiendo cambios para deploy
+
+ src/App.js | 26 [32m+++++++++++++++++++++++++[m[31m-[m
+ 1 file changed, 25 insertions(+), 1 deletion(-)
+
+[33mcommit f22593d0b921b03d86cb9d648404747d31126200[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Tue Aug 12 11:17:03 2025 -0400
+
+    Actualizar función copyAvailableApartments con mejoras en el texto de presupuesto
+
+ src/App.js | 513 [32m+++++++++++++++++++++++++++++[m[31m--------------------------------[m
+ 1 file changed, 246 insertions(+), 267 deletions(-)
+
+[33mcommit 6de8c47b7b64cdaa3233826c2962d7517d6629b4[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Sun Aug 3 21:21:15 2025 -0400
+
+    Descripción corta de lo que cambiaste
+
+ src/App.js | 2 [32m+[m[31m-[m
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+[33mcommit 56c85668ca595de93f95f688ec236d0d635cba38[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Sun Aug 3 21:10:03 2025 -0400
+
+    Eliminado Firebase, preparado para Render
+
+ .github/workflows/firebase-hosting-merge.yml       |   20 [31m-[m
+ .../workflows/firebase-hosting-pull-request.yml    |   27 [31m-[m
+ package-lock.json                                  | 2837 [32m++++++++++++++[m[31m------[m
+ package.json                                       |    2 [32m+[m[31m-[m
+ public/index.html                                  |   95 [32m+[m[31m-[m
+ server/server.js                                   |    2 [32m+[m[31m-[m
+ 6 files changed, 2053 insertions(+), 930 deletions(-)
+
+[33mcommit 7ef02c33ab44b49c144ad72fa8b79c7f48c3783c[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Sun Aug 3 20:49:59 2025 -0400
+
+    Eliminar firebase.json para despliegue en Render
+
+ firebase.json | 16 [31m----------------[m
+ 1 file changed, 16 deletions(-)
+
+[33mcommit 78113c6de2fe996ca8559459d8951a1d703e383e[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Sat Aug 2 10:47:01 2025 -0400
+
+    Actualizar workflow para deploy automático
+
+ .github/workflows/firebase-hosting-pull-request.yml | 12 [32m+++++++++[m[31m---[m
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+[33mcommit 9ff1873588e087c2ce5272b8587e96426a911b0f[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Sat Aug 2 10:36:51 2025 -0400
+
+    Corregir carpeta pública a build en firebase.json
+
+ firebase.json | 2 [32m+[m[31m-[m
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+[33mcommit 524b436d860eb795428ef175988cd2ceb224a4b3[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Sat Aug 2 10:28:01 2025 -0400
+
+    Agregando configuración de Firebase Hosting y GitHub Actions
+
+ .firebaserc                                        |   5 [32m+[m
+ .github/workflows/firebase-hosting-merge.yml       |  20 [32m++++[m
+ .../workflows/firebase-hosting-pull-request.yml    |  21 [32m++++[m
+ firebase.json                                      |  16 [32m+++[m
+ public/index.html                                  | 112 [32m+++++++++++++++[m[31m------[m
+ 5 files changed, 141 insertions(+), 33 deletions(-)
+
+[33mcommit 14e6ce4d0ea5f7ec736f6d26b9f19f6ffc006a9d[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Thu Jul 31 23:27:04 2025 -0400
+
+    Agregado botón para copiar solo apartamentos disponibles con lista completa
+
+ src/App.js | 75 [32m++[m[31m------------------------------------------------------------[m
+ 1 file changed, 2 insertions(+), 73 deletions(-)
+
+[33mcommit 61018f6b435e151f287e206296dcb562005a5732[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Thu Jul 31 23:21:26 2025 -0400
+
+    Agregado botón para copiar solo apartamentos disponibles con lista completa
+
+ src/App.js | 483 [32m++++++++++++++++++++++++++++++++++++[m[31m-------------------------[m
+ 1 file changed, 287 insertions(+), 196 deletions(-)
+
+[33mcommit ea31d3a31fdffbf3e38e5fed61673e312b3716c5[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Fri Jul 4 17:19:31 2025 -0400
+
+    Subiendo cambios: frontend + backend funcionando
+
+ package-lock.json |  2 [32m+[m[31m-[m
+ src/App.js        | 33 [32m++++++++++++++++++[m[31m---------------[m
+ 2 files changed, 19 insertions(+), 16 deletions(-)
+
+[33mcommit 0355497e12f0a9eb21aa1529cfed7d49400588b7[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Wed Jul 2 14:06:29 2025 -0400
+
+    Corrige cálculo de precios y agrega filtro por estado
+
+ src/App.js | 2 [32m+[m[31m-[m
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+[33mcommit b0fb1ef258aa8667c56360eaf396092b9f95c0ac[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Wed Jul 2 14:04:35 2025 -0400
+
+    Corrige cálculo de precios y agrega filtro por estado
+
+ package-lock.json | 102 [32m++++++++++[m
+ package.json      |   8 [32m+[m[31m-[m
+ src/App.js        | 546 [32m+++++++++++++++++++++++++++++++++++++++[m[31m---------------[m
+ src/config.js     |   4 [32m+[m
+ 4 files changed, 514 insertions(+), 146 deletions(-)
+
+[33mcommit b3b6c093b292d007fceca4e959b001ba3e04d3d8[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Tue Jul 1 21:41:00 2025 -0400
+
+    Add responsive CSS with media queries for mobile-friendly layout
+
+ src/App.css |  78 [32m++++++++++++++++++++++++[m[31m------------[m
+ src/App.js  | 128 [32m++++++++++++++++++++++++[m[31m------------------------------------[m
+ 2 files changed, 103 insertions(+), 103 deletions(-)
+
+[33mcommit 4e6878f038a5922be486a5787a5a590509164010[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Tue Jul 1 21:13:58 2025 -0400
+
+    Prep for deploy on Railway
+
+ package-lock.json | 1 [32m+[m
+ package.json      | 7 [32m++[m[31m-----[m
+ server/server.js  | 5 [32m++[m[31m---[m
+ 3 files changed, 5 insertions(+), 8 deletions(-)
+
+[33mcommit f9b4a500f2e6e9f64e8f8a5a003fed81a00b8b85[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Tue Jul 1 21:03:11 2025 -0400
+
+    Corrijo warnings de ESLint
+
+ server/server.js | 15 [32m+++++++++++++[m[31m--[m
+ src/App.js       |  7 [32m++[m[31m-----[m
+ 2 files changed, 15 insertions(+), 7 deletions(-)
+
+[33mcommit 0cc007ce64f349ec40a141f9110b8827117ddbac[m
+Author: marianospi123 <marianospinelli18@gmail.com>
+Date:   Tue Jul 1 15:18:42 2025 -0400
+
+    airbnb checker
+
+ .gitignore                 |    23 [32m+[m
+ README.md                  |    70 [32m+[m
+ package-lock.json          | 16768 [32m+++++++++++++++++++++++++++++++++++++++++++[m
+ package.json               |    55 [32m+[m
+ public/favicon.ico         |   Bin [31m0[m -> [32m3870[m bytes
+ public/index.html          |    43 [32m+[m
+ public/logo192.png         |   Bin [31m0[m -> [32m5347[m bytes
+ public/logo512.png         |   Bin [31m0[m -> [32m9664[m bytes
+ public/manifest.json       |    25 [32m+[m
+ public/robots.txt          |     3 [32m+[m
+ server/server.js           |    33 [32m+[m
+ src/App.css                |    38 [32m+[m
+ src/App.js                 |   678 [32m++[m
+ src/App.test.js            |     8 [32m+[m
+ src/calendariopropiedad.js |    30 [32m+[m
+ src/index.css              |    13 [32m+[m
+ src/index.js               |    17 [32m+[m
+ src/logo.svg               |     1 [32m+[m
+ src/reportWebVitals.js     |    13 [32m+[m
+ src/setupTests.js          |     5 [32m+[m
+ 20 files changed, 17823 insertions(+)
