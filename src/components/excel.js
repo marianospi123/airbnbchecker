@@ -26,6 +26,8 @@ const campos = [
 ];
 
 
+
+
   // -----------------------
   // Cargar reservas desde backend o localStorage
   // -----------------------
@@ -88,6 +90,11 @@ const campos = [
   console.log("Mensaje recibido:", payload);
   // alert eliminado para que no interrumpa al usuario
 });
+
+
+
+
+
 
   }, []);
 

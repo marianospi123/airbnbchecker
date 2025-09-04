@@ -1,15 +1,9 @@
-// server.js
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
-const admin = require("firebase-admin");
+const admin = require("firebase-admin"); // <-- deja solo este
 const fetch = require("node-fetch");
-
-// Para desarrollo local: carga las variables de .env
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
 
 const app = express();
 app.use(express.json());
@@ -19,19 +13,32 @@ const RESERVAS_FILE = path.join(__dirname, "reservas.json");
 const TOKENS_FILE = path.join(__dirname, "tokens.json");
 
 // -------------------
-// Inicializar Firebase Admin desde variable de entorno
+// Inicializar Firebase Admin usando la variable de entorno
 // -------------------
-if (!process.env.FIREBASE_SERVICE_ACCOUNT) {
-  console.error("❌ La variable FIREBASE_SERVICE_ACCOUNT no está definida");
-  process.exit(1);
+// -------------------
+// Inicializar Firebase Admin (local o producción)
+// -------------------
+let serviceAccount;
+
+if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
+  // 🔹 En Render / Producción
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
+  console.log("Usando credenciales de Firebase desde variable de entorno ✅");
+} else {
+  try {
+    // 🔹 En local (archivo ignorado en Git)
+    serviceAccount = require("./serviceAccountKey.json");
+    console.log("Usando credenciales de Firebase desde archivo local ✅");
+  } catch (err) {
+    console.log("⚠️ No se encontró serviceAccountKey.json, Firebase Admin deshabilitado en local");
+  }
 }
 
-const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON
-);
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+if (serviceAccount) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+}
 
 // -------------------
 // FUNCIONES AUXILIARES
@@ -40,16 +47,13 @@ const leerReservas = () => {
   if (!fs.existsSync(RESERVAS_FILE)) fs.writeFileSync(RESERVAS_FILE, JSON.stringify([]));
   return JSON.parse(fs.readFileSync(RESERVAS_FILE, "utf-8"));
 };
-
 const guardarReservas = (reservas) => {
   fs.writeFileSync(RESERVAS_FILE, JSON.stringify(reservas, null, 2));
 };
-
 const leerTokens = () => {
   if (!fs.existsSync(TOKENS_FILE)) fs.writeFileSync(TOKENS_FILE, JSON.stringify([]));
   return JSON.parse(fs.readFileSync(TOKENS_FILE, "utf-8"));
 };
-
 const guardarTokens = (tokens) => {
   fs.writeFileSync(TOKENS_FILE, JSON.stringify(tokens, null, 2));
 };
@@ -69,7 +73,7 @@ app.post("/api/fcm-notify", async (req, res) => {
     res.json({ success: true, sent: resp.successCount, failed: resp.failureCount });
   } catch (err) {
     console.error("Error enviando notificación:", err);
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: err.message, stack: err.stack });
   }
 });
 
@@ -214,6 +218,10 @@ app.get("*", (req, res) => res.sendFile(path.join(__dirname, "../build/index.htm
 // -------------------
 const PORT = process.env.PORT || 4004;
 app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
+
+
+
+
 
 
 
