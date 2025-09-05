@@ -12,7 +12,7 @@ import  { useState, useEffect } from "react";
 
 
 const BASE_URL = process.env.NODE_ENV === "production"
-  ? "https://airbnbchecker-3.onrender.com"
+  ? "https://airbnbchecker-4.onrender.com"
   : "http://localhost:4004";
 
 
