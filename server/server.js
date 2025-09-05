@@ -2,19 +2,24 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
-const admin = require("firebase-admin"); // <-- deja solo este
+const admin = require("firebase-admin"); // <-- se mantiene solo este
 const fetch = require("node-fetch");
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+// ✅ Configuración CORS global
+app.use(
+  cors({
+    origin: "*", // cambia a tu dominio en prod si quieres más seguridad
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 const RESERVAS_FILE = path.join(__dirname, "reservas.json");
 const TOKENS_FILE = path.join(__dirname, "tokens.json");
 
-// -------------------
-// Inicializar Firebase Admin usando la variable de entorno
-// -------------------
 // -------------------
 // Inicializar Firebase Admin (local o producción)
 // -------------------
@@ -91,7 +96,18 @@ app.get("/api/reservas", (req, res) => {
 
 app.post("/api/reservas", (req, res) => {
   try {
-    const { fechaCheckin, fechaCheckout, plataforma, huesped, monto, noches, envioInfo, checkin, cada3dias, checkout } = req.body;
+    const {
+      fechaCheckin,
+      fechaCheckout,
+      plataforma,
+      huesped,
+      monto,
+      noches,
+      envioInfo,
+      checkin,
+      cada3dias,
+      checkout,
+    } = req.body;
     const reservas = leerReservas();
 
     const nuevaReserva = {
@@ -190,21 +206,11 @@ app.get("/proxy", async (req, res) => {
     if (!response.ok) return res.status(response.status).send("No se pudo obtener el calendario");
 
     const text = await response.text();
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    res.send(text);
+    res.type("text/calendar").send(text);
   } catch (error) {
     console.error("Error fetching ICS:", error.message);
     res.status(500).send("Error al obtener el calendario");
   }
-});
-
-app.options("/proxy", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.sendStatus(200);
 });
 
 // -------------------
@@ -218,16 +224,3 @@ app.get("*", (req, res) => res.sendFile(path.join(__dirname, "../build/index.htm
 // -------------------
 const PORT = process.env.PORT || 4004;
 app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
-
-
-
-
-
-
-
-
-
-
-
-
-
