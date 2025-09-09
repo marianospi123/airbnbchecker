@@ -4,6 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const admin = require("firebase-admin"); // <-- se mantiene solo este
 const fetch = require("node-fetch");
+const ICAL = require("ical.js");
 
 const app = express();
 app.use(express.json());
@@ -212,6 +213,121 @@ app.get("/proxy", async (req, res) => {
     res.status(500).send("Error al obtener el calendario");
   }
 });
+
+const calendars = require("./calendars.js"); // <-- tu array de propiedades
+
+function rangesOverlap(start1, end1, start2, end2) {
+  return start1 < end2 && start2 < end1;
+}
+
+app.get("/api/availability", async (req, res) => {
+  const { from, to, people, estado } = req.query;
+  if (!from || !to || !people || !estado) {
+    return res.status(400).json({ error: "Faltan parámetros (from, to, people, estado)" });
+  }
+
+  const startDate = new Date(from);
+  const endDate = new Date(to);
+  const nights = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+  if (nights <= 0) return res.status(400).json({ error: "Rango de fechas inválido" });
+
+  const output = [];
+  const filteredCalendars = calendars.filter(
+    (cal) => cal.estado === estado && cal.capacity >= parseInt(people)
+  );
+
+  for (const cal of filteredCalendars) {
+    try {
+      let text = "";
+      let isAvailable = false;
+      let airbnbPrice = null;
+      let esteiPrice = null;
+      let errorMsg = null;
+
+      try {
+        const proxyUrl = `${process.env.BASE_URL || "http://localhost:" + PORT}/proxy?url=${encodeURIComponent(cal.url)}`;
+        const resp = await fetch(proxyUrl);
+        if (!resp.ok) throw new Error(`No se pudo obtener el ICS de ${cal.name}`);
+        text = await resp.text();
+
+        const jcalData = ICAL.parse(text);
+        const comp = new ICAL.Component(jcalData);
+        const events = comp.getAllSubcomponents("vevent");
+
+        const reservas = events.map((e) => {
+          const ev = new ICAL.Event(e);
+          return { start: ev.startDate.toJSDate(), end: ev.endDate.toJSDate() };
+        });
+
+        isAvailable = !reservas.some((r) => rangesOverlap(startDate, endDate, r.start, r.end));
+
+        // === PRECIO AIRBNB ===
+        const a = cal.airbnb;
+        const extraGuests = Math.max(0, people - a.maxGuestsIncluded);
+        const baseNightsPrice = a.pricePerNight * nights;
+        const extraGuestPrice = a.extraGuestFeePerNight * extraGuests * nights;
+        let discounted = baseNightsPrice;
+        if (nights >= 7 && nights < 26) discounted *= (1 - a.discountWeek);
+        else if (nights >= 26) discounted *= (1 - a.discountMonth);
+        const subtotal = discounted + extraGuestPrice + a.cleaningFee;
+        const platformFee = subtotal * (a.platformFeeRate || 0.1411);
+        airbnbPrice = Math.round((subtotal + platformFee) * 100) / 100;
+
+        // === PRECIO ESTEI ===
+        const e = cal.estei;
+        const eNightsPrice = e.pricePerNight * nights;
+        const eExtraGuests = Math.max(0, people - (e.maxGuestsIncluded || 2));
+        const eExtraGuestPrice = (e.extraGuestFeePerNight || 0) * eExtraGuests * nights;
+        const eSubtotal = eNightsPrice + eExtraGuestPrice + (e.cleaningFee || 0);
+        let eDiscount = 0;
+        if (nights >= 7 && nights < 30) eDiscount = eNightsPrice * (e.discountWeek || 0);
+        else if (nights >= 30) eDiscount = eNightsPrice * (e.discountMonth || 0);
+        const ePlatformFee = eSubtotal * (e.platformFeePercentage || 0);
+        esteiPrice = eSubtotal + ePlatformFee - eDiscount;
+
+      } catch (errInner) {
+        console.error(`Error procesando ${cal.name}:`, errInner);
+        errorMsg = errInner.message;
+      }
+
+      output.push({
+        name: cal.name,
+        estado: cal.estado,
+        isAvailable,
+        nights,
+        capacity: cal.capacity,
+        rooms: cal.rooms,
+        baths: cal.baths,
+        airbnbPrice: airbnbPrice !== null ? airbnbPrice.toFixed(2) : null,
+        esteiPrice: esteiPrice !== null ? esteiPrice.toFixed(2) : null,
+        airbnbLink: cal.airbnbLink,
+        esteiLink: cal.esteiLink,
+        error: errorMsg,
+      });
+
+    } catch (errOuter) {
+      console.error(`Error inesperado con ${cal.name}:`, errOuter);
+      output.push({
+        name: cal.name,
+        estado: cal.estado,
+        isAvailable: false,
+        nights,
+        capacity: cal.capacity,
+        rooms: cal.rooms,
+        baths: cal.baths,
+        airbnbPrice: null,
+        esteiPrice: null,
+        airbnbLink: cal.airbnbLink,
+        esteiLink: cal.esteiLink,
+        error: "Error interno inesperado",
+      });
+    }
+  }
+
+  return res.json(output);
+});
+
+
 
 // -------------------
 // SERVIR FRONTEND REACT
