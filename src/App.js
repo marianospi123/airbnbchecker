@@ -742,7 +742,7 @@ if (discountPercent > 0 && hasDiscountRange && rangesOverlap(from, to, dr.startD
   };
 
 
-    const copyAvailableApartments = () => {
+  const copyAvailableApartments = () => {
   const availableApts = results.filter((r) => r.isAvailable);
   if (availableApts.length === 0) {
     alert("No hay apartamentos disponibles para copiar.");
@@ -758,7 +758,20 @@ Si pagas en efectivo al llegar, el depósito debe enviarse antes por Zelle/Pago 
 
   const combinedText = paymentInfo + "\n\n" + availableApts
     .map((r, index) => {
-      return `📍 *${r.name}* (${r.rooms}H / ${r.baths}B / máx. ${r.capacity} pers.)
+      // Usa r.nights si viene en el resultado; si no, calcula desde dateRange como fallback
+      const nights =
+        typeof r.nights === "number" && !isNaN(r.nights)
+          ? r.nights
+          : Math.max(
+              1,
+              Math.ceil(
+                (dateRange[0].endDate - dateRange[0].startDate) /
+                  (1000 * 60 * 60 * 24)
+              )
+            );
+      const nightsLabel = nights === 1 ? `${nights} noche` : `${nights} noches`;
+
+      return `📍 *${r.name}* — ${nightsLabel} (${r.rooms}H / ${r.baths}B / máx. ${r.capacity} pers.)
 
 Airbnb: $${r.airbnbPrice} → ${r.airbnbLink}  
 Estei: $${r.esteiPrice} → ${r.esteiLink}  
