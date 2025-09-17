@@ -41,6 +41,30 @@ const calendars = [
       platformFeePercentage: 0.15 // 13.05%
     },
   },
+      {
+    name: "Boleita",
+     estado: "Caracas",
+    url: "https://www.airbnb.com/calendar/ical/1343681520860355629.ics?s=a2d96f7fe387a7d3e27ce41d275f4a33&locale=es-XL",
+    capacity: 2,
+    rooms: 1,
+    baths: 2,
+    airbnbLink: "https://www.airbnb.com/l/KQlHkFXF",
+    esteiLink:  "https://short-url.org/1f00f ",
+    airbnb: {
+      pricePerNight: 55,
+      cleaningFee: 40,
+      extraGuestFeePerNight: 5,
+      maxGuestsIncluded: 2,
+      discountWeek: 0.05,
+      discountMonth: 0.15,
+       platformFeePercentage: 0.1411
+    },
+    estei: {
+      pricePerNight: 80,
+      cleaningFee: 40,
+      platformFeePercentage: 0.15 // 13.05%
+    },
+  },
   {
     name: "Sebucán 2",
      estado: "Caracas",
@@ -480,10 +504,34 @@ const calendars = [
       platformFeePercentage: 0.15
     },
   },
+  {
+    name: "POZ 2 ",
+     estado: "POZ",
+    url: "https://www.airbnb.com/calendar/ical/1467815969855169714.ics?s=b2a411c1c5424fc37148794fc767788f&locale=es-XL",
+    capacity: 4,
+    rooms: 1,
+    baths: 1.5,
+    airbnbLink: "https://www.airbnb.com/l/inVVDYqF",
+    esteiLink: "",
+    airbnb: {
+      pricePerNight: 50,
+      cleaningFee: 35,
+      extraGuestFeePerNight: 5,
+      maxGuestsIncluded: 2,
+      discountWeek: 0,
+      discountMonth: 0.15,
+      platformFeePercentage: 0.14
+    },
+    estei: {
+      pricePerNight: 80,
+      cleaningFee: 40,
+      platformFeePercentage: 0.15
+    },
+  },
 
   // ----------------------------- Poz (nuevo) -----------------------------
   {
-    name: "Poz 2",
+    name: "Poz 3",
     estado: "POZ",
     url: "https://www.airbnb.com/calendar/ical/979794923757351625.ics?s=3d9e5476cfa447b17e55000fc0aab93b&locale=en",
     capacity: 6,
@@ -507,6 +555,7 @@ const calendars = [
     },
   }
 ];
+
 
 
 
