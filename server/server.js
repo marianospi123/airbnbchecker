@@ -323,8 +323,12 @@ app.get("/api/availability", async (req, res) => {
       });
     }
   }
+  // Filtrar solo apartamentos disponibles
+const availableOutput = output.filter(ap => ap.isAvailable);
 
-  return res.json(output);
+return res.json(availableOutput);
+
+
 });
 
 

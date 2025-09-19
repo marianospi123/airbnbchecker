@@ -504,30 +504,7 @@ const calendars = [
       platformFeePercentage: 0.15
     },
   },
-  {
-    name: "POZ 2 ",
-     estado: "POZ",
-    url: "https://www.airbnb.com/calendar/ical/1467815969855169714.ics?s=b2a411c1c5424fc37148794fc767788f&locale=es-XL",
-    capacity: 4,
-    rooms: 1,
-    baths: 1.5,
-    airbnbLink: "https://www.airbnb.com/l/inVVDYqF",
-    esteiLink: "",
-    airbnb: {
-      pricePerNight: 50,
-      cleaningFee: 35,
-      extraGuestFeePerNight: 5,
-      maxGuestsIncluded: 2,
-      discountWeek: 0,
-      discountMonth: 0.15,
-      platformFeePercentage: 0.14
-    },
-    estei: {
-      pricePerNight: 80,
-      cleaningFee: 40,
-      platformFeePercentage: 0.15
-    },
-  },
+ 
 
   // ----------------------------- Poz (nuevo) -----------------------------
   {
