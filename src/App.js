@@ -117,8 +117,8 @@ const calendars = [
     name: "Campiña",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1332629584763087489.ics?s=d90bafbfe647f3451520a54fc98d2522&locale=en",
-    capacity: 4,
-    rooms: 2,
+    capacity: 6,
+    rooms: 3,
     baths: 2,
     airbnbLink: "airbnb.com/h/lacampinaccs",
     esteiLink: "https://goo.su/orcTbU",
@@ -363,7 +363,7 @@ const calendars = [
     rooms: 2,
     baths: 2,
     airbnbLink: "airbnb.com/h/rosal3-2hab",
-    esteiLink: "https://surl.lt/vffsdo",
+    esteiLink: "https://short-url.org/1hAzi",
     airbnb: {
       pricePerNight: 90,
       cleaningFee: 45,
@@ -374,7 +374,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 100,
+      pricePerNight: 120,
       cleaningFee: 40,
       platformFeePercentage: 0.15
     },
