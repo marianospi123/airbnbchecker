@@ -718,8 +718,7 @@ if (discountPercent > 0 && hasDiscountRange && rangesOverlap(from, to, dr.startD
     }
   };
 
-
-  const copyAvailableApartments = () => {
+const copyAvailableApartments = () => {
   const availableApts = results.filter((r) => r.isAvailable);
   if (availableApts.length === 0) {
     alert("No hay apartamentos disponibles para copiar.");
@@ -733,31 +732,42 @@ Directo → Zelle o efectivo (USD, descuento) + depósito reembolsable (aplica <
 Si pagas en efectivo al llegar, el depósito debe enviarse antes por Zelle/Pago Móvil
 `;
 
+  // Función para calcular depósito según noches
+  const getDeposit = (nights) => {
+    if (nights === 2) return 130;
+    if (nights === 3) return 150;
+    if (nights >= 4 && nights <= 7) return 250;
+    if (nights >= 8 && nights <= 15) return 500;
+    if (nights >= 16 && nights <= 30) return 750;
+    return 1000; // más de 30 noches
+  };
+
   const combinedText = paymentInfo + "\n\n" + availableApts
     .map((r, index) => {
-      // Usa r.nights si viene en el resultado; si no, calcula desde dateRange como fallback
       const nights =
         typeof r.nights === "number" && !isNaN(r.nights)
           ? r.nights
           : Math.max(
               1,
               Math.ceil(
-                (dateRange[0].endDate - dateRange[0].startDate) /
-                  (1000 * 60 * 60 * 24)
+                (dateRange[0].endDate - dateRange[0].startDate) / (1000 * 60 * 60 * 24)
               )
             );
       const nightsLabel = nights === 1 ? `${nights} noche` : `${nights} noches`;
+      const deposit = getDeposit(nights);
 
       return `📍 *${r.name}* — ${nightsLabel} (${r.rooms}H / ${r.baths}B / máx. ${r.capacity} pers.)
 
-Airbnb: $${r.airbnbPrice} → ${r.airbnbLink}  
-Estei: $${r.esteiPrice} → ${r.esteiLink}  
-Directo: $${r.airbnbPrice} + Depósito${index !== availableApts.length - 1 ? "\n\n────────────────────────\n" : ""}`;
+USD: $${r.airbnbPrice} → ${r.airbnbLink}  
+Bolívares (BCV): $${r.esteiPrice} → ${r.esteiLink}  
+Directo USD: $${r.airbnbPrice} + Depósito $${deposit}  
+Directo Bs.: $${r.esteiPrice} + Depósito $${deposit}${index !== availableApts.length - 1 ? "\n\n────────────────────────\n" : ""}`;
     })
     .join("");
 
   copyToClipboard(combinedText);
 };
+
 
 
   
