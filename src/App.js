@@ -454,30 +454,6 @@ const calendars = [
       platformFeePercentage: 0.15
     },
   },
-  {
-    name: "Margarita 2",
-    estado: "Margarita",
-    url: "https://www.airbnb.com/calendar/ical/1303210845707936867.ics?s=5233af9f7d3c6bf62ec0bd688f57182d&locale=en",
-    capacity: 6,
-    rooms: 2,
-    baths: 2,
-    airbnbLink: "https://www.airbnb.com/l/Ul8TUZZ6",
-    esteiLink: "#",
-    airbnb: {
-      pricePerNight: 80,
-      cleaningFee: 35,
-      extraGuestFeePerNight: 5,
-      maxGuestsIncluded: 2,
-      discountWeek: 0.10,
-      discountMonth: 0.20,
-      platformFeePercentage: 0.14
-    },
-    estei: {
-      pricePerNight: 100,
-      cleaningFee: 40,
-      platformFeePercentage: 0.15
-    },
-  },
 
   // ----------------------------- La Guaira -----------------------------
   {
@@ -530,8 +506,205 @@ const calendars = [
       cleaningFee: 40,
       platformFeePercentage: 0.15
     },
-  }
-];
+  },
+
+
+ {
+  name: "Apartamento Panorámico con Planta Eléctrica y Pozo",
+  estado: "Maracaibo",
+  url: "https://www.airbnb.co.ve/calendar/ical/1236421312796299870.ics?s=a6ceab9ad1e1ae6146b2f39dd5082d6d",
+  capacity: 9,
+  rooms: 5,
+  baths: 5.5,
+  airbnbLink: "https://airbnb.co.ve/h/cdl8",
+  esteiLink: "https://estei.app/stay/17377878151510675621/profile",
+  airbnb: {
+    pricePerNight: 100,
+    cleaningFee: 35,
+    extraGuestFeePerNight: 15,
+    maxGuestsIncluded: 1,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 140,
+    cleaningFee: 45,
+    platformFeePercentage: 0.15
+  },
+},
+
+{
+  name: "Apt de lujo, 5 hab, piscina y vista al lago",
+  estado: "Maracaibo",
+  url: "https://www.airbnb.co.ve/calendar/ical/1487058676175453143.ics?s=b30ddf70122a2023544022e7e83d9d34",
+  capacity: 9,
+  rooms: 5,
+  baths: 5.5,
+  airbnbLink: "https://airbnb.co.ve/h/cdl11",
+  esteiLink: "https://estei.app/stay/17563892666605964165/profile",
+  airbnb: {
+    pricePerNight: 140,
+    cleaningFee: 35,
+    extraGuestFeePerNight: 15,
+    maxGuestsIncluded: 1,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 150,
+    cleaningFee: 45,
+    platformFeePercentage: 0.15
+  },
+},
+{
+  name: "Relax y vista insuperable en el Milagro con 4H+4B",
+  estado: "Maracaibo",
+  url: "https://www.airbnb.co.ve/calendar/ical/1508336810645062616.ics?s=6b0b830243ed4e7fcfc5356cfaa16ec5",
+  capacity: 6,
+  rooms: 4,
+  baths: 4.5,
+  airbnbLink: "https://airbnb.co.ve/h/cdl12",
+  esteiLink: "https://estei.app/stay/17565032145339330524/profile",
+  airbnb: {
+    pricePerNight: 85,
+    cleaningFee: 35,
+    extraGuestFeePerNight: 15,
+    maxGuestsIncluded: 1,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 120,
+    cleaningFee: 45,
+    platformFeePercentage: 0.15
+  },
+},
+{
+  name: "Acogedor apto - cocina equipada",
+  estado: "Maracaibo",
+  url: "https://www.airbnb.co.ve/calendar/ical/1389198391472630431.ics?s=9d69d8e04a6ba73d4c12e3336f5139fe",
+  capacity: 4,
+  rooms: 2,
+  baths: 1,
+  airbnbLink: "https://airbnb.co.ve/h/buritaca7",
+  esteiLink: "https://estei.app/stay/17483089366375025123/profile",
+  airbnb: {
+    pricePerNight: 45,
+    cleaningFee: 25,
+    extraGuestFeePerNight: 7,
+    maxGuestsIncluded: 1,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 51,
+    cleaningFee: 35,
+    platformFeePercentage: 0.15
+  },
+},
+{
+  name: "Apartamento moderno y seguro en Viento Norte",
+  estado: "Maracaibo",
+  url: "https://www.airbnb.co.ve/calendar/ical/1428495104850535793.ics?s=67c22f50814cbf351d6b51872c1fb1b4",
+  capacity: 4,
+  rooms: 2,
+  baths: 2,
+  airbnbLink: "https://airbnb.co.ve/h/islanorte",
+  esteiLink: "https://estei.app/stay/17481197854059978676/profile",
+  airbnb: {
+    pricePerNight: 55,
+    cleaningFee: 25,
+    extraGuestFeePerNight: 7,
+    maxGuestsIncluded: 1,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 55,
+    cleaningFee: 35,
+    platformFeePercentage: 0.15
+  },
+},
+{
+  name: "Comodidad a pasos del Sambil - 2 hab 2 baños",
+  estado: "Maracaibo",
+  url: "https://www.airbnb.co.ve/calendar/ical/1527183806348918468.ics?s=039c5d57644f9b3b852b362eac5fbf71",
+  capacity: 4,
+  rooms: 2,
+  baths: 2,
+  airbnbLink: "https://airbnb.co.ve/h/alejandrasofia2",
+  esteiLink: "https://estei.app/stay/17624979618330213286/profile",
+  airbnb: {
+    pricePerNight: 36,
+    cleaningFee: 25,
+    extraGuestFeePerNight: 7,
+    maxGuestsIncluded: 1,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 75,
+    cleaningFee: 35,
+    platformFeePercentage: 0.15
+  },
+},
+{
+  name: "Penthouse de Ensueño -Terraza y Vistas Panorámicas",
+  estado: "Maracaibo",
+  url: "https://www.airbnb.co.ve/calendar/ical/1067409956723404896.ics?s=df0a8b14727df88dc3406881d863774a",
+  capacity: 8,
+  rooms: 4,
+  baths: 4,
+  airbnbLink: "https://airbnb.co.ve/h/ph6",
+  esteiLink: "https://estei.app/stay/17261876211180782474/profile",
+  airbnb: {
+    pricePerNight: 59,
+    cleaningFee: 35,
+    extraGuestFeePerNight: 15,
+    maxGuestsIncluded: 1,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 145,
+    cleaningFee: 45,
+    platformFeePercentage: 0.15
+  },
+},
+{
+  name: "Paraíso Familiar en Isla Margarita",
+  estado: "Margarita",
+  url: "https://www.airbnb.co.ve/calendar/ical/1354618645998155424.ics?s=867f81c1c97841b53330fc62c4e3bdf1",
+  capacity: 4,
+  rooms: 2,
+  baths: 2,
+  airbnbLink: "https://airbnb.co.ve/h/solarium6",
+  esteiLink: null,
+  airbnb: {
+    pricePerNight: 45,
+    cleaningFee: 25,
+    extraGuestFeePerNight: 10,
+    maxGuestsIncluded: 1,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 0,
+    cleaningFee: 0,
+    platformFeePercentage: 0.15
+  },
+},
+]
+
+
 
 
 
@@ -725,11 +898,19 @@ const copyAvailableApartments = () => {
     return;
   }
 
-  const paymentInfo = `Formas de pago  
-Airbnb → Tarjeta moneda extranjera o PayPal (descuento)  
-Estei → Bs. (TASA BCV)  
-Directo → Zelle o efectivo (USD, descuento) + depósito reembolsable (aplica <15 días)  
-Si pagas en efectivo al llegar, el depósito debe enviarse antes por Zelle/Pago Móvil
+  const paymentInfo = `Cómo reservar y pagar
+
+1️⃣ Por aplicaciones (Airbnb / Estéi)
+
+Reserva directamente desde el link del apartamento.
+• Airbnb: tarjeta internacional o PayPal
+• Estéi: Bolívares (tasa BCV)
+No requiere depósito.
+
+2️⃣ Directo con nosotros
+
+Si no puedes usar las aplicaciones, puedes reservar directo.
+• Requiere depósito reembolsable, devuelto al finalizar la estadía.
 `;
 
   // Función para calcular depósito según noches
