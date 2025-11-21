@@ -414,7 +414,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 100,
+      pricePerNight: 105,
       cleaningFee: 50,
       platformFeePercentage: 0.15
     },
@@ -1009,6 +1009,32 @@ Directo Bs.: $${r.esteiPrice} + Depósito $${deposit}${index !== availableApts.l
 };
 
 
+const copySingleApartment = (apt) => {
+  const nightsLabel = apt.nights === 1 ? `${apt.nights} noche` : `${apt.nights} noches`;
+
+  const getDeposit = (n) => {
+    if (n === 2) return 130;
+    if (n === 3) return 150;
+    if (n >= 4 && n <= 7) return 250;
+    if (n >= 8 && n <= 15) return 500;
+    if (n >= 16 && n <= 30) return 750;
+    return 1000;
+  };
+
+  const deposit = getDeposit(apt.nights);
+
+  const text = `
+📍 *${apt.name}* — ${nightsLabel} (${apt.rooms}H / ${apt.baths}B / máx. ${apt.capacity} pers.)
+
+USD: $${apt.airbnbPrice} → ${apt.airbnbLink}
+Bolívares (BCV): $${apt.esteiPrice} → ${apt.esteiLink}
+
+Directo USD: $${apt.airbnbPrice} + Depósito $${deposit}
+Directo Bs.: $${apt.esteiPrice} + Depósito $${deposit}
+`;
+
+  copyToClipboard(text);
+};
 
   
 
@@ -1151,43 +1177,62 @@ return (
       {/* Resultados */}
       <div style={{ marginTop: "2rem" }}>
         {loading && <p>Cargando...</p>}
-        {!loading &&
-          results.map((r, i) => (
-            <div
-              key={i}
-              className="result-item"
-              style={{ borderBottom: "1px solid #ccc", paddingBottom: 15, marginBottom: 15 }}
+       {!loading &&
+  results.map((r, i) => (
+    <div
+      key={i}
+      className="result-item"
+      style={{ borderBottom: "1px solid #ccc", paddingBottom: 15, marginBottom: 15 }}
+    >
+      <div className="result-info">
+        <h3>📍 {r.name}</h3>
+        <p>
+          ({r.rooms} hab / {r.baths} baños · Máx. {r.capacity} personas)
+        </p>
+        {r.isAvailable ? (
+          <>
+            <p>
+              ✅ Disponible — Airbnb: ${r.airbnbPrice} / Estei: ${r.esteiPrice} en {r.nights} noches
+            </p>
+            <p>💳 Pay via Airbnb o Pago móvil, Tasa BCV, Transferencia y Zelle para Estei</p>
+            <p>
+              <a href={r.airbnbLink} target="_blank" rel="noopener noreferrer">
+                Ver en Airbnb
+              </a>
+            </p>
+
+            {/* ⭐⭐⭐ AQUI VA EL BOTÓN ⭐⭐⭐ */}
+            <button
+              onClick={() => copySingleApartment(r)}
+              style={{
+                marginTop: "10px",
+                padding: "0.4rem 0.7rem",
+                backgroundColor: "#2563eb",
+                color: "white",
+                borderRadius: 6,
+                cursor: "pointer",
+              }}
             >
-              <div className="result-info">
-                <h3>📍 {r.name}</h3>
-                <p>
-                  ({r.rooms} hab / {r.baths} baños · Máx. {r.capacity} personas)
-                </p>
-                {r.isAvailable ? (
-                  <>
-                    <p>
-                      ✅ Disponible — Airbnb: ${r.airbnbPrice} / Estei: ${r.esteiPrice} en {r.nights} noches
-                    </p>
-                    <p>💳 Pay via Airbnb o Pago móvil, Tasa BCV, Transferencia y Zelle para Estei</p>
-                    <p>
-                      <a href={r.airbnbLink} target="_blank" rel="noopener noreferrer">
-                        Ver en Airbnb
-                      </a>
-                    </p>
-                  </>
-                ) : (
-                  <p style={{ color: "#dc2626" }}>❌ No disponible</p>
-                )}
-              </div>
-              <div className="calendar-container" style={{ marginTop: 10 }}>
-                <CalendarioPropiedad
-                  nombre={r.name}
-                  reservas={r.reservas}
-                  currentDate={dateRange[0].startDate}
-                />
-              </div>
-            </div>
-          ))}
+              📋 Copiar Presupuesto
+            </button>
+            {/* ⭐⭐⭐ FIN ⭐⭐⭐ */}
+
+          </>
+        ) : (
+          <p style={{ color: "#dc2626" }}>❌ No disponible</p>
+        )}
+      </div>
+
+      <div className="calendar-container" style={{ marginTop: 10 }}>
+        <CalendarioPropiedad
+          nombre={r.name}
+          reservas={r.reservas}
+          currentDate={dateRange[0].startDate}
+        />
+      </div>
+    </div>
+  ))}
+
       </div>
     </>
   </div>
