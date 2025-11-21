@@ -21,6 +21,7 @@ const calendars = [
     name: "Chacao",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1385011718927994475.ics?s=4e4d11b7c6db289a9012851c43364d23&locale=en",
+    esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/1473257424-stay-17432889927468941438.ics",
     capacity: 4,
     rooms: 2,
     baths: 1,
@@ -45,6 +46,7 @@ const calendars = [
     name: "Boleita",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1343681520860355629.ics?s=a2d96f7fe387a7d3e27ce41d275f4a33&locale=es-XL",
+    esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/1996747011-stay-17382856932068656972.ics",
     capacity: 2,
     rooms: 1,
     baths: 2,
@@ -69,6 +71,7 @@ const calendars = [
     name: "Sebucán 2",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/964770823228978238.ics?s=18f5ceadceadf4e409822ee1c533f555&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/4173194429-stay-17324639709782356499.ics",
     capacity: 3,
     rooms: 1,
     baths: 1,
@@ -93,6 +96,7 @@ const calendars = [
     name: "Paraíso",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1442428798352266133.ics?s=32dd2a635d95604c8754d606ac0ba4a2&locale=en",
+    esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/2928268937-stay-17503280947540278330.ics",
     capacity: 6,
     rooms: 3,
     baths: 2,
@@ -117,6 +121,7 @@ const calendars = [
     name: "Campiña",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1332629584763087489.ics?s=d90bafbfe647f3451520a54fc98d2522&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/144124055-stay-17362995794045266032.ics",
     capacity: 6,
     rooms: 3,
     baths: 2,
@@ -142,6 +147,7 @@ const calendars = [
     name: "Sebucán 1",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/40759881.ics?s=e236ee10e178f24d224d1ea7f9e12925&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/2914190771-stay-17322691782694977756.ics",
     capacity: 5,
     rooms: 2,
     baths: 1,
@@ -166,6 +172,7 @@ const calendars = [
     name: "Castellana",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1052345592684699011.ics?s=b39c437d942da1cb8375fbd233e671a1&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/257750876-stay-17339822030440348612.ics",
     capacity: 3,
     rooms: 1,
     baths: 1.5,
@@ -190,6 +197,7 @@ const calendars = [
     name: "POZ",
      estado: "POZ",
     url: "https://www.airbnb.com/calendar/ical/1419766431038404560.ics?s=9fe0c131ba2c39be3af7230db3461881&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/2214294779-stay-17501850674216020372.ics",
     capacity: 4,
     rooms: 2,
     baths: 2,
@@ -214,6 +222,7 @@ const calendars = [
     name: "Trinidad",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/776060327262601969.ics?s=cb72b5158ad102d5754c8e8f0e81f693&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/730506826-stay-17332148220206977372.ics",
     capacity: 5,
     rooms: 2,
     baths: 2,
@@ -238,6 +247,7 @@ const calendars = [
     name: "Altamira 2",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1376869011851689626.ics?s=143f61f625f9871c9445dd846750b66e&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/1855016593-stay-17422034755364752882.ics",
     capacity: 6,
     rooms: 3,
     baths: 2,
@@ -263,6 +273,7 @@ const calendars = [
     name: "Rosal 2",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1373858155228586698.ics?s=a184d3528e9f3531fe05dad8faf344d5&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/3178869625-stay-17411824245292709348.ics",
     capacity: 3,
     rooms: 1,
     baths: 2,
@@ -287,6 +298,7 @@ const calendars = [
     name: "Bosque",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/636792226561707165.ics?s=624b00af94ab746c0fda9e260815c4ff&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/2484821531-stay-17284832244356034483.ics",
     capacity: 2,
     rooms: 1,
     baths: 2,
@@ -311,6 +323,7 @@ const calendars = [
     name: "Campo Alegre",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1041478066555189255.ics?s=9eafad6bbfe0f40f8ef3db4df0d47177&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/3122756129-stay-17333322201196982163.ics",
     capacity: 3,
     rooms: 1,
     baths: 1,
@@ -335,6 +348,7 @@ const calendars = [
     name: "Rosal",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1184965554998685991.ics?s=0ef8c9534f70a74ace217830dd15203e&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/1334933393-stay-17334886485220080855.ics",
     capacity: 2,
     rooms: 1,
     baths: 1,
@@ -359,6 +373,7 @@ const calendars = [
     name: "Rosal3",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1486888471879683465.ics?s=34dd75f8aeb08666e2183229ef88af32&locale=es-XL",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/1855876766-stay-17551817479231016224.ics",
     capacity: 5,
     rooms: 2,
     baths: 2,
@@ -383,6 +398,7 @@ const calendars = [
     name: "Altamira 1",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/968382219685565525.ics?s=e625583fa5cfc2188515639424cac8a1&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/2474076535-stay-17325007819524651943.ics",
     capacity: 6,
     rooms: 3,
     baths: 2,
@@ -408,6 +424,7 @@ const calendars = [
     name: "Barquisimeto",
     estado: "Barquisimeto",
     url: "https://www.airbnb.com/calendar/ical/1329992387476344688.ics?s=240d6400f1397c4acbfb22187cc80029&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/3761257520-stay-17361284393152580414.ics",
     capacity: 6,
     rooms: 3,
     baths: 2,
@@ -460,11 +477,12 @@ const calendars = [
     name: "La Guaira",
     estado: "La Guaira",
     url: "https://www.airbnb.com/calendar/ical/943785244844973207.ics?s=76642b6add65ffeac42bc7977c4324b5&locale=en",
+     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/4238222494-stay-17362578953146424770.ics",
     capacity: 5,
     rooms: 2,
     baths:2,
     airbnbLink: "https://www.airbnb.com/l/WlpePz5e",
-    esteiLink: "#",
+    esteiLink: "https://estei.app/stay/17362578953146424770/profile?guests=1&arrival_date=2026-02-01&departure_date=2026-02-03",
     airbnb: {
       pricePerNight: 90,
       cleaningFee: 35,
@@ -511,8 +529,10 @@ const calendars = [
 
  {
   name: "Apartamento Panorámico con Planta Eléctrica y Pozo",
+  
   estado: "Maracaibo",
   url: "https://www.airbnb.co.ve/calendar/ical/1236421312796299870.ics?s=a6ceab9ad1e1ae6146b2f39dd5082d6d",
+   esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/1421191605-stay-17377878151510675621.ics",
   capacity: 9,
   rooms: 5,
   baths: 5.5,
@@ -538,6 +558,7 @@ const calendars = [
   name: "Apt de lujo, 5 hab, piscina y vista al lago",
   estado: "Maracaibo",
   url: "https://www.airbnb.co.ve/calendar/ical/1487058676175453143.ics?s=b30ddf70122a2023544022e7e83d9d34",
+   esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/168939025-stay-17563892666605964165.ics",
   capacity: 9,
   rooms: 5,
   baths: 5.5,
@@ -562,6 +583,7 @@ const calendars = [
   name: "Relax y vista insuperable en el Milagro con 4H+4B",
   estado: "Maracaibo",
   url: "https://www.airbnb.co.ve/calendar/ical/1508336810645062616.ics?s=6b0b830243ed4e7fcfc5356cfaa16ec5",
+   esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/2688266043-stay-17565032145339330524.ics",
   capacity: 6,
   rooms: 4,
   baths: 4.5,
@@ -586,6 +608,7 @@ const calendars = [
   name: "Acogedor apto - cocina equipada",
   estado: "Maracaibo",
   url: "https://www.airbnb.co.ve/calendar/ical/1389198391472630431.ics?s=9d69d8e04a6ba73d4c12e3336f5139fe",
+   esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/3533338522-stay-17483089366375025123.ics",
   capacity: 4,
   rooms: 2,
   baths: 1,
@@ -610,6 +633,7 @@ const calendars = [
   name: "Apartamento moderno y seguro en Viento Norte",
   estado: "Maracaibo",
   url: "https://www.airbnb.co.ve/calendar/ical/1428495104850535793.ics?s=67c22f50814cbf351d6b51872c1fb1b4",
+   esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/2698274004-stay-17481197854059978676.ics",
   capacity: 4,
   rooms: 2,
   baths: 2,
@@ -634,6 +658,7 @@ const calendars = [
   name: "Comodidad a pasos del Sambil - 2 hab 2 baños",
   estado: "Maracaibo",
   url: "https://www.airbnb.co.ve/calendar/ical/1527183806348918468.ics?s=039c5d57644f9b3b852b362eac5fbf71",
+   esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/349832410-stay-17624979618330213286.ics",
   capacity: 4,
   rooms: 2,
   baths: 2,
@@ -658,6 +683,7 @@ const calendars = [
   name: "Penthouse de Ensueño -Terraza y Vistas Panorámicas",
   estado: "Maracaibo",
   url: "https://www.airbnb.co.ve/calendar/ical/1067409956723404896.ics?s=df0a8b14727df88dc3406881d863774a",
+   esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/2933938144-stay-17261876211180782474.ics",
   capacity: 8,
   rooms: 4,
   baths: 4,
@@ -778,104 +804,137 @@ function App() {
     const output = [];
 
     // Filtrar solo los apartamentos del estado seleccionado
-    const filteredCalendars = calendars.filter(
-      (cal) => cal.estado === selectedEstado && cal.capacity >= people
-    );
+  const filteredCalendars = calendars.filter(
+  (cal) => cal.estado === selectedEstado && cal.capacity >= people
+);
 
-    for (const cal of filteredCalendars) {
+for (const cal of filteredCalendars) {
+  try {
+    let reservas = [];
+
+    // ---------- AIRBNB ----------
+    try {
+      const proxyUrl = `${BASE_URL}/proxy?url=${encodeURIComponent(cal.url)}`;
+      const res = await fetch(proxyUrl);
+      const text = await res.text();
+
+      const jcalData = ICAL.parse(text);
+      const comp = new ICAL.Component(jcalData);
+      const events = comp.getAllSubcomponents("vevent");
+
+      const airbnbReservas = events
+        .map((e) => {
+          const ev = new ICAL.Event(e);
+          return {
+            start: ev.startDate.toJSDate(),
+            end: ev.endDate.toJSDate()
+          };
+        })
+        .filter((r) => r.start && r.end);
+
+      reservas = reservas.concat(airbnbReservas);
+    } catch (err) {
+      console.error(`Error al procesar iCal Airbnb de ${cal.name}`, err);
+    }
+
+    // ---------- ESTEI ----------
+    if (cal.esteiUrl) {
       try {
-        const proxyUrl = `${BASE_URL}/proxy?url=${encodeURIComponent(cal.url)}`;
-        const res = await fetch(proxyUrl);
-        const text = await res.text();
+        const proxyUrlEstei = `${BASE_URL}/proxy?url=${encodeURIComponent(cal.esteiUrl)}`;
+        const resEstei = await fetch(proxyUrlEstei);
+        const textEstei = await resEstei.text();
 
-        const jcalData = ICAL.parse(text);
-        const comp = new ICAL.Component(jcalData);
-        const events = comp.getAllSubcomponents("vevent");
+        const jcalDataEstei = ICAL.parse(textEstei);
+        const compEstei = new ICAL.Component(jcalDataEstei);
+        const eventsEstei = compEstei.getAllSubcomponents("vevent");
 
-        const reservas = events
+        const esteiReservas = eventsEstei
           .map((e) => {
             const ev = new ICAL.Event(e);
-            return { start: ev.startDate.toJSDate(), end: ev.endDate.toJSDate() };
+            return {
+              start: ev.startDate.toJSDate(),
+              end: ev.endDate.toJSDate()
+            };
           })
           .filter((r) => r.start && r.end);
 
-        const isAvailable = !reservas.some((r) => rangesOverlap(from, to, r.start, r.end));
-
-        
-const a = cal.airbnb;
-const aExtraGuests = Math.max(0, people - a.maxGuestsIncluded);
-const aNightsPrice = a.pricePerNight * nights;
-const aExtraGuestPrice = a.extraGuestFeePerNight * aExtraGuests * nights;
-
-// Aplicar descuento SOLO sobre el precio base por noche
-let discountedNightsPrice = aNightsPrice;
-if (nights >= 7 && nights < 26) {
-  discountedNightsPrice *= (1 - a.discountWeek);
-} else if (nights >= 26) {
-  discountedNightsPrice *= (1 - a.discountMonth);
-}
-
-// Precio base + huéspedes extra sin descuento
-const aBaseWithDiscount = discountedNightsPrice + aExtraGuestPrice;
-
-// Limpieza SIN impuestos
-const cleaningFee = a.cleaningFee;
-
-const aSubtotalWithCleaning = aBaseWithDiscount + cleaningFee;
-
-// Comisión plataforma
-const aPlatformFee = aSubtotalWithCleaning * (a.platformFeeRate || 0.1411);
-
-// Precio total redondeado
-let aTotalPrice = aSubtotalWithCleaning + aPlatformFee;
-aTotalPrice = Math.round(aTotalPrice * 100) / 100;
-
-
-
-
-
-// Estei price calc
-const e = cal.estei;
-const eNightsPrice = e.pricePerNight * nights;
-const eExtraGuests = Math.max(0, people - (e.maxGuestsIncluded || 2));
-const eExtraGuestPrice = (e.extraGuestFeePerNight || 0) * eExtraGuests * nights;
-const eCleaningFee = e.cleaningFee || 0;
-
-let eSubtotal = eNightsPrice + eExtraGuestPrice + eCleaningFee;
-let eDiscount = 0;
-if (nights >= 7 && nights < 30) eDiscount = eNightsPrice * (e.discountWeek || 0);
-else if (nights >= 30) eDiscount = eNightsPrice * (e.discountMonth || 0);
-const ePlatformFee = eSubtotal * (e.platformFeePercentage || 0);
-let eTotalPrice = eSubtotal + ePlatformFee - eDiscount;
-
-// Aplicar descuento personalizado solo si el rango de fecha del descuento se superpone con el rango buscado
-const discountPercent = customDiscounts[cal.name] || 0;
-const dr = discountDateRanges[cal.name];
-const hasDiscountRange = dr && dr.startDate && dr.endDate;
-
-if (discountPercent > 0 && hasDiscountRange && rangesOverlap(from, to, dr.startDate, dr.endDate)) {
-  aTotalPrice = aTotalPrice * (1 - discountPercent / 100);
-  eTotalPrice = eTotalPrice * (1 - discountPercent / 100);
-}
-
-
-        output.push({
-          name: cal.name,
-          nights,
-          capacity: cal.capacity,
-          rooms: cal.rooms,
-          baths: cal.baths,
-          airbnbLink: cal.airbnbLink,
-          esteiLink: cal.esteiLink,
-          reservas,
-          isAvailable,
-          airbnbPrice: aTotalPrice.toFixed(2),
-          esteiPrice: eTotalPrice.toFixed(2),
-        });
+        reservas = reservas.concat(esteiReservas);
       } catch (err) {
-        console.error(`Error al procesar ${cal.name}`, err);
+        console.error(`Error al procesar iCal Estéi de ${cal.name}`, err);
       }
     }
+
+    // ---------- DISPONIBILIDAD ----------
+    const isAvailable = !reservas.some((r) =>
+      rangesOverlap(from, to, r.start, r.end)
+    );
+
+    // ---------- AIRBNB PRICE ----------
+    const a = cal.airbnb;
+    const aExtraGuests = Math.max(0, people - a.maxGuestsIncluded);
+    const aNightsPrice = a.pricePerNight * nights;
+    const aExtraGuestPrice = a.extraGuestFeePerNight * aExtraGuests * nights;
+
+    let discountedNightsPrice = aNightsPrice;
+    if (nights >= 7 && nights < 26) {
+      discountedNightsPrice *= (1 - a.discountWeek);
+    } else if (nights >= 26) {
+      discountedNightsPrice *= (1 - a.discountMonth);
+    }
+
+    const aBaseWithDiscount = discountedNightsPrice + aExtraGuestPrice;
+    const cleaningFee = a.cleaningFee;
+    const aSubtotalWithCleaning = aBaseWithDiscount + cleaningFee;
+    const aPlatformFee = aSubtotalWithCleaning * (a.platformFeeRate || 0.1411);
+
+    let aTotalPrice = aSubtotalWithCleaning + aPlatformFee;
+    aTotalPrice = Math.round(aTotalPrice * 100) / 100;
+
+    // ---------- ESTEI PRICE ----------
+    const e = cal.estei;
+    const eNightsPrice = e.pricePerNight * nights;
+    const eExtraGuests = Math.max(0, people - (e.maxGuestsIncluded || 2));
+    const eExtraGuestPrice = (e.extraGuestFeePerNight || 0) * eExtraGuests * nights;
+    const eCleaningFee = e.cleaningFee || 0;
+
+    let eSubtotal = eNightsPrice + eExtraGuestPrice + eCleaningFee;
+    let eDiscount = 0;
+    if (nights >= 7 && nights < 30) eDiscount = eNightsPrice * (e.discountWeek || 0);
+    else if (nights >= 30) eDiscount = eNightsPrice * (e.discountMonth || 0);
+
+    const ePlatformFee = eSubtotal * (e.platformFeePercentage || 0);
+    let eTotalPrice = eSubtotal + ePlatformFee - eDiscount;
+
+    // ---------- DESCUENTO PERSONALIZADO ----------
+    const discountPercent = customDiscounts[cal.name] || 0;
+    const dr = discountDateRanges[cal.name];
+    const hasDiscountRange = dr && dr.startDate && dr.endDate;
+
+    if (discountPercent > 0 && hasDiscountRange && rangesOverlap(from, to, dr.startDate, dr.endDate)) {
+      aTotalPrice = aTotalPrice * (1 - discountPercent / 100);
+      eTotalPrice = eTotalPrice * (1 - discountPercent / 100);
+    }
+
+    // ---------- PUSH OUTPUT ----------
+    output.push({
+      name: cal.name,
+      nights,
+      capacity: cal.capacity,
+      rooms: cal.rooms,
+      baths: cal.baths,
+      airbnbLink: cal.airbnbLink,
+      esteiLink: cal.esteiLink,
+      reservas,
+      isAvailable,
+      airbnbPrice: aTotalPrice.toFixed(2),
+      esteiPrice: eTotalPrice.toFixed(2),
+    });
+
+  } catch (err) {
+    console.error(`Error al procesar ${cal.name}`, err);
+  }
+}
+
 
     setResults(output);
     setLoading(false);
