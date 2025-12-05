@@ -26,7 +26,7 @@ const calendars = [
     rooms: 2,
     baths: 1,
     airbnbLink: "airbnb.com/h/chacaoccs",
-    esteiLink:  "https://surl.lu/cnsvgv",
+    esteiLink:  "https://surl.li/mzmqcd",
     airbnb: {
       pricePerNight: 85,
       cleaningFee: 35,
@@ -51,7 +51,7 @@ const calendars = [
     rooms: 1,
     baths: 2,
     airbnbLink: "https://www.airbnb.com/l/KQlHkFXF",
-    esteiLink:  "https://short-url.org/1f00f ",
+    esteiLink:  "https://surl.li/esteiboleita ",
     airbnb: {
       pricePerNight: 55,
       cleaningFee: 40,
@@ -76,7 +76,7 @@ const calendars = [
     rooms: 1,
     baths: 1,
     airbnbLink: "airbnb.com/h/sebucanii",
-    esteiLink: "https://surl.li/fxdhwn",
+    esteiLink: "https://surl.li/esteisebucan2",
     airbnb: {
       pricePerNight: 55,
       cleaningFee: 35,
@@ -101,7 +101,7 @@ const calendars = [
     rooms: 3,
     baths: 2,
     airbnbLink: "airbnb.com/h/elparaisoccs",
-    esteiLink: "https://surl.lu/lefqgb",
+    esteiLink: "https://surl.li/esteiparaiso",
     airbnb: {
       pricePerNight: 50,
       cleaningFee: 50,
@@ -126,7 +126,7 @@ const calendars = [
     rooms: 3,
     baths: 2,
     airbnbLink: "airbnb.com/h/lacampinaccs",
-    esteiLink: "https://goo.su/orcTbU",
+    esteiLink: "https://surl.li/esteicampina",
     airbnb: {
       pricePerNight: 65,
       cleaningFee: 35,
@@ -152,7 +152,7 @@ const calendars = [
     rooms: 2,
     baths: 1,
     airbnbLink: "airbnb.com/h/aptosebucanccs",
-    esteiLink: "https://goo.su/oie40",
+    esteiLink: "https://surl.li/esteisebucan1",
     airbnb: {
       pricePerNight: 60,
       cleaningFee: 35,
@@ -177,7 +177,7 @@ const calendars = [
     rooms: 1,
     baths: 1.5,
     airbnbLink: "airbnb.com/h/lacastellanaccs",
-    esteiLink: "https://surl.lu/iozjba",
+    esteiLink: "https://surl.li/esteicastellana",
     airbnb: {
       pricePerNight: 90,
       cleaningFee: 40,
@@ -227,7 +227,7 @@ const calendars = [
     rooms: 2,
     baths: 2,
     airbnbLink: "airbnb.com/h/latrinidadccs",
-    esteiLink: "https://goo.su/HMKHf",
+    esteiLink: "https://surl.li/esteitrinidad",
     airbnb: {
       pricePerNight: 50,
       cleaningFee: 35,
@@ -252,7 +252,7 @@ const calendars = [
     rooms: 3,
     baths: 2,
     airbnbLink: "airbnb.com/h/altamiraccs2",
-    esteiLink: "https://surl.li/ktbyuw",
+    esteiLink: "https://surl.li/esteialtamira2",
     airbnb: {
       pricePerNight: 90,
       cleaningFee: 50,
@@ -278,7 +278,7 @@ const calendars = [
     rooms: 1,
     baths: 2,
     airbnbLink: "airbnb.com/h/elrosalccs2",
-    esteiLink: "https://surl.li/veqvvk",
+    esteiLink: "https://surl.li/esteirosal2",
     airbnb: {
       pricePerNight: 90,
       cleaningFee: 40,
@@ -303,7 +303,7 @@ const calendars = [
     rooms: 1,
     baths: 2,
     airbnbLink: "airbnb.com/h/elbosqueccs",
-    esteiLink: "https://surl.lu/fazirv",
+    esteiLink: "https://surl.li/esteibosque",
     airbnb: {
       pricePerNight: 65,
       cleaningFee: 40,
@@ -328,7 +328,7 @@ const calendars = [
     rooms: 1,
     baths: 1,
     airbnbLink: "airbnb.com/h/campoalegreccs",
-    esteiLink: "https://surl.li/oewjkf",
+    esteiLink: "https://surl.li/esteicampoalegre",
     airbnb: {
       pricePerNight: 90,
       cleaningFee: 40,
@@ -353,7 +353,7 @@ const calendars = [
     rooms: 1,
     baths: 1,
     airbnbLink: "airbnb.com/h/elrosalccs",
-    esteiLink: "https://surl.li/qeapdw",
+    esteiLink: "https://surl.li/esteirosal",
     airbnb: {
       pricePerNight: 75,
       cleaningFee: 35,
@@ -378,7 +378,7 @@ const calendars = [
     rooms: 2,
     baths: 2,
     airbnbLink: "airbnb.com/h/rosal3-2hab",
-    esteiLink: "https://short-url.org/1hAzi",
+    esteiLink: "https://surl.li/esteirosal3",
     airbnb: {
       pricePerNight: 90,
       cleaningFee: 45,
@@ -403,7 +403,7 @@ const calendars = [
     rooms: 3,
     baths: 2,
     airbnbLink: "airbnb.com/h/lafloresta-altamira",
-    esteiLink: "https://surl.li/etwute",
+    esteiLink: "https://surl.li/esteialtamira1",
     airbnb: {
       pricePerNight: 70,
       cleaningFee: 45,
@@ -429,7 +429,7 @@ const calendars = [
     rooms: 3,
     baths: 2,
     airbnbLink: "https://www.airbnb.com/l/qr0k7RQY",
-    esteiLink: "https://surli.cc/uketkt",
+    esteiLink: "https://surl.li/esteibqto",
     airbnb: {
       pricePerNight: 60,
       cleaningFee: 35,
