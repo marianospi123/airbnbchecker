@@ -731,6 +731,32 @@ const calendars = [
 },
 
 {
+  name: "El Bosque MCY — Bosque IV (PB con Terraza)",
+  estado: "Maracay",
+  url: "https://www.airbnb.com/calendar/ical/1572045439500125799.ics?s=860ebf3997bd5d51cf865381ea2624df&locale=es-XL",
+  esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/67837963-stay-17651549041258793067.ics",
+  capacity: 3,
+  rooms: 1,
+  baths: 1,
+  airbnbLink: "https://www.airbnb.com/l/BmUrVF9g",
+  esteiLink: "https://estei.app/stay/17651549041258793067/profile",
+  airbnb: {
+    pricePerNight: 75,
+    cleaningFee: 35,
+    extraGuestFeePerNight: 10,
+    maxGuestsIncluded: 2,
+    discountWeek: 0,
+    discountMonth: 0,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 70,
+    cleaningFee: 30,
+    platformFeePercentage: 0.15
+  },
+},
+
+{
   name: "Paraíso Familiar en Isla Margarita",
   estado: "Margarita",
   url: "https://www.airbnb.co.ve/calendar/ical/1354618645998155424.ics?s=867f81c1c97841b53330fc62c4e3bdf1",
