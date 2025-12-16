@@ -6,6 +6,18 @@ const admin = require("firebase-admin"); // <-- se mantiene solo este
 const fetch = require("node-fetch");
 const ICAL = require("ical.js");
 
+
+// =======================
+// GOOGLE APPS SCRIPT CONFIG
+// =======================
+const GS_BASE =
+  process.env.GS_BASE ||
+  "https://script.google.com/macros/s/AKfycbz0-aMETzx3oddL1e6nAScOCwOBo6cZ817o8VBo-6u1FPpouutNEctQp6ut7jHF0Hsk/exec";
+
+const GS_TOKEN =
+  process.env.GS_TOKEN || "huespedex_api_2025_super_seguro_9f8a7s6d";
+
+
 const app = express();
 app.use(express.json());
 
@@ -191,76 +203,66 @@ app.post("/api/fcm-token", (req, res) => {
 });
 
 
-// -------------------
-// PROXY GOOGLE APPS SCRIPT (META / RESERVAS ADMIN)
-// -------------------
-const GS_BASE =
-  "https://script.google.com/macros/s/AKfycbz0-aMETzx3oddL1e6nAScOCwOBo6cZ817o8VBo-6u1FPpouutNEctQp6ut7jHF0Hsk/exec";
+function safeJsonFromResponse(text) {
+  try { return JSON.parse(text); }
+  catch { return { ok: false, error: "Respuesta no JSON desde Apps Script", raw: text.slice(0, 400) }; }
+}
 
-// ⚠️ MUY recomendado mover esto a .env luego
-const GS_TOKEN = "huespedex_api_2025_super_seguro_9f8a7s6d";
-
-// GET META (apartamentos, meses, años)
+// GET META
 app.get("/api/gs/meta", async (req, res) => {
   try {
     const url = `${GS_BASE}?action=meta&token=${encodeURIComponent(GS_TOKEN)}`;
     const r = await fetch(url, { redirect: "follow" });
-    const data = await r.json();
-    res.json(data);
+    const text = await r.text();
+    const data = safeJsonFromResponse(text);
+    res.status(r.ok ? 200 : r.status).json(data);
   } catch (e) {
     console.error("GS meta error:", e);
     res.status(500).json({ ok: false, error: e.message || "GS meta error" });
   }
 });
 
-// GET RESERVAS (filtradas)
+// GET RESERVAS
 app.get("/api/gs/reservas", async (req, res) => {
   try {
     const { apartamento = "", mes = "", ano = "" } = req.query;
-
-    const qs = new URLSearchParams({
-      action: "reservas",
-      token: GS_TOKEN,
-      apartamento,
-      mes,
-      ano,
-    });
-
+    const qs = new URLSearchParams({ action: "reservas", token: GS_TOKEN, apartamento, mes, ano });
     const url = `${GS_BASE}?${qs.toString()}`;
     const r = await fetch(url, { redirect: "follow" });
-    const data = await r.json();
-    res.json(data);
+    const text = await r.text();
+    const data = safeJsonFromResponse(text);
+    res.status(r.ok ? 200 : r.status).json(data);
   } catch (e) {
     console.error("GS reservas error:", e);
     res.status(500).json({ ok: false, error: e.message || "GS reservas error" });
   }
 });
 
-// POST UPDATE RESERVA
+// POST UPDATE
 app.post("/api/gs/update-reserva", async (req, res) => {
   try {
     const r = await fetch(GS_BASE, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      redirect: "follow",
       body: JSON.stringify({
         action: "update_reserva",
         token: GS_TOKEN,
         id_unico: req.body.id_unico,
         fields: req.body.fields,
       }),
-      redirect: "follow",
     });
 
-    const data = await r.json();
-    res.json(data);
+    const text = await r.text();
+    const data = safeJsonFromResponse(text);
+    res.status(r.ok ? 200 : r.status).json(data);
   } catch (e) {
     console.error("GS update error:", e);
     res.status(500).json({ ok: false, error: e.message || "GS update error" });
   }
 });
 
-
-// POST CREATE RESERVA
+// POST CREATE
 app.post("/api/gs/create-reserva", async (req, res) => {
   try {
     const r = await fetch(GS_BASE, {
@@ -270,17 +272,19 @@ app.post("/api/gs/create-reserva", async (req, res) => {
       body: JSON.stringify({
         action: "create_reserva",
         token: GS_TOKEN,
-        fields: req.body.fields, // <- viene del frontend
+        fields: req.body.fields,
       }),
     });
 
-    const data = await r.json();
-    res.json(data);
+    const text = await r.text();
+    const data = safeJsonFromResponse(text);
+    res.status(r.ok ? 200 : r.status).json(data);
   } catch (e) {
     console.error("GS create reserva error:", e);
     res.status(500).json({ ok: false, error: e.message || "GS create error" });
   }
 });
+
 
 
 // -------------------
@@ -312,17 +316,28 @@ const calendars = require("./calendars.js"); // <-- tu array de propiedades
 function rangesOverlap(start1, end1, start2, end2) {
   return start1 < end2 && start2 < end1;
 }
-
 app.get("/api/availability", async (req, res) => {
   const { from, to, people, estado } = req.query;
+
   if (!from || !to || !people || !estado) {
     return res.status(400).json({ error: "Faltan parámetros (from, to, people, estado)" });
+  }
+
+  const cacheKey = getCacheKey({ from, to, people, estado });
+  const cached = availabilityCache.get(cacheKey);
+
+  // ✅ DEVUELVE CACHE SI AÚN ES VÁLIDO
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    return res.json(cached.data);
   }
 
   const startDate = new Date(from);
   const endDate = new Date(to);
   const nights = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
   if (nights <= 0) return res.status(400).json({ error: "Rango de fechas inválido" });
+
+  // ✅ base URL real (Render / Local)
+  const base = `${req.protocol}://${req.get("host")}`;
 
   const output = [];
   const filteredCalendars = calendars.filter(
@@ -331,17 +346,16 @@ app.get("/api/availability", async (req, res) => {
 
   for (const cal of filteredCalendars) {
     try {
-      let text = "";
       let isAvailable = false;
       let airbnbPrice = null;
       let esteiPrice = null;
       let errorMsg = null;
 
       try {
-        const proxyUrl = `${process.env.BASE_URL || "http://localhost:" + PORT}/proxy?url=${encodeURIComponent(cal.url)}`;
+        const proxyUrl = `${base}/proxy?url=${encodeURIComponent(cal.url)}`;
         const resp = await fetch(proxyUrl);
         if (!resp.ok) throw new Error(`No se pudo obtener el ICS de ${cal.name}`);
-        text = await resp.text();
+        const text = await resp.text();
 
         const jcalData = ICAL.parse(text);
         const comp = new ICAL.Component(jcalData);
@@ -352,29 +366,35 @@ app.get("/api/availability", async (req, res) => {
           return { start: ev.startDate.toJSDate(), end: ev.endDate.toJSDate() };
         });
 
-        isAvailable = !reservas.some((r) => rangesOverlap(startDate, endDate, r.start, r.end));
+        isAvailable = !reservas.some((r) =>
+          rangesOverlap(startDate, endDate, r.start, r.end)
+        );
 
-        // === PRECIO AIRBNB ===
+        // === AIRBNB ===
         const a = cal.airbnb;
-        const extraGuests = Math.max(0, people - a.maxGuestsIncluded);
+        const extraGuests = Math.max(0, parseInt(people) - a.maxGuestsIncluded);
         const baseNightsPrice = a.pricePerNight * nights;
         const extraGuestPrice = a.extraGuestFeePerNight * extraGuests * nights;
+
         let discounted = baseNightsPrice;
         if (nights >= 7 && nights < 26) discounted *= (1 - a.discountWeek);
         else if (nights >= 26) discounted *= (1 - a.discountMonth);
+
         const subtotal = discounted + extraGuestPrice + a.cleaningFee;
         const platformFee = subtotal * (a.platformFeeRate || 0.1411);
         airbnbPrice = Math.round((subtotal + platformFee) * 100) / 100;
 
-        // === PRECIO ESTEI ===
+        // === ESTEI ===
         const e = cal.estei;
         const eNightsPrice = e.pricePerNight * nights;
-        const eExtraGuests = Math.max(0, people - (e.maxGuestsIncluded || 2));
+        const eExtraGuests = Math.max(0, parseInt(people) - (e.maxGuestsIncluded || 2));
         const eExtraGuestPrice = (e.extraGuestFeePerNight || 0) * eExtraGuests * nights;
+
         const eSubtotal = eNightsPrice + eExtraGuestPrice + (e.cleaningFee || 0);
         let eDiscount = 0;
         if (nights >= 7 && nights < 30) eDiscount = eNightsPrice * (e.discountWeek || 0);
         else if (nights >= 30) eDiscount = eNightsPrice * (e.discountMonth || 0);
+
         const ePlatformFee = eSubtotal * (e.platformFeePercentage || 0);
         esteiPrice = eSubtotal + ePlatformFee - eDiscount;
 
@@ -391,8 +411,8 @@ app.get("/api/availability", async (req, res) => {
         capacity: cal.capacity,
         rooms: cal.rooms,
         baths: cal.baths,
-        airbnbPrice: airbnbPrice !== null ? airbnbPrice.toFixed(2) : null,
-        esteiPrice: esteiPrice !== null ? esteiPrice.toFixed(2) : null,
+        airbnbPrice: airbnbPrice?.toFixed(2) ?? null,
+        esteiPrice: esteiPrice?.toFixed(2) ?? null,
         airbnbLink: cal.airbnbLink,
         esteiLink: cal.esteiLink,
         error: errorMsg,
@@ -400,28 +420,18 @@ app.get("/api/availability", async (req, res) => {
 
     } catch (errOuter) {
       console.error(`Error inesperado con ${cal.name}:`, errOuter);
-      output.push({
-        name: cal.name,
-        estado: cal.estado,
-        isAvailable: false,
-        nights,
-        capacity: cal.capacity,
-        rooms: cal.rooms,
-        baths: cal.baths,
-        airbnbPrice: null,
-        esteiPrice: null,
-        airbnbLink: cal.airbnbLink,
-        esteiLink: cal.esteiLink,
-        error: "Error interno inesperado",
-      });
     }
   }
-  // Filtrar solo apartamentos disponibles
-const availableOutput = output.filter(ap => ap.isAvailable);
 
-return res.json(availableOutput);
+  const availableOutput = output.filter((ap) => ap.isAvailable);
 
+  // ✅ GUARDA EN CACHE
+  availabilityCache.set(cacheKey, {
+    timestamp: Date.now(),
+    data: availableOutput,
+  });
 
+  return res.json(availableOutput);
 });
 
 

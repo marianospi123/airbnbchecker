@@ -4,7 +4,10 @@
 // ⚠️ El frontend YA NO habla directo con Google Apps Script
 //     Todo pasa por el backend para evitar CORS y exponer tokens
 
-const API_BASE = "http://localhost:4004/api/gs";
+const API_BASE =
+  process.env.REACT_APP_API_BASE ||
+  `${window.location.origin}/api/gs`;
+
 
 // -------------------------------
 // META (apartamentos / meses / años)
