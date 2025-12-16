@@ -190,6 +190,99 @@ app.post("/api/fcm-token", (req, res) => {
   }
 });
 
+
+// -------------------
+// PROXY GOOGLE APPS SCRIPT (META / RESERVAS ADMIN)
+// -------------------
+const GS_BASE =
+  "https://script.google.com/macros/s/AKfycbz0-aMETzx3oddL1e6nAScOCwOBo6cZ817o8VBo-6u1FPpouutNEctQp6ut7jHF0Hsk/exec";
+
+// ⚠️ MUY recomendado mover esto a .env luego
+const GS_TOKEN = "huespedex_api_2025_super_seguro_9f8a7s6d";
+
+// GET META (apartamentos, meses, años)
+app.get("/api/gs/meta", async (req, res) => {
+  try {
+    const url = `${GS_BASE}?action=meta&token=${encodeURIComponent(GS_TOKEN)}`;
+    const r = await fetch(url, { redirect: "follow" });
+    const data = await r.json();
+    res.json(data);
+  } catch (e) {
+    console.error("GS meta error:", e);
+    res.status(500).json({ ok: false, error: e.message || "GS meta error" });
+  }
+});
+
+// GET RESERVAS (filtradas)
+app.get("/api/gs/reservas", async (req, res) => {
+  try {
+    const { apartamento = "", mes = "", ano = "" } = req.query;
+
+    const qs = new URLSearchParams({
+      action: "reservas",
+      token: GS_TOKEN,
+      apartamento,
+      mes,
+      ano,
+    });
+
+    const url = `${GS_BASE}?${qs.toString()}`;
+    const r = await fetch(url, { redirect: "follow" });
+    const data = await r.json();
+    res.json(data);
+  } catch (e) {
+    console.error("GS reservas error:", e);
+    res.status(500).json({ ok: false, error: e.message || "GS reservas error" });
+  }
+});
+
+// POST UPDATE RESERVA
+app.post("/api/gs/update-reserva", async (req, res) => {
+  try {
+    const r = await fetch(GS_BASE, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "update_reserva",
+        token: GS_TOKEN,
+        id_unico: req.body.id_unico,
+        fields: req.body.fields,
+      }),
+      redirect: "follow",
+    });
+
+    const data = await r.json();
+    res.json(data);
+  } catch (e) {
+    console.error("GS update error:", e);
+    res.status(500).json({ ok: false, error: e.message || "GS update error" });
+  }
+});
+
+
+// POST CREATE RESERVA
+app.post("/api/gs/create-reserva", async (req, res) => {
+  try {
+    const r = await fetch(GS_BASE, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      redirect: "follow",
+      body: JSON.stringify({
+        action: "create_reserva",
+        token: GS_TOKEN,
+        fields: req.body.fields, // <- viene del frontend
+      }),
+    });
+
+    const data = await r.json();
+    res.json(data);
+  } catch (e) {
+    console.error("GS create reserva error:", e);
+    res.status(500).json({ ok: false, error: e.message || "GS create error" });
+  }
+});
+
+
 // -------------------
 // PROXY ICS
 // -------------------

@@ -10,6 +10,7 @@
     "dev:react": "react-scripts start",
     "dev:server": "node server/server.js",
     "build": "react-scripts build"
+    
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.19",
