@@ -357,3 +357,29 @@
     grid-template-columns: 100px 1fr;
   }
 }
+/* ✅ MODAL: que nunca se corte en móvil y que el footer siempre se vea */
+.rx-modal{
+  max-height: calc(100vh - 32px); /* respeta el padding del overlay */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* mantenemos bordes redondeados */
+}
+
+.rx-modalBody{
+  flex: 1;
+  overflow: auto;                 /* ✅ scroll interno */
+  -webkit-overflow-scrolling: touch;
+}
+
+.rx-modalFooter{
+  position: sticky;               /* ✅ se “pega” abajo dentro del modal */
+  bottom: 0;
+  background: rgba(10,14,22,.96); /* para que no se mezcle con el contenido */
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 720px){
+  .rx-modalHeader{ padding: 12px 14px 10px; }
+  .rx-modalBody{ padding: 12px 14px; }
+  .rx-modalFooter{ padding: 12px 14px; }
+}
