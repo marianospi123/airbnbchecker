@@ -19,31 +19,7 @@ const BASE_URL = process.env.NODE_ENV === "production"
 
 
 const calendars = [
-  {
-    name: "Chacao",
-     estado: "Caracas",
-    url: "https://www.airbnb.com/calendar/ical/1385011718927994475.ics?s=4e4d11b7c6db289a9012851c43364d23&locale=en",
-    esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/1473257424-stay-17432889927468941438.ics",
-    capacity: 4,
-    rooms: 2,
-    baths: 1,
-    airbnbLink: "airbnb.com/h/chacaoccs",
-    esteiLink:  "https://surl.li/mzmqcd",
-    airbnb: {
-      pricePerNight: 85,
-      cleaningFee: 35,
-      extraGuestFeePerNight: 5,
-      maxGuestsIncluded: 2,
-      discountWeek: 0.05,
-      discountMonth: 0.15,
-       platformFeePercentage: 0.1411
-    },
-    estei: {
-      pricePerNight: 120,
-      cleaningFee: 40,
-      platformFeePercentage: 0.15 // 13.05%
-    },
-  },
+  
       {
     name: "Boleita",
      estado: "Caracas",
@@ -55,7 +31,7 @@ const calendars = [
     airbnbLink: "https://www.airbnb.com/l/KQlHkFXF",
     esteiLink:  "https://surl.li/esteiboleita ",
     airbnb: {
-      pricePerNight: 55,
+      pricePerNight: 60,
       cleaningFee: 40,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -117,6 +93,31 @@ const calendars = [
       pricePerNight: 80,
       cleaningFee: 50,
       platformFeePercentage: 0.15
+    },
+  },
+  {
+    name: "Chacao",
+     estado: "Caracas",
+    url: "https://www.airbnb.com/calendar/ical/1385011718927994475.ics?s=4e4d11b7c6db289a9012851c43364d23&locale=en",
+    esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/1473257424-stay-17432889927468941438.ics",
+    capacity: 4,
+    rooms: 2,
+    baths: 1,
+    airbnbLink: "airbnb.com/h/chacaoccs",
+    esteiLink:  "https://surl.li/mzmqcd",
+    airbnb: {
+      pricePerNight: 85,
+      cleaningFee: 35,
+      extraGuestFeePerNight: 5,
+      maxGuestsIncluded: 2,
+      discountWeek: 0.05,
+      discountMonth: 0.15,
+       platformFeePercentage: 0.1411
+    },
+    estei: {
+      pricePerNight: 120,
+      cleaningFee: 40,
+      platformFeePercentage: 0.15 // 13.05%
     },
   },
   {
@@ -661,8 +662,8 @@ const calendars = [
   estado: "Maracaibo",
   url: "https://www.airbnb.co.ve/calendar/ical/1527183806348918468.ics?s=039c5d57644f9b3b852b362eac5fbf71",
    esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/349832410-stay-17624979618330213286.ics",
-  capacity: 4,
-  rooms: 2,
+  capacity: 7,
+  rooms: 3,
   baths: 2,
   airbnbLink: "https://airbnb.co.ve/h/alejandrasofia2",
   esteiLink: "https://estei.app/stay/17624979618330213286/profile",
@@ -1216,15 +1217,15 @@ return (
         />
 
         <label style={{ display: "block", margin: "1rem 0" }}>
-          Personas:{" "}
-          <select value={people} onChange={(e) => setPeople(Number(e.target.value))}>
-            {[...Array(6).keys()].map((n) => (
-              <option key={n + 1} value={n + 1}>
-                {n + 1}
-              </option>
-            ))}
-          </select>
-        </label>
+  Personas:{" "}
+  <select value={people} onChange={(e) => setPeople(Number(e.target.value))}>
+    {[...Array(8).keys()].map((n) => (
+      <option key={n + 1} value={n + 1}>
+        {n + 1}
+      </option>
+    ))}
+  </select>
+</label>
 
         <button onClick={checkAvailability} style={{ padding: "0.5rem 1rem", cursor: "pointer" }}>
           Consultar
