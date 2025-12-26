@@ -1051,12 +1051,16 @@ Si no puedes usar las aplicaciones, puedes reservar directo.
       const nightsLabel = nights === 1 ? `${nights} noche` : `${nights} noches`;
       const deposit = getDeposit(nights);
 
-      return `📍 *${r.name}* — ${nightsLabel} (${r.rooms}H / ${r.baths}B / máx. ${r.capacity} pers.)
+      return `📍 *${r.name} - ${nightsLabel} | ${r.rooms} H / ${r.baths} B | Máx. ${r.capacity} pers.)*
 
-USD: $${r.airbnbPrice} → ${r.airbnbLink}  
-Bolívares (BCV): $${r.esteiPrice} → ${r.esteiLink}  
-Directo USD: $${r.airbnbPrice} + Depósito $${deposit}  
-Directo Bs.: $${r.esteiPrice} + Depósito $${deposit}${index !== availableApts.length - 1 ? "\n\n────────────────────────\n" : ""}`;
+USD: $${r.airbnbPrice} vía App Airbnb (DESCUENTO)
+Bs. (BCV): $${r.esteiPrice} vía ESTEI App
+
+Ver fotos y características: ${r.esteiLink}
+
+Directo: USD: $${r.airbnbPrice} (DESCUENTO) + Depósito: $${deposit}
+Directo: Bs. (BCV): $${r.esteiPrice} + Depósito: $${deposit}${index !== availableApts.length - 1 ? "\n\n────────────────────────\n\n" : ""}`;
+
     })
     .join("");
 
@@ -1081,12 +1085,13 @@ const copySingleApartment = (apt) => {
   const text = `
 📍 *${apt.name}* — ${nightsLabel} (${apt.rooms}H / ${apt.baths}B / máx. ${apt.capacity} pers.)
 
-USD: $${apt.airbnbPrice} → ${apt.airbnbLink}
+USD: $${apt.airbnbPrice} → $
 Bolívares (BCV): $${apt.esteiPrice} → ${apt.esteiLink}
 
 Directo USD: $${apt.airbnbPrice} + Depósito $${deposit}
 Directo Bs.: $${apt.esteiPrice} + Depósito $${deposit}
 `;
+
 
   copyToClipboard(text);
 };
