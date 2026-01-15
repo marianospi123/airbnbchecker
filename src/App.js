@@ -29,7 +29,7 @@ const calendars = [
     rooms: 1,
     baths: 2,
     airbnbLink: "https://www.airbnb.com/l/KQlHkFXF",
-    esteiLink:  "https://surl.li/esteiboleita ",
+    esteiLink:  "https://surl.li/esteiboleita",
     airbnb: {
       pricePerNight: 60,
       cleaningFee: 40,
@@ -1250,7 +1250,7 @@ return (
                 <div className="result-info">
                   <h3>📍 {r.name}</h3>
                   <p>
-                    ({r.rooms} hab / {r.baths} baños · Máx. {r.capacity} personas)
+                    ({r.rooms} habit / {r.baths} baños · Máx. {r.capacity} personas)
                   </p>
 
                   {r.isAvailable ? (
@@ -1271,7 +1271,7 @@ return (
                         style={{
                           marginTop: "10px",
                           padding: "0.4rem 0.7rem",
-                          backgroundColor: "#2563eb",
+                          backgroundColor: "#4174e0ff",
                           color: "white",
                           borderRadius: 6,
                           cursor: "pointer",
