@@ -147,6 +147,33 @@ const calendars = [
   },
 
   {
+  name: "El Rosal 4",
+  estado: "Caracas",
+  url: "https://es.airbnb.com/calendar/ical/1581880326729488561.ics?t=913e6becc4da4b3cb7396ee91f40d05a",
+  esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/3965638750-stay-17662696694553345998.ics",
+  capacity: 4,
+  rooms: 1,
+  baths: 1,
+  airbnbLink: "https://airbnb.com/h/elrosal4",
+  esteiLink: "https://surl.li/esteirosal4",
+  airbnb: {
+    pricePerNight: 80,
+    cleaningFee: 45,
+    extraGuestFeePerNight: 10,
+    maxGuestsIncluded: 2,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 130,
+    cleaningFee: 55,
+    platformFeePercentage: 0.15
+  }
+},
+
+
+  {
     name: "Sebucán 1",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/40759881.ics?s=e236ee10e178f24d224d1ea7f9e12925&locale=en",
@@ -221,6 +248,7 @@ const calendars = [
       platformFeePercentage: 0.15
     },
   },
+
   {
     name: "Trinidad",
      estado: "Caracas",
@@ -731,6 +759,58 @@ const calendars = [
     cleaningFee: 130,
     platformFeePercentage: 0.15
   },
+},
+
+{
+  name: "San Jacinto Duplex",
+  estado: "Maracay",
+  url: "https://www.airbnb.com/calendar/ical/917282052805307185.ics?s=069c885fd92d7251cafce6cf7399a133",
+  esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/3826949146-stay-17364673106311892762.ics",
+  capacity: 6,
+  rooms: 3,
+  baths: 2,
+  airbnbLink: "https://airbnb.com/h/mcysanjacinto",
+  esteiLink: "https://surl.li/esteisanjacinto",
+  airbnb: {
+    pricePerNight: 70,
+    cleaningFee: 35,
+    extraGuestFeePerNight: 5,
+    maxGuestsIncluded: 2,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 120,
+    cleaningFee: 50,
+    platformFeePercentage: 0.15
+  }
+},
+
+{
+  name: "Base Aragua 2",
+  estado: "Maracay",
+  url: "https://www.airbnb.com/calendar/ical/1578594724762798631.ics?t=bca2d74877514abead061d7b01ea1b76",
+  esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/3879173943-stay-17662372109560241497.ics",
+  capacity: 6,
+  rooms: 3,
+  baths: 2,
+  airbnbLink: "https://airbnb.com/h/basearagua2",
+  esteiLink: "https://surl.li/esteibasearagua",
+  airbnb: {
+    pricePerNight: 70,
+    cleaningFee: 35,
+    extraGuestFeePerNight: 5,
+    maxGuestsIncluded: 2,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 90,
+    cleaningFee: 30,
+    platformFeePercentage: 0.15
+  }
 },
 
 {
