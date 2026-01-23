@@ -126,3 +126,16 @@ export async function createReserva(fields) {
   if (!data.ok) throw new Error(data.error || "Error creando reserva");
   return data;
 }
+
+// DELETE RESERVA
+export async function deleteReserva(id_unico) {
+  const res = await fetch(`${API_BASE}/delete-reserva`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id_unico }),
+  });
+
+  const data = await parseJsonOrThrow(res);
+  if (!data.ok) throw new Error(data.error || "Error eliminando reserva");
+  return data;
+}

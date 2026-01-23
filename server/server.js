@@ -12,7 +12,7 @@ const ICAL = require("ical.js");
 // =======================
 const GS_BASE =
   process.env.GS_BASE ||
-  "https://script.google.com/macros/s/AKfycbz0-aMETzx3oddL1e6nAScOCwOBo6cZ817o8VBo-6u1FPpouutNEctQp6ut7jHF0Hsk/exec";
+  "https://script.google.com/macros/s/AKfycbwMy-p7W63NzaerSTbu8ls6k25ZXsvqiQVzKvkQ8hFdRNCKsLh_wJlXtm2M9zcpeame/exec";
 
 const GS_TOKEN =
   process.env.GS_TOKEN || "huespedex_api_2025_super_seguro_9f8a7s6d";
@@ -182,6 +182,35 @@ app.delete("/api/reservas/:id", (req, res) => {
     res.status(500).json({ error: "Error eliminando reserva" });
   }
 });
+
+// POST DELETE
+app.post("/api/gs/delete-reserva", async (req, res) => {
+  try {
+    const { id_unico } = req.body || {};
+    if (!id_unico) {
+      return res.status(400).json({ ok: false, error: "Falta id_unico" });
+    }
+
+    const r = await fetch(GS_BASE, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      redirect: "follow",
+      body: JSON.stringify({
+        action: "delete_reserva",
+        token: GS_TOKEN,
+        id_unico,
+      }),
+    });
+
+    const text = await r.text();
+    const data = safeJsonFromResponse(text);
+    return res.status(r.ok ? 200 : r.status).json(data);
+  } catch (e) {
+    console.error("GS delete reserva error:", e);
+    return res.status(500).json({ ok: false, error: e.message || "GS delete error" });
+  }
+});
+
 
 // -------------------
 // ENDPOINT TOKEN FCM
