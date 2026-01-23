@@ -71,6 +71,59 @@ const calendars = [
     },
   },
   {
+  name: "Mañongo - Sambil (Sun Suites)",
+  estado: "Valencia",
+  url: "https://www.airbnb.com/calendar/ical/1333342504443328914.ics?t=af791a38a9ed45f6a6d9c104e628c3f4",
+  esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/2531490531-stay-17677585276339368129.ics",
+  capacity: 4,
+  rooms: 2,
+  baths: 2,
+  airbnbLink: "https://airbnb.co.ve/h/naguanagua",
+  esteiLink: "https://surl.li/esteivalencia",
+  airbnb: {
+    pricePerNight: 70,
+    cleaningFee: 35,
+    extraGuestFeePerNight: 5,
+    maxGuestsIncluded: 2,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 100,
+    cleaningFee: 45,
+    platformFeePercentage: 0.15
+  }
+},
+
+{
+  name: "Base Aragua - Parque Choroni 3",
+  estado: "Maracay",
+  url: "https://es.airbnb.com/calendar/ical/915929743193024221.ics?t=56bfe76b72e64b98b8e3e1b805d74b8a",
+  esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/2301126440-stay-17364515228003869012.ics",
+  capacity: 4,
+  rooms: 2,
+  baths: 2,
+  airbnbLink: "https://es.airbnb.com/hosting/listings/editor/915929743193024221/view-your-space",
+  esteiLink: "https://surl.li/mcyparque",
+  airbnb: {
+    pricePerNight: 70,
+    cleaningFee: 30,
+    extraGuestFeePerNight: 15,
+    maxGuestsIncluded: 5,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 70,
+    cleaningFee: 30,
+    platformFeePercentage: 0.15
+  }
+},
+
+
+  {
     name: "Paraíso",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1442428798352266133.ics?s=32dd2a635d95604c8754d606ac0ba4a2&locale=en",
