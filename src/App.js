@@ -25,7 +25,7 @@ const calendars = [
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1343681520860355629.ics?s=a2d96f7fe387a7d3e27ce41d275f4a33&locale=es-XL",
     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/1996747011-stay-17382856932068656972.ics",
-    capacity: 2,
+    capacity: 4,
     rooms: 1,
     baths: 2,
     airbnbLink: "https://www.airbnb.com/l/KQlHkFXF",
@@ -34,7 +34,7 @@ const calendars = [
       pricePerNight: 60,
       cleaningFee: 40,
       extraGuestFeePerNight: 5,
-      maxGuestsIncluded: 2,
+      maxGuestsIncluded: 3,
       discountWeek: 0.05,
       discountMonth: 0.15,
        platformFeePercentage: 0.1411
