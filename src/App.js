@@ -81,8 +81,8 @@ const calendars = [
   airbnbLink: "https://airbnb.co.ve/h/naguanagua",
   esteiLink: "https://surl.li/esteivalencia",
   airbnb: {
-    pricePerNight: 70,
-    cleaningFee: 35,
+    pricePerNight: 45,
+    cleaningFee: 30,
     extraGuestFeePerNight: 5,
     maxGuestsIncluded: 2,
     discountWeek: 0.05,
@@ -90,8 +90,8 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 100,
-    cleaningFee: 45,
+    pricePerNight: 65,
+    cleaningFee: 40,
     platformFeePercentage: 0.15
   }
 },
@@ -1058,65 +1058,82 @@ for (const cal of filteredCalendars) {
     );
 
     // ---------- AIRBNB PRICE ----------
-    const a = cal.airbnb;
-    const aExtraGuests = Math.max(0, people - a.maxGuestsIncluded);
-    const aNightsPrice = a.pricePerNight * nights;
-    const aExtraGuestPrice = a.extraGuestFeePerNight * aExtraGuests * nights;
+const a = cal.airbnb;
+const aExtraGuests = Math.max(0, people - a.maxGuestsIncluded);
+const aNightsPrice = a.pricePerNight * nights;
+const aExtraGuestPrice = (a.extraGuestFeePerNight || 0) * aExtraGuests * nights;
 
-    let discountedNightsPrice = aNightsPrice;
-    if (nights >= 7 && nights < 26) {
-      discountedNightsPrice *= (1 - a.discountWeek);
-    } else if (nights >= 26) {
-      discountedNightsPrice *= (1 - a.discountMonth);
-    }
+// ✅ DIRECTO USD BASE (SIN % NI DESCUENTOS)
+const aDirectBase = aNightsPrice + aExtraGuestPrice + (a.cleaningFee || 0);
 
-    const aBaseWithDiscount = discountedNightsPrice + aExtraGuestPrice;
-    const cleaningFee = a.cleaningFee;
-    const aSubtotalWithCleaning = aBaseWithDiscount + cleaningFee;
-    const aPlatformFee = aSubtotalWithCleaning * (a.platformFeeRate || 0.1411);
+let discountedNightsPrice = aNightsPrice;
+if (nights >= 7 && nights < 26) {
+  discountedNightsPrice *= (1 - (a.discountWeek || 0));
+} else if (nights >= 26) {
+  discountedNightsPrice *= (1 - (a.discountMonth || 0));
+}
 
-    let aTotalPrice = aSubtotalWithCleaning + aPlatformFee;
-    aTotalPrice = Math.round(aTotalPrice * 100) / 100;
+const aBaseWithDiscount = discountedNightsPrice + aExtraGuestPrice;
+const cleaningFee = a.cleaningFee || 0;
+const aSubtotalWithCleaning = aBaseWithDiscount + cleaningFee;
+const aPlatformFee = aSubtotalWithCleaning * (a.platformFeeRate || 0.1411);
 
-    // ---------- ESTEI PRICE ----------
-    const e = cal.estei;
-    const eNightsPrice = e.pricePerNight * nights;
-    const eExtraGuests = Math.max(0, people - (e.maxGuestsIncluded || 2));
-    const eExtraGuestPrice = (e.extraGuestFeePerNight || 0) * eExtraGuests * nights;
-    const eCleaningFee = e.cleaningFee || 0;
+let aTotalPrice = aSubtotalWithCleaning + aPlatformFee;
+aTotalPrice = Math.round(aTotalPrice * 100) / 100;
 
-    let eSubtotal = eNightsPrice + eExtraGuestPrice + eCleaningFee;
-    let eDiscount = 0;
-    if (nights >= 7 && nights < 30) eDiscount = eNightsPrice * (e.discountWeek || 0);
-    else if (nights >= 30) eDiscount = eNightsPrice * (e.discountMonth || 0);
 
-    const ePlatformFee = eSubtotal * (e.platformFeePercentage || 0);
-    let eTotalPrice = eSubtotal + ePlatformFee - eDiscount;
+// ---------- ESTEI PRICE ----------
+const e = cal.estei;
+const eNightsPrice = (e.pricePerNight || 0) * nights;
+const eExtraGuests = Math.max(0, people - (e.maxGuestsIncluded || 2));
+const eExtraGuestPrice = (e.extraGuestFeePerNight || 0) * eExtraGuests * nights;
+const eCleaningFee = e.cleaningFee || 0;
 
-    // ---------- DESCUENTO PERSONALIZADO ----------
-    const discountPercent = customDiscounts[cal.name] || 0;
-    const dr = discountDateRanges[cal.name];
-    const hasDiscountRange = dr && dr.startDate && dr.endDate;
+// ✅ DIRECTO BS BASE (SIN % NI DESCUENTOS)
+const eDirectBase = eNightsPrice + eExtraGuestPrice + eCleaningFee;
 
-    if (discountPercent > 0 && hasDiscountRange && rangesOverlap(from, to, dr.startDate, dr.endDate)) {
-      aTotalPrice = aTotalPrice * (1 - discountPercent / 100);
-      eTotalPrice = eTotalPrice * (1 - discountPercent / 100);
-    }
+let eSubtotal = eNightsPrice + eExtraGuestPrice + eCleaningFee;
+let eDiscount = 0;
+if (nights >= 7 && nights < 30) eDiscount = eNightsPrice * (e.discountWeek || 0);
+else if (nights >= 30) eDiscount = eNightsPrice * (e.discountMonth || 0);
 
-    // ---------- PUSH OUTPUT ----------
-    output.push({
-      name: cal.name,
-      nights,
-      capacity: cal.capacity,
-      rooms: cal.rooms,
-      baths: cal.baths,
-      airbnbLink: cal.airbnbLink,
-      esteiLink: cal.esteiLink,
-      reservas,
-      isAvailable,
-      airbnbPrice: aTotalPrice.toFixed(2),
-      esteiPrice: eTotalPrice.toFixed(2),
-    });
+const ePlatformFee = eSubtotal * (e.platformFeePercentage || 0);
+let eTotalPrice = eSubtotal + ePlatformFee - eDiscount;
+
+
+// ---------- DESCUENTO PERSONALIZADO ----------
+const discountPercent = customDiscounts[cal.name] || 0;
+const dr = discountDateRanges[cal.name];
+const hasDiscountRange = dr && dr.startDate && dr.endDate;
+
+if (discountPercent > 0 && hasDiscountRange && rangesOverlap(from, to, dr.startDate, dr.endDate)) {
+  aTotalPrice = aTotalPrice * (1 - discountPercent / 100);
+  eTotalPrice = eTotalPrice * (1 - discountPercent / 100);
+  // 👇 OJO: Directo Base NO se toca (porque lo quieres sin descuentos ni %)
+}
+
+
+// ---------- PUSH OUTPUT ----------
+output.push({
+  name: cal.name,
+  nights,
+  capacity: cal.capacity,
+  rooms: cal.rooms,
+  baths: cal.baths,
+  airbnbLink: cal.airbnbLink,
+  esteiLink: cal.esteiLink,
+  reservas,
+  isAvailable,
+
+  // Precios por apps (con fee + descuentos como ya lo tienes)
+  airbnbPrice: aTotalPrice.toFixed(2),
+  esteiPrice: eTotalPrice.toFixed(2),
+
+  // ✅ Precios directos BASE (solo noche(s) + extra huésped + limpieza)
+  directUsdBase: (Math.round(aDirectBase * 100) / 100).toFixed(2),
+  directBsBase: (Math.round(eDirectBase * 100) / 100).toFixed(2),
+});
+
 
   } catch (err) {
     console.error(`Error al procesar ${cal.name}`, err);
@@ -1191,8 +1208,9 @@ Bs. (BCV): $${r.esteiPrice} vía ESTEI App
 
 Ver fotos y características: ${r.esteiLink}
 
-Directo: USD: $${r.airbnbPrice} (DESCUENTO) + Depósito: $${deposit}
-Directo: Bs. (BCV): $${r.esteiPrice} + Depósito: $${deposit}${index !== availableApts.length - 1 ? "\n\n────────────────────────\n\n" : ""}`;
+Directo: USD: $${r.directUsdBase} + Depósito: $${deposit}
+Directo: Bs. (BCV): $${r.directBsBase} + Depósito: $${deposit}${index !== availableApts.length - 1 ? "\n\n────────────────────────\n\n" : ""}`;
+
 
     })
     .join("");
@@ -1218,16 +1236,16 @@ const copySingleApartment = (apt) => {
   const text = `
 📍 *${apt.name}* — ${nightsLabel} (${apt.rooms}H / ${apt.baths}B / máx. ${apt.capacity} pers.)
 
-USD: $${apt.airbnbPrice} → $
-Bolívares (BCV): $${apt.esteiPrice} → ${apt.esteiLink}
+USD: $${apt.airbnbPrice} → ${apt.airbnbLink || ""}
+Bolívares (BCV): $${apt.esteiPrice} → ${apt.esteiLink || apt.airbnbLink || ""}
 
-Directo USD: $${apt.airbnbPrice} + Depósito $${deposit}
-Directo Bs.: $${apt.esteiPrice} + Depósito $${deposit}
+Directo USD: $${apt.directUsdBase} + Depósito $${deposit}
+Directo Bs.: $${apt.directBsBase} + Depósito $${deposit}
 `;
-
 
   copyToClipboard(text);
 };
+
 
   
 
