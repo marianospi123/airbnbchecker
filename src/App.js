@@ -1064,7 +1064,17 @@ const aNightsPrice = a.pricePerNight * nights;
 const aExtraGuestPrice = (a.extraGuestFeePerNight || 0) * aExtraGuests * nights;
 
 // ✅ DIRECTO USD BASE (SIN % NI DESCUENTOS)
-const aDirectBase = aNightsPrice + aExtraGuestPrice + (a.cleaningFee || 0);
+// DIRECTO usa el mismo descuento de estadía larga
+let directDiscounted = a.pricePerNight * nights;
+
+if (nights >= 7 && nights < 26) {
+  directDiscounted *= (1 - (a.discountWeek || 0));
+} else if (nights >= 26) {
+  directDiscounted *= (1 - (a.discountMonth || 0));
+}
+
+const aDirectBase = directDiscounted + aExtraGuestPrice + (a.cleaningFee || 0);
+
 
 let discountedNightsPrice = aNightsPrice;
 if (nights >= 7 && nights < 26) {
