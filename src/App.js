@@ -839,6 +839,107 @@ const calendars = [
     platformFeePercentage: 0.15
   }
 },
+{
+  name: "San Jacinto II MCY",
+  estado: "Maracay",
+  url: "https://www.airbnb.com/calendar/ical/1411732896711046461.ics?t=02a3f17c041b442c930583f5de71954f&locale=es-XL",
+  esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/1292278534-stay-17464790159203345592.ics",
+  capacity: 10,
+  rooms: 4,
+  baths: 5,
+  airbnbLink: "https://es-l.airbnb.com/rooms/1411732896711046461?viralityEntryPoint=1&s=76",
+  esteiLink: "https://estei.app/stay/17464790159203345592/profile?guests=6&arrival_date=2025-12-25&departure_date=2025-12-27",
+  airbnb: {
+    pricePerNight: 170,
+    cleaningFee: 20,
+    extraGuestFeePerNight: 15,
+    maxGuestsIncluded: 7,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 200,
+    cleaningFee: 30,
+    platformFeePercentage: 0.15
+  }
+},
+{
+  name: "Costa Esmeralda 1 - Tucacas",
+  estado: "Tucacas",
+  url: "https://www.airbnb.com/calendar/ical/982666610125158253.ics?t=3a34661e6bfe46f6bbeec4472d420528&locale=es-XL",
+  esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/1471102895-stay-17473201623688294439.ics",
+  capacity: 10,
+  rooms: 2,
+  baths: 2,
+  airbnbLink: "https://www.airbnb.co.ve/hosting/listings/editor/982666610125158253/view-your-space",
+  esteiLink: "https://estei.app/stay/17473201623688294439/settings/profile/basic-info",
+  airbnb: {
+    pricePerNight: 110,
+    cleaningFee: 20,
+    extraGuestFeePerNight: 15,
+    maxGuestsIncluded: 8,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 140,
+    cleaningFee: 20,
+    platformFeePercentage: 0.15
+  }
+},
+
+{
+  name: "Costa Esmeralda 2 - Tucacas",
+  estado: "Tucacas",
+  url: "https://www.airbnb.com/calendar/ical/1638442866536316067.ics?t=58813a318a6d43ed91f0a7667699692d&locale=es-XL",
+  esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/3997898827-stay-17731920350168058630.ics",
+  capacity: 9,
+  rooms: 3,
+  baths: 2,
+  airbnbLink: "https://www.airbnb.co.ve/hosting/listings/editor/1638442866536316067/view-your-space",
+  esteiLink: "https://estei.app/stay/17731920350168058630/profile",
+  airbnb: {
+    pricePerNight: 90,
+    cleaningFee: 20,
+    extraGuestFeePerNight: 0,
+    maxGuestsIncluded: 9,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 170,
+    cleaningFee: 20,
+    platformFeePercentage: 0.15
+  }
+},
+{
+  name: "Cartago - Tucacas",
+  estado: "Tucacas",
+  url: "https://www.airbnb.com/calendar/ical/1257351696352930087.ics?t=4c937bf3113147ef888cd226e28d82f1&locale=es-XL",
+  esteiUrl: "https://estei.app/stay/17471411218787671669/profile",
+  capacity: 6,
+  rooms: 2,
+  baths: 2,
+  airbnbLink: "https://www.airbnb.co.ve/hosting/listings/editor/1257351696352930087/view-your-space",
+  esteiLink: "https://estei.app/stay/17471411218787671669/settings/profile/preview",
+  airbnb: {
+    pricePerNight: 90,
+    cleaningFee: 20,
+    extraGuestFeePerNight: 15,
+    maxGuestsIncluded: 5,
+    discountWeek: 0.05,
+    discountMonth: 0.15,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 160,
+    cleaningFee: 20,
+    platformFeePercentage: 0.15
+  }
+},
 
 {
   name: "Base Aragua 2",
@@ -892,30 +993,6 @@ const calendars = [
   },
 },
 
-{
-  name: "Paraíso Familiar en Isla Margarita",
-  estado: "Margarita",
-  url: "https://www.airbnb.co.ve/calendar/ical/1354618645998155424.ics?s=867f81c1c97841b53330fc62c4e3bdf1",
-  capacity: 4,
-  rooms: 2,
-  baths: 2,
-  airbnbLink: "https://airbnb.co.ve/h/solarium6",
-  esteiLink: null,
-  airbnb: {
-    pricePerNight: 45,
-    cleaningFee: 25,
-    extraGuestFeePerNight: 10,
-    maxGuestsIncluded: 1,
-    discountWeek: 0.05,
-    discountMonth: 0.15,
-    platformFeePercentage: 0.1411
-  },
-  estei: {
-    pricePerNight: 0,
-    cleaningFee: 0,
-    platformFeePercentage: 0.15
-  },
-},
 ]
 
 
@@ -1243,7 +1320,23 @@ const copySingleApartment = (apt) => {
 
   const deposit = getDeposit(apt.nights);
 
-  const text = `
+  const paymentInfo = `Cómo reservar y pagar
+
+1️⃣ Por aplicaciones (Airbnb / Estéi)
+
+Reserva directamente desde el link del apartamento.
+• Airbnb: tarjeta internacional o PayPal
+• Estéi: Bolívares (tasa BCV)
+No requiere depósito.
+
+2️⃣ Directo con nosotros
+
+Si no puedes usar las aplicaciones, puedes reservar directo.
+• Requiere depósito reembolsable, devuelto al finalizar la estadía.
+`;
+
+  const text = `${paymentInfo}
+
 📍 *${apt.name}* — ${nightsLabel} (${apt.rooms}H / ${apt.baths}B / máx. ${apt.capacity} pers.)
 
 USD: $${apt.airbnbPrice} → ${apt.airbnbLink || ""}
@@ -1255,7 +1348,6 @@ Directo Bs.: $${apt.directBsBase} + Depósito $${deposit}
 
   copyToClipboard(text);
 };
-
 
   
 
