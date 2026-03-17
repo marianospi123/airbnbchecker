@@ -639,56 +639,6 @@ const calendars = [
 },
 
 {
-  name: "Apt de lujo, 5 hab, piscina y vista al lago",
-  estado: "Maracaibo",
-  url: "https://www.airbnb.co.ve/calendar/ical/1487058676175453143.ics?s=b30ddf70122a2023544022e7e83d9d34",
-   esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/168939025-stay-17563892666605964165.ics",
-  capacity: 9,
-  rooms: 5,
-  baths: 5.5,
-  airbnbLink: "https://airbnb.co.ve/h/cdl11",
-  esteiLink: "https://estei.app/stay/17563892666605964165/profile",
-  airbnb: {
-    pricePerNight: 140,
-    cleaningFee: 35,
-    extraGuestFeePerNight: 15,
-    maxGuestsIncluded: 1,
-    discountWeek: 0.05,
-    discountMonth: 0.15,
-    platformFeePercentage: 0.1411
-  },
-  estei: {
-    pricePerNight: 150,
-    cleaningFee: 45,
-    platformFeePercentage: 0.15
-  },
-},
-{
-  name: "Relax y vista insuperable en el Milagro con 4H+4B",
-  estado: "Maracaibo",
-  url: "https://www.airbnb.co.ve/calendar/ical/1508336810645062616.ics?s=6b0b830243ed4e7fcfc5356cfaa16ec5",
-   esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/2688266043-stay-17565032145339330524.ics",
-  capacity: 6,
-  rooms: 4,
-  baths: 4.5,
-  airbnbLink: "https://airbnb.co.ve/h/cdl12",
-  esteiLink: "https://estei.app/stay/17565032145339330524/profile",
-  airbnb: {
-    pricePerNight: 85,
-    cleaningFee: 35,
-    extraGuestFeePerNight: 15,
-    maxGuestsIncluded: 1,
-    discountWeek: 0.05,
-    discountMonth: 0.15,
-    platformFeePercentage: 0.1411
-  },
-  estei: {
-    pricePerNight: 120,
-    cleaningFee: 45,
-    platformFeePercentage: 0.15
-  },
-},
-{
   name: "Acogedor apto - cocina equipada",
   estado: "Maracaibo",
   url: "https://www.airbnb.co.ve/calendar/ical/1389198391472630431.ics?s=9d69d8e04a6ba73d4c12e3336f5139fe",
@@ -920,7 +870,7 @@ const calendars = [
   estado: "Tucacas",
   url: "https://www.airbnb.com/calendar/ical/1257351696352930087.ics?t=4c937bf3113147ef888cd226e28d82f1&locale=es-XL",
   esteiUrl: "https://estei.app/stay/17471411218787671669/profile",
-  capacity: 6,
+  capacity: 5,
   rooms: 2,
   baths: 2,
   airbnbLink: "https://www.airbnb.co.ve/hosting/listings/editor/1257351696352930087/view-your-space",
