@@ -568,8 +568,8 @@ const calendars = [
     airbnbLink: "https://www.airbnb.com/l/WlpePz5e",
     esteiLink: "https://estei.app/stay/17362578953146424770/profile?guests=1&arrival_date=2026-02-01&departure_date=2026-02-03",
     airbnb: {
-      pricePerNight: 90,
-      cleaningFee: 35,
+      pricePerNight: 120,
+      cleaningFee: 45,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
       discountWeek: 0.05,
@@ -577,8 +577,8 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 85,
-      cleaningFee: 35,
+      pricePerNight: 150,
+      cleaningFee: 50,
       platformFeePercentage: 0.15
     },
   },
