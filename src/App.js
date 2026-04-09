@@ -582,6 +582,32 @@ const calendars = [
       platformFeePercentage: 0.15
     },
   },
+  {
+    name: "La Soledad - Mcy",
+    estado: "Aragua",
+    url: "https://www.airbnb.com/calendar/ical/1653906825763363109.ics?t=4eb999c2e3e34ec1988561804003b99d60",
+    esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/716583094-stay-17754790055589832972.ics",
+    capacity: 4,
+    rooms: 2,
+    baths: 2,
+    airbnbLink: "https://www.airbnb.com/h/lasoledadmcy",
+    esteiLink: "https://estei.app/stay/17754790055589832972/profile",
+    airbnb: {
+      pricePerNight: 60,
+      cleaningFee: 35,
+      extraGuestFeePerNight: 5,
+      maxGuestsIncluded: 3,
+      discountWeek: 0.05, // Valor estándar, ajustar si aplica
+      discountMonth: 0.10, // Valor estándar, ajustar si aplica
+      platformFeePercentage: 0.14
+    },
+    estei: {
+      pricePerNight: 100,
+      cleaningFee: 45,
+      platformFeePercentage: 0.15
+    },
+    observaciones: "No colocar fachada del edificio para publicidad",
+  },
  
 
   // ----------------------------- Poz (nuevo) -----------------------------
