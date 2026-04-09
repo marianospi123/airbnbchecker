@@ -584,7 +584,7 @@ const calendars = [
   },
   {
     name: "La Soledad - Mcy",
-    estado: "Aragua",
+    estado: "Maracay",
     url: "https://www.airbnb.com/calendar/ical/1653906825763363109.ics?t=4eb999c2e3e34ec1988561804003b99d60",
     esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/716583094-stay-17754790055589832972.ics",
     capacity: 4,
@@ -639,7 +639,6 @@ const calendars = [
 
  {
   name: "Apartamento Panorámico con Planta Eléctrica y Pozo",
-  
   estado: "Maracaibo",
   url: "https://www.airbnb.co.ve/calendar/ical/1236421312796299870.ics?s=a6ceab9ad1e1ae6146b2f39dd5082d6d",
    esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/1421191605-stay-17377878151510675621.ics",
