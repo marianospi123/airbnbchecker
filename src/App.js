@@ -585,8 +585,8 @@ const calendars = [
   {
     name: "La Soledad - Mcy",
     estado: "Maracay",
-    url: "https://www.airbnb.com/calendar/ical/1653906825763363109.ics?t=4eb999c2e3e34ec1988561804003b99d60",
-    esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/716583094-stay-17754790055589832972.ics",
+    url: "https://www.airbnb.com/calendar/ical/1257351696352930087.ics?t=4c937bf3113147ef888cd226e28d82f1&locale=es-XL",
+    esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/394272640-stay-17471411218787671669.ics",
     capacity: 4,
     rooms: 2,
     baths: 2,
