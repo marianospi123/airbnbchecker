@@ -307,7 +307,7 @@ const calendars = [
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/776060327262601969.ics?s=cb72b5158ad102d5754c8e8f0e81f693&locale=en",
      esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/730506826-stay-17332148220206977372.ics",
-    capacity: 5,
+    capacity: 4,
     rooms: 2,
     baths: 2,
     airbnbLink: "airbnb.com/h/latrinidadccs",
