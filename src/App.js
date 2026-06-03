@@ -708,7 +708,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 55,
+    pricePerNight: 75,
     cleaningFee: 35,
     platformFeePercentage: 0.15
   },
