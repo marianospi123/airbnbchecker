@@ -81,7 +81,7 @@ const calendars = [
   airbnbLink: "https://airbnb.co.ve/h/naguanagua",
   esteiLink: "https://surl.li/esteivalencia",
   airbnb: {
-    pricePerNight: 45,
+    pricePerNight: 70,
     cleaningFee: 30,
     extraGuestFeePerNight: 5,
     maxGuestsIncluded: 2,
@@ -90,7 +90,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 65,
+    pricePerNight: 100,
     cleaningFee: 40,
     platformFeePercentage: 0.15
   }
@@ -458,7 +458,7 @@ const calendars = [
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1486888471879683465.ics?s=34dd75f8aeb08666e2183229ef88af32&locale=es-XL",
      esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/1855876766-stay-17551817479231016224.ics",
-    capacity: 5,
+    capacity: 4,
     rooms: 2,
     baths: 2,
     airbnbLink: "airbnb.com/h/rosal3-2hab",
