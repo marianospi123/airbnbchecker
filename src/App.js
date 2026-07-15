@@ -479,30 +479,30 @@ const calendars = [
     },
   },
   {
-    name: "Altamira 1",
-     estado: "Caracas",
-    url: "https://es-l.airbnb.com/calendar/ical/968382219685565525.ics?t=19c9d7e338114b67a7e576916c9e2609",
-     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/2474076535-stay-17325007819524651943.ics",
-    capacity: 6,
-    rooms: 3,
-    baths: 2,
-    airbnbLink: "airbnb.com/h/lafloresta-altamira",
-    esteiLink: "https://surl.li/esteialtamira1",
-    airbnb: {
-      pricePerNight: 70,
-      cleaningFee: 45,
-      extraGuestFeePerNight: 5,
-      maxGuestsIncluded: 2,
-      discountWeek: 0.05,
-      discountMonth: 0.20,
-      platformFeePercentage: 0.14
-    },
-    estei: {
-      pricePerNight: 105,
-      cleaningFee: 50,
-      platformFeePercentage: 0.15
-    },
+  name: "Altamira 1",
+  estado: "Caracas",
+  url: "https://www.airbnb.com/calendar/ical/968382219685565525.ics?t=19c9d7e338114b67a7e576916c9e2609",
+  esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/2474076535-stay-17325007819524651943.ics",
+  capacity: 6,
+  rooms: 3,
+  baths: 2,
+  airbnbLink: "https://airbnb.com/h/lafloresta-altamira",
+  esteiLink: "https://surl.li/esteialtamira1",
+  airbnb: {
+    pricePerNight: 70,
+    cleaningFee: 45,
+    extraGuestFeePerNight: 5,
+    maxGuestsIncluded: 2,
+    discountWeek: 0.05,
+    discountMonth: 0.20,
+    platformFeeRate: 0.14
   },
+  estei: {
+    pricePerNight: 105,
+    cleaningFee: 50,
+    platformFeePercentage: 0.15
+  },
+},
 
   {
     name: "Barquisimeto",
@@ -949,59 +949,94 @@ const calendars = [
 
 
 
-
-
-
 function App() {
-  // Nuevo estado para guardar el estado seleccionado
-   const [verReservas, setVerReservas] = useState(false);
+  const [verReservas, setVerReservas] = React.useState(false);
   const [selectedEstado, setSelectedEstado] = React.useState("Caracas");
 
-  // Estados existentes
   const [dateRange, setDateRange] = React.useState([
     { startDate: new Date(), endDate: addDays(new Date(), 1), key: "selection" },
   ]);
+
   const [people, setPeople] = React.useState(1);
+
   const [customDiscounts, setCustomDiscounts] = React.useState(() => {
     const saved = localStorage.getItem("customDiscounts");
     return saved ? JSON.parse(saved) : {};
   });
+
   const [discountDateRanges, setDiscountDateRanges] = React.useState(() => {
     const saved = localStorage.getItem("discountDateRanges");
     if (!saved) return {};
+
     const parsed = JSON.parse(saved);
+
     for (const key in parsed) {
       if (parsed[key]) {
         parsed[key].startDate = new Date(parsed[key].startDate);
         parsed[key].endDate = new Date(parsed[key].endDate);
       }
     }
+
     return parsed;
   });
+
   const [showDiscounts, setShowDiscounts] = React.useState(false);
   const [results, setResults] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
 
-  // Obtengo la lista única de estados para el select (basado en el array calendars)
   const estados = React.useMemo(() => {
     const uniqueEstados = [...new Set(calendars.map((c) => c.estado))];
     return uniqueEstados;
   }, []);
 
-  // Función para revisar superposición de fechas (la tuya)
   function rangesOverlap(start1, end1, start2, end2) {
     return start1 < end2 && start2 < end1;
   }
 
-  // Guardar customDiscounts y discountDateRanges en localStorage (tu lógica ya está perfecta)
+  function parseIcalReservas(text) {
+    if (!text || !text.includes("BEGIN:VCALENDAR")) {
+      throw new Error("El archivo descargado no parece un calendario iCal válido.");
+    }
+
+    const jcalData = ICAL.parse(text);
+    const comp = new ICAL.Component(jcalData);
+    const events = comp.getAllSubcomponents("vevent");
+
+    return events
+      .map((e) => {
+        const ev = new ICAL.Event(e);
+
+        return {
+          start: ev.startDate ? ev.startDate.toJSDate() : null,
+          end: ev.endDate ? ev.endDate.toJSDate() : null,
+          summary: ev.summary || "",
+        };
+      })
+      .filter((r) => r.start && r.end);
+  }
+
+  async function getIcalReservas(url, aptName, sourceName) {
+    if (!url) return [];
+
+    const proxyUrl = `${BASE_URL}/proxy?url=${encodeURIComponent(url)}`;
+    const res = await fetch(proxyUrl);
+    const text = await res.text();
+
+    if (!res.ok) {
+      throw new Error(`${sourceName} respondió error para ${aptName}: ${res.status}`);
+    }
+
+    return parseIcalReservas(text);
+  }
+
   React.useEffect(() => {
     localStorage.setItem("customDiscounts", JSON.stringify(customDiscounts));
   }, [customDiscounts]);
+
   React.useEffect(() => {
     localStorage.setItem("discountDateRanges", JSON.stringify(discountDateRanges));
   }, [discountDateRanges]);
 
-  // Función checkAvailability (igual a la tuya, pero filtrando por estado seleccionado)
   const checkAvailability = async () => {
     const from = dateRange[0].startDate;
     const to = dateRange[0].endDate;
@@ -1011,179 +1046,178 @@ function App() {
       alert("El rango de fechas seleccionadas es incorrecto.");
       return;
     }
+
     if (people < 1) {
       alert("Selecciona una cantidad válida de personas.");
       return;
     }
 
     setLoading(true);
+
     const output = [];
 
-    // Filtrar solo los apartamentos del estado seleccionado
-  const filteredCalendars = calendars.filter(
-  (cal) => cal.estado === selectedEstado && cal.capacity >= people
-);
-
-for (const cal of filteredCalendars) {
-  try {
-    let reservas = [];
-
-    // ---------- AIRBNB ----------
-    try {
-      const proxyUrl = `${BASE_URL}/proxy?url=${encodeURIComponent(cal.url)}`;
-      const res = await fetch(proxyUrl);
-      const text = await res.text();
-
-      const jcalData = ICAL.parse(text);
-      const comp = new ICAL.Component(jcalData);
-      const events = comp.getAllSubcomponents("vevent");
-
-      const airbnbReservas = events
-        .map((e) => {
-          const ev = new ICAL.Event(e);
-          return {
-            start: ev.startDate.toJSDate(),
-            end: ev.endDate.toJSDate()
-          };
-        })
-        .filter((r) => r.start && r.end);
-
-      reservas = reservas.concat(airbnbReservas);
-    } catch (err) {
-      console.error(`Error al procesar iCal Airbnb de ${cal.name}`, err);
-    }
-
-    // ---------- ESTEI ----------
-    if (cal.esteiUrl) {
-      try {
-        const proxyUrlEstei = `${BASE_URL}/proxy?url=${encodeURIComponent(cal.esteiUrl)}`;
-        const resEstei = await fetch(proxyUrlEstei);
-        const textEstei = await resEstei.text();
-
-        const jcalDataEstei = ICAL.parse(textEstei);
-        const compEstei = new ICAL.Component(jcalDataEstei);
-        const eventsEstei = compEstei.getAllSubcomponents("vevent");
-
-        const esteiReservas = eventsEstei
-          .map((e) => {
-            const ev = new ICAL.Event(e);
-            return {
-              start: ev.startDate.toJSDate(),
-              end: ev.endDate.toJSDate()
-            };
-          })
-          .filter((r) => r.start && r.end);
-
-        reservas = reservas.concat(esteiReservas);
-      } catch (err) {
-        console.error(`Error al procesar iCal Estéi de ${cal.name}`, err);
-      }
-    }
-
-    // ---------- DISPONIBILIDAD ----------
-    const isAvailable = !reservas.some((r) =>
-      rangesOverlap(from, to, r.start, r.end)
+    const filteredCalendars = calendars.filter(
+      (cal) => cal.estado === selectedEstado && cal.capacity >= people
     );
 
-    // ---------- AIRBNB PRICE ----------
-const a = cal.airbnb;
-const aExtraGuests = Math.max(0, people - a.maxGuestsIncluded);
-const aNightsPrice = a.pricePerNight * nights;
-const aExtraGuestPrice = (a.extraGuestFeePerNight || 0) * aExtraGuests * nights;
+    for (const cal of filteredCalendars) {
+      try {
+        let reservas = [];
+        let forceUnavailable = false;
+        let calendarWarning = "";
+        let airbnbEventsCount = 0;
+        let esteiEventsCount = 0;
 
-// ✅ DIRECTO USD BASE (SIN % NI DESCUENTOS)
-// DIRECTO usa el mismo descuento de estadía larga
-let directDiscounted = a.pricePerNight * nights;
+        // ---------- AIRBNB ----------
+        try {
+          const airbnbReservas = await getIcalReservas(cal.url, cal.name, "Airbnb");
 
-if (nights >= 7 && nights < 26) {
-  directDiscounted *= (1 - (a.discountWeek || 0));
-} else if (nights >= 26) {
-  directDiscounted *= (1 - (a.discountMonth || 0));
-}
+          airbnbEventsCount = airbnbReservas.length;
 
-const aDirectBase = directDiscounted + aExtraGuestPrice + (a.cleaningFee || 0);
+          // ✅ PROTECCIÓN ESPECIAL PARA ALTAMIRA 1
+          // Si Airbnb devuelve el calendario vacío, NO se muestra como disponible.
+          if (cal.name === "Altamira 1" && airbnbReservas.length === 0) {
+            forceUnavailable = true;
+            calendarWarning =
+              "Airbnb está devolviendo el iCal vacío para Altamira 1. No se muestra disponible por seguridad.";
+          }
 
+          reservas = reservas.concat(airbnbReservas);
+        } catch (err) {
+          console.error(`Error al procesar iCal Airbnb de ${cal.name}`, err);
 
-let discountedNightsPrice = aNightsPrice;
-if (nights >= 7 && nights < 26) {
-  discountedNightsPrice *= (1 - (a.discountWeek || 0));
-} else if (nights >= 26) {
-  discountedNightsPrice *= (1 - (a.discountMonth || 0));
-}
+          // ✅ Si falla Airbnb en Altamira 1, tampoco lo mostramos disponible.
+          if (cal.name === "Altamira 1") {
+            forceUnavailable = true;
+            calendarWarning =
+              "No se pudo leer correctamente el iCal de Airbnb para Altamira 1. No se muestra disponible por seguridad.";
+          }
+        }
 
-const aBaseWithDiscount = discountedNightsPrice + aExtraGuestPrice;
-const cleaningFee = a.cleaningFee || 0;
-const aSubtotalWithCleaning = aBaseWithDiscount + cleaningFee;
-const aPlatformFee = aSubtotalWithCleaning * (a.platformFeeRate || 0.1411);
+        // ---------- ESTEI ----------
+        if (cal.esteiUrl) {
+          try {
+            const esteiReservas = await getIcalReservas(cal.esteiUrl, cal.name, "Estéi");
 
-let aTotalPrice = aSubtotalWithCleaning + aPlatformFee;
-aTotalPrice = Math.round(aTotalPrice * 100) / 100;
+            esteiEventsCount = esteiReservas.length;
+            reservas = reservas.concat(esteiReservas);
+          } catch (err) {
+            console.error(`Error al procesar iCal Estéi de ${cal.name}`, err);
+          }
+        }
 
+        // ---------- DISPONIBILIDAD ----------
+        const hasOverlap = reservas.some((r) =>
+          rangesOverlap(from, to, r.start, r.end)
+        );
 
-// ---------- ESTEI PRICE ----------
-const e = cal.estei;
-const eNightsPrice = (e.pricePerNight || 0) * nights;
-const eExtraGuests = Math.max(0, people - (e.maxGuestsIncluded || 2));
-const eExtraGuestPrice = (e.extraGuestFeePerNight || 0) * eExtraGuests * nights;
-const eCleaningFee = e.cleaningFee || 0;
+        const isAvailable = forceUnavailable ? false : !hasOverlap;
 
-// ✅ DIRECTO BS BASE (SIN % NI DESCUENTOS)
-const eDirectBase = eNightsPrice + eExtraGuestPrice + eCleaningFee;
+        // ---------- AIRBNB PRICE ----------
+        const a = cal.airbnb || {};
 
-let eSubtotal = eNightsPrice + eExtraGuestPrice + eCleaningFee;
-let eDiscount = 0;
-if (nights >= 7 && nights < 30) eDiscount = eNightsPrice * (e.discountWeek || 0);
-else if (nights >= 30) eDiscount = eNightsPrice * (e.discountMonth || 0);
+        const aExtraGuests = Math.max(0, people - (a.maxGuestsIncluded || 0));
+        const aNightsPrice = (a.pricePerNight || 0) * nights;
+        const aExtraGuestPrice = (a.extraGuestFeePerNight || 0) * aExtraGuests * nights;
 
-const ePlatformFee = eSubtotal * (e.platformFeePercentage || 0);
-let eTotalPrice = eSubtotal + ePlatformFee - eDiscount;
+        let directDiscounted = (a.pricePerNight || 0) * nights;
 
+        if (nights >= 7 && nights < 26) {
+          directDiscounted *= 1 - (a.discountWeek || 0);
+        } else if (nights >= 26) {
+          directDiscounted *= 1 - (a.discountMonth || 0);
+        }
 
-// ---------- DESCUENTO PERSONALIZADO ----------
-const discountPercent = customDiscounts[cal.name] || 0;
-const dr = discountDateRanges[cal.name];
-const hasDiscountRange = dr && dr.startDate && dr.endDate;
+        const aDirectBase =
+          directDiscounted + aExtraGuestPrice + (a.cleaningFee || 0);
 
-if (discountPercent > 0 && hasDiscountRange && rangesOverlap(from, to, dr.startDate, dr.endDate)) {
-  aTotalPrice = aTotalPrice * (1 - discountPercent / 100);
-  eTotalPrice = eTotalPrice * (1 - discountPercent / 100);
-  // 👇 OJO: Directo Base NO se toca (porque lo quieres sin descuentos ni %)
-}
+        let discountedNightsPrice = aNightsPrice;
 
+        if (nights >= 7 && nights < 26) {
+          discountedNightsPrice *= 1 - (a.discountWeek || 0);
+        } else if (nights >= 26) {
+          discountedNightsPrice *= 1 - (a.discountMonth || 0);
+        }
 
-// ---------- PUSH OUTPUT ----------
-output.push({
-  name: cal.name,
-  nights,
-  capacity: cal.capacity,
-  rooms: cal.rooms,
-  baths: cal.baths,
-  airbnbLink: cal.airbnbLink,
-  esteiLink: cal.esteiLink,
-  reservas,
-  isAvailable,
+        const aBaseWithDiscount = discountedNightsPrice + aExtraGuestPrice;
+        const cleaningFee = a.cleaningFee || 0;
+        const aSubtotalWithCleaning = aBaseWithDiscount + cleaningFee;
 
-  // Precios por apps (con fee + descuentos como ya lo tienes)
-  airbnbPrice: aTotalPrice.toFixed(2),
-  esteiPrice: eTotalPrice.toFixed(2),
+        const aPlatformFee =
+          aSubtotalWithCleaning *
+          (a.platformFeeRate || a.platformFeePercentage || 0.1411);
 
-  // ✅ Precios directos BASE (solo noche(s) + extra huésped + limpieza)
-  directUsdBase: (Math.round(aDirectBase * 100) / 100).toFixed(2),
-  directBsBase: (Math.round(eDirectBase * 100) / 100).toFixed(2),
-});
+        let aTotalPrice = aSubtotalWithCleaning + aPlatformFee;
+        aTotalPrice = Math.round(aTotalPrice * 100) / 100;
 
+        // ---------- ESTEI PRICE ----------
+        const e = cal.estei || {};
 
-  } catch (err) {
-    console.error(`Error al procesar ${cal.name}`, err);
-  }
-}
+        const eNightsPrice = (e.pricePerNight || 0) * nights;
+        const eExtraGuests = Math.max(0, people - (e.maxGuestsIncluded || 2));
+        const eExtraGuestPrice = (e.extraGuestFeePerNight || 0) * eExtraGuests * nights;
+        const eCleaningFee = e.cleaningFee || 0;
 
+        const eDirectBase = eNightsPrice + eExtraGuestPrice + eCleaningFee;
+
+        let eSubtotal = eNightsPrice + eExtraGuestPrice + eCleaningFee;
+
+        let eDiscount = 0;
+
+        if (nights >= 7 && nights < 30) {
+          eDiscount = eNightsPrice * (e.discountWeek || 0);
+        } else if (nights >= 30) {
+          eDiscount = eNightsPrice * (e.discountMonth || 0);
+        }
+
+        const ePlatformFee = eSubtotal * (e.platformFeePercentage || 0);
+
+        let eTotalPrice = eSubtotal + ePlatformFee - eDiscount;
+
+        // ---------- DESCUENTO PERSONALIZADO ----------
+        const discountPercent = customDiscounts[cal.name] || 0;
+        const dr = discountDateRanges[cal.name];
+        const hasDiscountRange = dr && dr.startDate && dr.endDate;
+
+        if (
+          discountPercent > 0 &&
+          hasDiscountRange &&
+          rangesOverlap(from, to, dr.startDate, dr.endDate)
+        ) {
+          aTotalPrice = aTotalPrice * (1 - discountPercent / 100);
+          eTotalPrice = eTotalPrice * (1 - discountPercent / 100);
+        }
+
+        // ---------- PUSH OUTPUT ----------
+        output.push({
+          name: cal.name,
+          nights,
+          capacity: cal.capacity,
+          rooms: cal.rooms,
+          baths: cal.baths,
+          airbnbLink: cal.airbnbLink,
+          esteiLink: cal.esteiLink,
+          reservas,
+          isAvailable,
+          calendarWarning,
+          airbnbEventsCount,
+          esteiEventsCount,
+
+          airbnbPrice: aTotalPrice.toFixed(2),
+          esteiPrice: eTotalPrice.toFixed(2),
+
+          directUsdBase: (Math.round(aDirectBase * 100) / 100).toFixed(2),
+          directBsBase: (Math.round(eDirectBase * 100) / 100).toFixed(2),
+        });
+      } catch (err) {
+        console.error(`Error al procesar ${cal.name}`, err);
+      }
+    }
 
     setResults(output);
     setLoading(false);
   };
 
-  // Función copiar texto (igual)
   const copyToClipboard = async (text) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -1193,14 +1227,15 @@ output.push({
     }
   };
 
-const copyAvailableApartments = () => {
-  const availableApts = results.filter((r) => r.isAvailable);
-  if (availableApts.length === 0) {
-    alert("No hay apartamentos disponibles para copiar.");
-    return;
-  }
+  const copyAvailableApartments = () => {
+    const availableApts = results.filter((r) => r.isAvailable);
 
-  const paymentInfo = `Cómo reservar y pagar
+    if (availableApts.length === 0) {
+      alert("No hay apartamentos disponibles para copiar.");
+      return;
+    }
+
+    const paymentInfo = `Cómo reservar y pagar
 
 1️⃣ Por aplicaciones (Airbnb / Estéi)
 
@@ -1215,31 +1250,35 @@ Si no puedes usar las aplicaciones, puedes reservar directo.
 • Requiere depósito reembolsable, devuelto al finalizar la estadía.
 `;
 
-  // Función para calcular depósito según noches
-  const getDeposit = (nights) => {
-    if (nights === 2) return 130;
-    if (nights === 3) return 150;
-    if (nights >= 4 && nights <= 7) return 250;
-    if (nights >= 8 && nights <= 15) return 500;
-    if (nights >= 16 && nights <= 30) return 750;
-    return 1000; // más de 30 noches
-  };
+    const getDeposit = (nights) => {
+      if (nights === 2) return 130;
+      if (nights === 3) return 150;
+      if (nights >= 4 && nights <= 7) return 250;
+      if (nights >= 8 && nights <= 15) return 500;
+      if (nights >= 16 && nights <= 30) return 750;
+      return 1000;
+    };
 
-  const combinedText = paymentInfo + "\n\n" + availableApts
-    .map((r, index) => {
-      const nights =
-        typeof r.nights === "number" && !isNaN(r.nights)
-          ? r.nights
-          : Math.max(
-              1,
-              Math.ceil(
-                (dateRange[0].endDate - dateRange[0].startDate) / (1000 * 60 * 60 * 24)
-              )
-            );
-      const nightsLabel = nights === 1 ? `${nights} noche` : `${nights} noches`;
-      const deposit = getDeposit(nights);
+    const combinedText =
+      paymentInfo +
+      "\n\n" +
+      availableApts
+        .map((r, index) => {
+          const nights =
+            typeof r.nights === "number" && !isNaN(r.nights)
+              ? r.nights
+              : Math.max(
+                  1,
+                  Math.ceil(
+                    (dateRange[0].endDate - dateRange[0].startDate) /
+                      (1000 * 60 * 60 * 24)
+                  )
+                );
 
-      return `📍 *${r.name} - ${nightsLabel} | ${r.rooms} H / ${r.baths} B | Máx. ${r.capacity} pers.)*
+          const nightsLabel = nights === 1 ? `${nights} noche` : `${nights} noches`;
+          const deposit = getDeposit(nights);
+
+          return `📍 *${r.name} - ${nightsLabel} | ${r.rooms} H / ${r.baths} B | Máx. ${r.capacity} pers.)*
 
 USD: $${r.airbnbPrice} vía App Airbnb (DESCUENTO)
 Bs. (BCV): $${r.esteiPrice} vía ESTEI App
@@ -1247,31 +1286,33 @@ Bs. (BCV): $${r.esteiPrice} vía ESTEI App
 Ver fotos y características: ${r.esteiLink}
 
 Directo: USD: $${r.directUsdBase} + Depósito: $${deposit}
-Directo: Bs. (BCV): $${r.directBsBase} + Depósito: $${deposit}${index !== availableApts.length - 1 ? "\n\n────────────────────────\n\n" : ""}`;
+Directo: Bs. (BCV): $${r.directBsBase} + Depósito: $${deposit}${
+            index !== availableApts.length - 1
+              ? "\n\n────────────────────────\n\n"
+              : ""
+          }`;
+        })
+        .join("");
 
-
-    })
-    .join("");
-
-  copyToClipboard(combinedText);
-};
-
-
-const copySingleApartment = (apt) => {
-  const nightsLabel = apt.nights === 1 ? `${apt.nights} noche` : `${apt.nights} noches`;
-
-  const getDeposit = (n) => {
-    if (n === 2) return 130;
-    if (n === 3) return 150;
-    if (n >= 4 && n <= 7) return 250;
-    if (n >= 8 && n <= 15) return 500;
-    if (n >= 16 && n <= 30) return 750;
-    return 1000;
+    copyToClipboard(combinedText);
   };
 
-  const deposit = getDeposit(apt.nights);
+  const copySingleApartment = (apt) => {
+    const nightsLabel =
+      apt.nights === 1 ? `${apt.nights} noche` : `${apt.nights} noches`;
 
-  const paymentInfo = `Cómo reservar y pagar
+    const getDeposit = (n) => {
+      if (n === 2) return 130;
+      if (n === 3) return 150;
+      if (n >= 4 && n <= 7) return 250;
+      if (n >= 8 && n <= 15) return 500;
+      if (n >= 16 && n <= 30) return 750;
+      return 1000;
+    };
+
+    const deposit = getDeposit(apt.nights);
+
+    const paymentInfo = `Cómo reservar y pagar
 
 1️⃣ Por aplicaciones (Airbnb / Estéi)
 
@@ -1286,7 +1327,7 @@ Si no puedes usar las aplicaciones, puedes reservar directo.
 • Requiere depósito reembolsable, devuelto al finalizar la estadía.
 `;
 
-  const text = `${paymentInfo}
+    const text = `${paymentInfo}
 
 📍 *${apt.name}* — ${nightsLabel} (${apt.rooms}H / ${apt.baths}B / máx. ${apt.capacity} pers.)
 
@@ -1297,214 +1338,234 @@ Directo USD: $${apt.directUsdBase} + Depósito $${deposit}
 Directo Bs.: $${apt.directBsBase} + Depósito $${deposit}
 `;
 
-  copyToClipboard(text);
-};
+    copyToClipboard(text);
+  };
 
-  
+  return (
+    <div>
+      <button
+        onClick={() => setVerReservas(!verReservas)}
+        style={{
+          marginBottom: 20,
+          padding: "0.5rem 1rem",
+          backgroundColor: "green",
+          color: "white",
+          borderRadius: 6,
+          cursor: "pointer",
+        }}
+      >
+        {verReservas ? "← Volver" : "Ver Reservas"}
+      </button>
 
+      {verReservas ? (
+        <div style={{ overflowX: "auto", marginBottom: 20 }}>
+          <ReservasAdmin />
+        </div>
+      ) : (
+        <>
+          <div style={{ marginBottom: 20 }}>
+            <label
+              htmlFor="estadoSelect"
+              style={{ marginRight: 8, fontWeight: "bold" }}
+            >
+              Escoge el estado:
+            </label>
 
-  // You need to return your JSX from the App component:
-// You need to return your JSX from the App component:
-return (
-  <div>
-    {/* BOTÓN PARA VER/OCULTAR RESERVAS */}
-    <button
-      onClick={() => setVerReservas(!verReservas)}
-      style={{
-        marginBottom: 20,
-        padding: "0.5rem 1rem",
-        backgroundColor: "green",
-        color: "white",
-        borderRadius: 6,
-        cursor: "pointer",
-      }}
-    >
-      {verReservas ? "← Volver" : "Ver Reservas"}
-    </button>
+            <select
+              id="estadoSelect"
+              value={selectedEstado}
+              onChange={(e) => setSelectedEstado(e.target.value)}
+              style={{ padding: "0.3rem 0.5rem" }}
+            >
+              {estados.map((estado) => (
+                <option key={estado} value={estado}>
+                  {estado}
+                </option>
+              ))}
+            </select>
+          </div>
 
-    {/* MODO RESERVAS */}
-    {verReservas ? (
-      <div style={{ overflowX: "auto", marginBottom: 20 }}>
-        <ReservasAdmin />
-      </div>
-    ) : (
-      <>
-        {/* Select para escoger estado */}
-        <div style={{ marginBottom: 20 }}>
-          <label htmlFor="estadoSelect" style={{ marginRight: 8, fontWeight: "bold" }}>
-            Escoge el estado:
-          </label>
-          <select
-            id="estadoSelect"
-            value={selectedEstado}
-            onChange={(e) => setSelectedEstado(e.target.value)}
-            style={{ padding: "0.3rem 0.5rem" }}
+          <h2>Asignar descuentos personalizados a apartamentos</h2>
+
+          <button
+            style={{ marginBottom: 20, padding: "0.5rem 1rem", cursor: "pointer" }}
+            onClick={() => setShowDiscounts(!showDiscounts)}
           >
-            {estados.map((estado) => (
-              <option key={estado} value={estado}>
-                {estado}
-              </option>
-            ))}
-          </select>
-        </div>
+            {showDiscounts ? "Ocultar campos de descuento" : "Mostrar campos de descuento"}
+          </button>
 
-        {/* Botón para mostrar/ocultar campos de descuento */}
-        <h2>Asignar descuentos personalizados a apartamentos</h2>
-        <button
-          style={{ marginBottom: 20, padding: "0.5rem 1rem", cursor: "pointer" }}
-          onClick={() => setShowDiscounts(!showDiscounts)}
-        >
-          {showDiscounts ? "Ocultar campos de descuento" : "Mostrar campos de descuento"}
-        </button>
+          {showDiscounts &&
+            calendars
+              .filter((cal) => cal.estado === selectedEstado)
+              .map((cal) => (
+                <div
+                  key={cal.name}
+                  style={{
+                    marginBottom: "1.5rem",
+                    border: "1px solid #ddd",
+                    padding: 10,
+                    borderRadius: 6,
+                  }}
+                >
+                  <label>
+                    {cal.name} (% descuento):
+                    <input
+                      type="number"
+                      min="0"
+                      max="100"
+                      placeholder="0"
+                      value={customDiscounts[cal.name] || ""}
+                      onChange={(e) => {
+                        const val = Math.min(100, Math.max(0, Number(e.target.value)));
 
-        {/* Campos de descuento */}
-        {showDiscounts &&
-          calendars
-            .filter((cal) => cal.estado === selectedEstado)
-            .map((cal) => (
-              <div
-                key={cal.name}
-                style={{
-                  marginBottom: "1.5rem",
-                  border: "1px solid #ddd",
-                  padding: 10,
-                  borderRadius: 6,
-                }}
-              >
-                <label>
-                  {cal.name} (% descuento):
-                  <input
-                    type="number"
-                    min="0"
-                    max="100"
-                    placeholder="0"
-                    value={customDiscounts[cal.name] || ""}
-                    onChange={(e) => {
-                      const val = Math.min(100, Math.max(0, Number(e.target.value)));
-                      setCustomDiscounts((prev) => ({ ...prev, [cal.name]: val }));
-                    }}
-                    style={{ width: "60px", marginLeft: "0.5rem" }}
-                  />
-                </label>
+                        setCustomDiscounts((prev) => ({
+                          ...prev,
+                          [cal.name]: val,
+                        }));
+                      }}
+                      style={{ width: "60px", marginLeft: "0.5rem" }}
+                    />
+                  </label>
 
-                <div style={{ marginTop: 10 }}>
-                  <DateRange
-                    ranges={[
-                      discountDateRanges[cal.name] || {
-                        startDate: new Date(),
-                        endDate: addDays(new Date(), 1),
-                        key: "selection",
-                      },
-                    ]}
-                    onChange={(item) =>
-                      setDiscountDateRanges((prev) => ({ ...prev, [cal.name]: item.selection }))
-                    }
-                    editableDateInputs
-                    moveRangeOnFirstSelection={false}
-                    minDate={new Date()}
-                    rangeColors={["#10b981"]}
-                    showMonthAndYearPickers
-                    direction="horizontal"
-                  />
+                  <div style={{ marginTop: 10 }}>
+                    <DateRange
+                      ranges={[
+                        discountDateRanges[cal.name] || {
+                          startDate: new Date(),
+                          endDate: addDays(new Date(), 1),
+                          key: "selection",
+                        },
+                      ]}
+                      onChange={(item) =>
+                        setDiscountDateRanges((prev) => ({
+                          ...prev,
+                          [cal.name]: item.selection,
+                        }))
+                      }
+                      editableDateInputs
+                      moveRangeOnFirstSelection={false}
+                      minDate={new Date()}
+                      rangeColors={["#10b981"]}
+                      showMonthAndYearPickers
+                      direction="horizontal"
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
 
-        <button onClick={copyAvailableApartments}>
-          📋 Copiar todos los apartamentos disponibles
-        </button>
+          <button onClick={copyAvailableApartments}>
+            📋 Copiar todos los apartamentos disponibles
+          </button>
 
-        {/* Selección de fechas y personas */}
-        <h2>Selecciona fechas y personas</h2>
-        <DateRange
-          editableDateInputs
-          onChange={(item) => setDateRange([item.selection])}
-          moveRangeOnFirstSelection={false}
-          ranges={dateRange}
-          minDate={new Date()}
-          rangeColors={["#3d91ff"]}
-        />
+          <h2>Selecciona fechas y personas</h2>
 
-        <label style={{ display: "block", margin: "1rem 0" }}>
-  Personas:{" "}
-  <select value={people} onChange={(e) => setPeople(Number(e.target.value))}>
-    {[...Array(8).keys()].map((n) => (
-      <option key={n + 1} value={n + 1}>
-        {n + 1}
-      </option>
-    ))}
-  </select>
-</label>
+          <DateRange
+            editableDateInputs
+            onChange={(item) => setDateRange([item.selection])}
+            moveRangeOnFirstSelection={false}
+            ranges={dateRange}
+            minDate={new Date()}
+            rangeColors={["#3d91ff"]}
+          />
 
-        <button onClick={checkAvailability} style={{ padding: "0.5rem 1rem", cursor: "pointer" }}>
-          Consultar
-        </button>
+          <label style={{ display: "block", margin: "1rem 0" }}>
+            Personas:{" "}
+            <select value={people} onChange={(e) => setPeople(Number(e.target.value))}>
+              {[...Array(8).keys()].map((n) => (
+                <option key={n + 1} value={n + 1}>
+                  {n + 1}
+                </option>
+              ))}
+            </select>
+          </label>
 
-        {/* Resultados */}
-        <div style={{ marginTop: "2rem" }}>
-          {loading && <p>Cargando...</p>}
+          <button
+            onClick={checkAvailability}
+            style={{ padding: "0.5rem 1rem", cursor: "pointer" }}
+          >
+            Consultar
+          </button>
 
-          {!loading &&
-            results.map((r, i) => (
-              <div
-                key={i}
-                className="result-item"
-                style={{ borderBottom: "1px solid #ccc", paddingBottom: 15, marginBottom: 15 }}
-              >
-                <div className="result-info">
-                  <h3>📍 {r.name}</h3>
-                  <p>
-                    ({r.rooms} habit / {r.baths} baños · Máx. {r.capacity} personas)
-                  </p>
+          <div style={{ marginTop: "2rem" }}>
+            {loading && <p>Cargando...</p>}
 
-                  {r.isAvailable ? (
-                    <>
-                      <p>
-                        ✅ Disponible — Airbnb: ${r.airbnbPrice} / Estei: ${r.esteiPrice} en {r.nights} noches
-                      </p>
-                      <p>💳 Pay via Airbnb o Pago móvil, Tasa BCV, Transferencia y Zelle para Estei</p>
+            {!loading &&
+              results.map((r, i) => (
+                <div
+                  key={i}
+                  className="result-item"
+                  style={{
+                    borderBottom: "1px solid #ccc",
+                    paddingBottom: 15,
+                    marginBottom: 15,
+                  }}
+                >
+                  <div className="result-info">
+                    <h3>📍 {r.name}</h3>
 
-                      <p>
-                        <a href={r.airbnbLink} target="_blank" rel="noopener noreferrer">
-                          Ver en Airbnb
-                        </a>
-                      </p>
+                    <p>
+                      ({r.rooms} habit / {r.baths} baños · Máx. {r.capacity} personas)
+                    </p>
 
-                      <button
-                        onClick={() => copySingleApartment(r)}
-                        style={{
-                          marginTop: "10px",
-                          padding: "0.4rem 0.7rem",
-                          backgroundColor: "#4174e0ff",
-                          color: "white",
-                          borderRadius: 6,
-                          cursor: "pointer",
-                        }}
-                      >
-                        📋 Copiar Presupuesto
-                      </button>
-                    </>
-                  ) : (
-                    <p style={{ color: "#dc2626" }}>❌ No disponible</p>
-                  )}
+                    {r.isAvailable ? (
+                      <>
+                        <p>
+                          ✅ Disponible — Airbnb: ${r.airbnbPrice} / Estei: $
+                          {r.esteiPrice} en {r.nights} noches
+                        </p>
+
+                        <p>
+                          💳 Pay via Airbnb o Pago móvil, Tasa BCV, Transferencia y
+                          Zelle para Estei
+                        </p>
+
+                        <p>
+                          <a href={r.airbnbLink} target="_blank" rel="noopener noreferrer">
+                            Ver en Airbnb
+                          </a>
+                        </p>
+
+                        <button
+                          onClick={() => copySingleApartment(r)}
+                          style={{
+                            marginTop: "10px",
+                            padding: "0.4rem 0.7rem",
+                            backgroundColor: "#4174e0ff",
+                            color: "white",
+                            borderRadius: 6,
+                            cursor: "pointer",
+                          }}
+                        >
+                          📋 Copiar Presupuesto
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <p style={{ color: "#dc2626" }}>❌ No disponible</p>
+
+                        {r.calendarWarning && (
+                          <p style={{ color: "#b45309", fontWeight: "bold" }}>
+                            ⚠️ {r.calendarWarning}
+                          </p>
+                        )}
+                      </>
+                    )}
+                  </div>
+
+                  <div className="calendar-container" style={{ marginTop: 10 }}>
+                    <CalendarioPropiedad
+                      nombre={r.name}
+                      reservas={r.reservas}
+                      currentDate={dateRange[0].startDate}
+                    />
+                  </div>
                 </div>
-
-                <div className="calendar-container" style={{ marginTop: 10 }}>
-                  <CalendarioPropiedad
-                    nombre={r.name}
-                    reservas={r.reservas}
-                    currentDate={dateRange[0].startDate}
-                  />
-                </div>
-              </div>
-            ))}
-        </div>
-      </>
-    )}
-  </div>
-);
-
-
+              ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
 }
 
 export default App;
