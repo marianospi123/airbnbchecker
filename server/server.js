@@ -435,6 +435,7 @@ app.get("/proxy", async (req, res) => {
 
     const text = await response.text();
 
+    res.set("Cache-Control", "no-store, no-cache, must-revalidate");
     res.type("text/calendar").send(text);
   } catch (error) {
     console.error("Error fetching ICS:", error.message);
@@ -506,26 +507,49 @@ app.get("/api/availability", async (req, res) => {
       let errorMsg = null;
 
       try {
-        const proxyUrl = `${base}/proxy?url=${encodeURIComponent(cal.url)}`;
-        const resp = await fetch(proxyUrl);
+        const calendarSources = [
+          { name: "Airbnb", url: cal.url },
+          ...(cal.esteiUrl ? [{ name: "Estéi", url: cal.esteiUrl }] : []),
+        ];
+        const reservas = [];
 
-        if (!resp.ok) {
-          throw new Error(`No se pudo obtener el ICS de ${cal.name}`);
+        for (const source of calendarSources) {
+          const proxyUrl = `${base}/proxy?url=${encodeURIComponent(source.url)}`;
+          const resp = await fetch(proxyUrl);
+
+          if (!resp.ok) {
+            throw new Error(
+              `No se pudo obtener el ICS de ${source.name} para ${cal.name}`
+            );
+          }
+
+          const text = await resp.text();
+          if (!text || !text.includes("BEGIN:VCALENDAR")) {
+            throw new Error(
+              `${source.name} devolvió un calendario inválido para ${cal.name}`
+            );
+          }
+
+          const jcalData = ICAL.parse(text);
+          const comp = new ICAL.Component(jcalData);
+          const events = comp.getAllSubcomponents("vevent");
+
+          for (const eventComponent of events) {
+            const ev = new ICAL.Event(eventComponent);
+            if (ev.startDate && ev.endDate) {
+              reservas.push({
+                start: ev.startDate.toJSDate(),
+                end: ev.endDate.toJSDate(),
+              });
+            }
+          }
         }
 
-        const text = await resp.text();
-        const jcalData = ICAL.parse(text);
-        const comp = new ICAL.Component(jcalData);
-        const events = comp.getAllSubcomponents("vevent");
-
-        const reservas = events.map((eventComponent) => {
-          const ev = new ICAL.Event(eventComponent);
-
-          return {
-            start: ev.startDate.toJSDate(),
-            end: ev.endDate.toJSDate(),
-          };
-        });
+        if (["Chacao", "Altamira 1"].includes(cal.name) && reservas.length === 0) {
+          throw new Error(
+            `Los calendarios de ${cal.name} llegaron vacíos; se bloquea por seguridad`
+          );
+        }
 
         isAvailable = !reservas.some((r) =>
           rangesOverlap(startDate, endDate, r.start, r.end)

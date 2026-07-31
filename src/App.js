@@ -1,4 +1,3 @@
-import ICAL from "ical.js";
 import React, {   } from 'react';
 import CalendarioPropiedad from './calendariopropiedad';
 import { DateRange } from 'react-date-range';
@@ -9,6 +8,7 @@ import './App.css';
 import Reservas from "./components/excel"; // o donde esté tu archivo Reservas.js
 import  { useState, useEffect } from "react";
 import ReservasAdmin from "./components/ReservasAdmin";
+import { getCalendarHealth, parseIcalReservas } from "./utils/icalCalendars";
 
 
 
@@ -152,7 +152,7 @@ const calendars = [
     name: "Chacao",
      estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1385011718927994475.ics?s=4e4d11b7c6db289a9012851c43364d23&locale=en",
-    esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/1473257424-stay-17432889927468941438.ics",
+    esteiUrl:"https://api.estei.app/api/calendars/1473257424-stay-17432889927468941438.ics",
     capacity: 4,
     rooms: 2,
     baths: 1,
@@ -663,31 +663,7 @@ const calendars = [
   },
 },
 
-{
-  name: "Acogedor apto - cocina equipada",
-  estado: "Maracaibo",
-  url: "https://www.airbnb.co.ve/calendar/ical/1389198391472630431.ics?s=9d69d8e04a6ba73d4c12e3336f5139fe",
-   esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/3533338522-stay-17483089366375025123.ics",
-  capacity: 4,
-  rooms: 2,
-  baths: 1,
-  airbnbLink: "https://airbnb.co.ve/h/buritaca7",
-  esteiLink: "https://estei.app/stay/17483089366375025123/profile",
-  airbnb: {
-    pricePerNight: 45,
-    cleaningFee: 30,
-    extraGuestFeePerNight: 7,
-    maxGuestsIncluded: 1,
-    discountWeek: 0.05,
-    discountMonth: 0.15,
-    platformFeePercentage: 0.1411
-  },
-  estei: {
-    pricePerNight: 51,
-    cleaningFee: 42,
-    platformFeePercentage: 0.15
-  },
-},
+
 {
   name: "Apartamento moderno y seguro en Viento Norte",
   estado: "Maracaibo",
@@ -993,28 +969,6 @@ function App() {
     return start1 < end2 && start2 < end1;
   }
 
-  function parseIcalReservas(text) {
-    if (!text || !text.includes("BEGIN:VCALENDAR")) {
-      throw new Error("El archivo descargado no parece un calendario iCal válido.");
-    }
-
-    const jcalData = ICAL.parse(text);
-    const comp = new ICAL.Component(jcalData);
-    const events = comp.getAllSubcomponents("vevent");
-
-    return events
-      .map((e) => {
-        const ev = new ICAL.Event(e);
-
-        return {
-          start: ev.startDate ? ev.startDate.toJSDate() : null,
-          end: ev.endDate ? ev.endDate.toJSDate() : null,
-          summary: ev.summary || "",
-        };
-      })
-      .filter((r) => r.start && r.end);
-  }
-
   async function getIcalReservas(url, aptName, sourceName) {
     if (!url) return [];
 
@@ -1064,47 +1018,54 @@ function App() {
       try {
         let reservas = [];
         let forceUnavailable = false;
-        let calendarWarning = "";
+        const calendarWarnings = [];
+        let configuredSources = 0;
+        let successfulSources = 0;
         let airbnbEventsCount = 0;
         let esteiEventsCount = 0;
 
         // ---------- AIRBNB ----------
+        configuredSources += 1;
         try {
           const airbnbReservas = await getIcalReservas(cal.url, cal.name, "Airbnb");
 
+          successfulSources += 1;
           airbnbEventsCount = airbnbReservas.length;
-
-          // ✅ PROTECCIÓN ESPECIAL PARA ALTAMIRA 1
-          // Si Airbnb devuelve el calendario vacío, NO se muestra como disponible.
-          if (cal.name === "Altamira 1" && airbnbReservas.length === 0) {
-            forceUnavailable = true;
-            calendarWarning =
-              "Airbnb está devolviendo el iCal vacío para Altamira 1. No se muestra disponible por seguridad.";
-          }
 
           reservas = reservas.concat(airbnbReservas);
         } catch (err) {
           console.error(`Error al procesar iCal Airbnb de ${cal.name}`, err);
-
-          // ✅ Si falla Airbnb en Altamira 1, tampoco lo mostramos disponible.
-          if (cal.name === "Altamira 1") {
-            forceUnavailable = true;
-            calendarWarning =
-              "No se pudo leer correctamente el iCal de Airbnb para Altamira 1. No se muestra disponible por seguridad.";
-          }
+          calendarWarnings.push(
+            `No se pudo leer el iCal de Airbnb para ${cal.name}. No se muestra disponible por seguridad.`
+          );
         }
 
         // ---------- ESTEI ----------
         if (cal.esteiUrl) {
+          configuredSources += 1;
           try {
             const esteiReservas = await getIcalReservas(cal.esteiUrl, cal.name, "Estéi");
 
+            successfulSources += 1;
             esteiEventsCount = esteiReservas.length;
             reservas = reservas.concat(esteiReservas);
           } catch (err) {
             console.error(`Error al procesar iCal Estéi de ${cal.name}`, err);
+            calendarWarnings.push(
+              `No se pudo leer el iCal de Estéi para ${cal.name}. No se muestra disponible por seguridad.`
+            );
           }
         }
+
+        const calendarHealth = getCalendarHealth({
+          propertyName: cal.name,
+          configuredSources,
+          successfulSources,
+          reservations: reservas,
+          warnings: calendarWarnings,
+        });
+        forceUnavailable = calendarHealth.forceUnavailable;
+        const calendarWarning = calendarHealth.warning;
 
         // ---------- DISPONIBILIDAD ----------
         const hasOverlap = reservas.some((r) =>

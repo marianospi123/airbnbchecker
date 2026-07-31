@@ -1,13 +1,14 @@
 const calendars = [
   {
     name: "Chacao",
-     estado: "Caracas",
+    estado: "Caracas",
     url: "https://www.airbnb.com/calendar/ical/1385011718927994475.ics?s=4e4d11b7c6db289a9012851c43364d23&locale=en",
+    esteiUrl: "https://api.estei.app/api/calendars/1473257424-stay-17432889927468941438.ics",
     capacity: 4,
     rooms: 2,
     baths: 1,
-    airbnbLink: "airbnb.com/h/chacaoccs",
-    esteiLink:  "https://surl.lu/cnsvgv",
+    airbnbLink: "https://airbnb.com/h/chacaoccs",
+    esteiLink: "https://surl.lu/cnsvgv",
     airbnb: {
       pricePerNight: 85,
       cleaningFee: 40,
@@ -15,12 +16,12 @@ const calendars = [
       maxGuestsIncluded: 2,
       discountWeek: 0.05,
       discountMonth: 0.15,
-       platformFeePercentage: 0.1411
+      platformFeePercentage: 0.1411
     },
     estei: {
       pricePerNight: 120,
       cleaningFee: 47,
-      platformFeePercentage: 0.15 // 13.05%
+      platformFeePercentage: 0.15
     },
   },
     {
