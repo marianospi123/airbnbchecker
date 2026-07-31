@@ -1,4 +1,4 @@
-import React, {   } from 'react';
+﻿import React, {   } from 'react';
 import CalendarioPropiedad from './calendariopropiedad';
 import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns';
@@ -8,14 +8,18 @@ import './App.css';
 import Reservas from "./components/excel"; // o donde esté tu archivo Reservas.js
 import  { useState, useEffect } from "react";
 import ReservasAdmin from "./components/ReservasAdmin";
-import { getCalendarHealth, parseIcalReservas } from "./utils/icalCalendars";
+import {
+  getCalendarHealth,
+  parseIcalReservas,
+  rangesOverlap,
+  snapshotRangesToReservations,
+} from "./utils/icalCalendars";
+import chacaoEsteiAvailability from "./data/esteiChacaoAvailability.json";
 
 
 
 
-const BASE_URL = process.env.NODE_ENV === "production"
-  ? "https://airbnbchecker-4.onrender.com"
-  : "http://localhost:4004";
+const BASE_URL = process.env.REACT_APP_API_URL || "";
 
 
 const calendars = [
@@ -151,8 +155,8 @@ const calendars = [
   {
     name: "Chacao",
      estado: "Caracas",
-    url: "https://www.airbnb.com/calendar/ical/1385011718927994475.ics?s=4e4d11b7c6db289a9012851c43364d23&locale=en",
-    esteiUrl:"https://api.estei.app/api/calendars/1473257424-stay-17432889927468941438.ics",
+    url: "https://www.airbnb.co.ve/calendar/ical/1385011718927994475.ics?t=d8638dacb1de4975a8145b25c68b2d50",
+    esteiUrl: null,
     capacity: 4,
     rooms: 2,
     baths: 1,
@@ -965,15 +969,11 @@ function App() {
     return uniqueEstados;
   }, []);
 
-  function rangesOverlap(start1, end1, start2, end2) {
-    return start1 < end2 && start2 < end1;
-  }
-
   async function getIcalReservas(url, aptName, sourceName) {
     if (!url) return [];
 
-    const proxyUrl = `${BASE_URL}/proxy?url=${encodeURIComponent(url)}`;
-    const res = await fetch(proxyUrl);
+    const proxyUrl = `${BASE_URL}/proxy?url=${encodeURIComponent(url)}&_=${Date.now()}`;
+    const res = await fetch(proxyUrl, { cache: "no-store" });
     const text = await res.text();
 
     if (!res.ok) {
@@ -1041,6 +1041,17 @@ function App() {
         }
 
         // ---------- ESTEI ----------
+        if (cal.name === "Chacao") {
+          configuredSources += 1;
+          const esteiSnapshotReservas = snapshotRangesToReservations(
+            chacaoEsteiAvailability,
+            "Estei"
+          );
+          successfulSources += 1;
+          esteiEventsCount = esteiSnapshotReservas.length;
+          reservas = reservas.concat(esteiSnapshotReservas);
+        }
+
         if (cal.esteiUrl) {
           configuredSources += 1;
           try {

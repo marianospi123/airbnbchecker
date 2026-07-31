@@ -1,6 +1,36 @@
-import ICAL from "ical.js";
+﻿import ICAL from "ical.js";
 
 const EMPTY_CALENDAR_PROTECTED_PROPERTIES = new Set(["Chacao", "Altamira 1"]);
+
+export function rangesOverlap(start1, end1, start2, end2) {
+  return start1 < end2 && start2 < end1;
+}
+
+function parseLocalDate(dateText) {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(dateText || ""));
+  if (!match) return null;
+
+  const [, year, month, day] = match;
+  const date = new Date(Number(year), Number(month) - 1, Number(day));
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
+export function snapshotRangesToReservations(snapshot, sourceName = "Estei") {
+  if (!snapshot || !Array.isArray(snapshot.ranges)) return [];
+
+  return snapshot.ranges
+    .map((range) => ({
+      start: parseLocalDate(range.start),
+      end: parseLocalDate(range.end),
+      summary: `${sourceName} (Not available)`,
+    }))
+    .filter(
+      (reservation) =>
+        reservation.start &&
+        reservation.end &&
+        reservation.start < reservation.end
+    );
+}
 
 export function parseIcalReservas(text) {
   if (!text || !text.includes("BEGIN:VCALENDAR")) {

@@ -1,4 +1,4 @@
-const express = require("express");
+﻿const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
@@ -447,6 +447,7 @@ app.get("/proxy", async (req, res) => {
 // DISPONIBILIDAD Y PRECIOS
 // -------------------
 const calendars = require("./calendars.js");
+const chacaoEsteiAvailability = require("../src/data/esteiChacaoAvailability.json");
 
 function rangesOverlap(start1, end1, start2, end2) {
   return start1 < end2 && start2 < end1;
@@ -512,6 +513,21 @@ app.get("/api/availability", async (req, res) => {
           ...(cal.esteiUrl ? [{ name: "Estéi", url: cal.esteiUrl }] : []),
         ];
         const reservas = [];
+
+        if (cal.name === "Chacao") {
+          for (const range of chacaoEsteiAvailability.ranges || []) {
+            const snapshotStart = new Date(`${range.start}T00:00:00.000Z`);
+            const snapshotEnd = new Date(`${range.end}T00:00:00.000Z`);
+
+            if (
+              !Number.isNaN(snapshotStart.getTime()) &&
+              !Number.isNaN(snapshotEnd.getTime()) &&
+              snapshotStart < snapshotEnd
+            ) {
+              reservas.push({ start: snapshotStart, end: snapshotEnd });
+            }
+          }
+        }
 
         for (const source of calendarSources) {
           const proxyUrl = `${base}/proxy?url=${encodeURIComponent(source.url)}`;
