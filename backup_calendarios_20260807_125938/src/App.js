@@ -8,12 +8,7 @@ import './App.css';
 import Reservas from "./components/excel"; // o donde esté tu archivo Reservas.js
 import  { useState, useEffect } from "react";
 import ReservasAdmin from "./components/ReservasAdmin";
-import {
-  getCalendarHealth,
-  getCalendarSources,
-  parseIcalReservas,
-} from "./utils/icalCalendars";
-import calendarSourceOverrides from "./data/calendarSources.json";
+import { getCalendarHealth, parseIcalReservas } from "./utils/icalCalendars";
 
 
 
@@ -927,11 +922,6 @@ const calendars = [
 
 ]
 
-for (const calendar of calendars) {
-  const sourceOverrides = calendarSourceOverrides[calendar.name];
-  if (sourceOverrides) Object.assign(calendar, sourceOverrides);
-}
-
 
 
 
@@ -983,7 +973,7 @@ function App() {
     if (!url) return [];
 
     const proxyUrl = `${BASE_URL}/proxy?url=${encodeURIComponent(url)}`;
-    const res = await fetch(`${proxyUrl}&_=${Date.now()}`, { cache: "no-store" });
+    const res = await fetch(proxyUrl);
     const text = await res.text();
 
     if (!res.ok) {
@@ -1034,30 +1024,35 @@ function App() {
         let airbnbEventsCount = 0;
         let esteiEventsCount = 0;
 
-        const calendarSources = getCalendarSources(cal);
-        configuredSources = calendarSources.length;
+        // ---------- AIRBNB ----------
+        configuredSources += 1;
+        try {
+          const airbnbReservas = await getIcalReservas(cal.url, cal.name, "Airbnb");
 
-        for (const source of calendarSources) {
+          successfulSources += 1;
+          airbnbEventsCount = airbnbReservas.length;
+
+          reservas = reservas.concat(airbnbReservas);
+        } catch (err) {
+          console.error(`Error al procesar iCal Airbnb de ${cal.name}`, err);
+          calendarWarnings.push(
+            `No se pudo leer el iCal de Airbnb para ${cal.name}. No se muestra disponible por seguridad.`
+          );
+        }
+
+        // ---------- ESTEI ----------
+        if (cal.esteiUrl) {
+          configuredSources += 1;
           try {
-            const sourceReservations = await getIcalReservas(
-              source.url,
-              cal.name,
-              source.name
-            );
+            const esteiReservas = await getIcalReservas(cal.esteiUrl, cal.name, "Estéi");
 
             successfulSources += 1;
-            if (source.name === "Airbnb") airbnbEventsCount = sourceReservations.length;
-            if (source.name === "Estéi") esteiEventsCount = sourceReservations.length;
-            reservas = reservas.concat(
-              sourceReservations.map((reservation) => ({
-                ...reservation,
-                source: source.name,
-              }))
-            );
+            esteiEventsCount = esteiReservas.length;
+            reservas = reservas.concat(esteiReservas);
           } catch (err) {
-            console.error(`Error al procesar iCal ${source.name} de ${cal.name}`, err);
+            console.error(`Error al procesar iCal Estéi de ${cal.name}`, err);
             calendarWarnings.push(
-              `No se pudo leer el iCal de ${source.name} para ${cal.name}.`
+              `No se pudo leer el iCal de Estéi para ${cal.name}. No se muestra disponible por seguridad.`
             );
           }
         }
@@ -1508,13 +1503,13 @@ Directo Bs.: $${apt.directBsBase} + Depósito $${deposit}
                     ) : (
                       <>
                         <p style={{ color: "#dc2626" }}>❌ No disponible</p>
-                      </>
-                    )}
 
-                    {r.calendarWarning && (
-                      <p style={{ color: "#b45309", fontWeight: "bold" }}>
-                        ⚠️ {r.calendarWarning}
-                      </p>
+                        {r.calendarWarning && (
+                          <p style={{ color: "#b45309", fontWeight: "bold" }}>
+                            ⚠️ {r.calendarWarning}
+                          </p>
+                        )}
+                      </>
                     )}
                   </div>
 

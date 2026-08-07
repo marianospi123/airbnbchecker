@@ -1,26 +1,6 @@
-import ICAL from "ical.js";
+﻿import ICAL from "ical.js";
 
 const EMPTY_CALENDAR_PROTECTED_PROPERTIES = new Set(["Chacao", "Altamira 1"]);
-
-export function getCalendarSources(calendar) {
-  if (!calendar) return [];
-
-  const candidates = [
-    { name: "Airbnb", url: calendar.url },
-    { name: "Estéi", url: calendar.esteiUrl },
-    { name: "Booking", url: calendar.bookingUrl },
-    { name: "VRBO", url: calendar.vrboUrl },
-  ];
-  const seen = new Set();
-
-  return candidates.filter((source) => {
-    const url = String(source.url || "").trim();
-    if (!url || seen.has(url)) return false;
-    seen.add(url);
-    source.url = url;
-    return true;
-  });
-}
 
 export function rangesOverlap(start1, end1, start2, end2) {
   return start1 < end2 && start2 < end1;
@@ -87,7 +67,6 @@ export function getCalendarHealth({
     EMPTY_CALENDAR_PROTECTED_PROPERTIES.has(propertyName) &&
     allSourcesSucceeded &&
     reservations.length === 0;
-  const noSourceSucceeded = configuredSources > 0 && successfulSources === 0;
   const messages = [...warnings];
 
   if (protectedEmptyCalendar) {
@@ -97,7 +76,7 @@ export function getCalendarHealth({
   }
 
   return {
-    forceUnavailable: noSourceSucceeded || protectedEmptyCalendar,
+    forceUnavailable: messages.length > 0,
     warning: messages.join(" "),
   };
 }

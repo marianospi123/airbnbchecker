@@ -1,4 +1,4 @@
-const express = require("express");
+﻿const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
@@ -426,8 +426,6 @@ app.get("/proxy", async (req, res) => {
       headers: {
         "User-Agent": "Mozilla/5.0",
         Accept: "text/calendar, text/plain, */*",
-        "Cache-Control": "no-cache",
-        Pragma: "no-cache",
       },
     });
 
@@ -449,31 +447,7 @@ app.get("/proxy", async (req, res) => {
 // DISPONIBILIDAD Y PRECIOS
 // -------------------
 const calendars = require("./calendars.js");
-const calendarSourceOverrides = require("../src/data/calendarSources.json");
 const chacaoEsteiAvailability = require("../src/data/esteiChacaoAvailability.json");
-
-for (const calendar of calendars) {
-  const sourceOverrides = calendarSourceOverrides[calendar.name];
-  if (sourceOverrides) Object.assign(calendar, sourceOverrides);
-}
-
-function getCalendarSources(calendar) {
-  const candidates = [
-    { name: "Airbnb", url: calendar.url },
-    { name: "Estéi", url: calendar.esteiUrl },
-    { name: "Booking", url: calendar.bookingUrl },
-    { name: "VRBO", url: calendar.vrboUrl },
-  ];
-  const seen = new Set();
-
-  return candidates.filter((source) => {
-    const url = String(source.url || "").trim();
-    if (!url || seen.has(url)) return false;
-    seen.add(url);
-    source.url = url;
-    return true;
-  });
-}
 
 function rangesOverlap(start1, end1, start2, end2) {
   return start1 < end2 && start2 < end1;
@@ -534,10 +508,11 @@ app.get("/api/availability", async (req, res) => {
       let errorMsg = null;
 
       try {
-        const calendarSources = getCalendarSources(cal);
+        const calendarSources = [
+          { name: "Airbnb", url: cal.url },
+          ...(cal.esteiUrl ? [{ name: "Estéi", url: cal.esteiUrl }] : []),
+        ];
         const reservas = [];
-        const sourceErrors = [];
-        let successfulSources = 0;
 
         if (cal.name === "Chacao") {
           for (const range of chacaoEsteiAvailability.ranges || []) {
@@ -555,46 +530,36 @@ app.get("/api/availability", async (req, res) => {
         }
 
         for (const source of calendarSources) {
-          try {
-            const proxyUrl = `${base}/proxy?url=${encodeURIComponent(source.url)}&_=${Date.now()}`;
-            const resp = await fetch(proxyUrl, { cache: "no-store" });
+          const proxyUrl = `${base}/proxy?url=${encodeURIComponent(source.url)}`;
+          const resp = await fetch(proxyUrl);
 
-            if (!resp.ok) {
-              throw new Error(`respondió HTTP ${resp.status}`);
-            }
-
-            const text = await resp.text();
-            if (!text || !text.includes("BEGIN:VCALENDAR")) {
-              throw new Error("devolvió un calendario inválido");
-            }
-
-            const jcalData = ICAL.parse(text);
-            const comp = new ICAL.Component(jcalData);
-            const events = comp.getAllSubcomponents("vevent");
-            successfulSources += 1;
-
-            for (const eventComponent of events) {
-              const ev = new ICAL.Event(eventComponent);
-              if (ev.startDate && ev.endDate) {
-                reservas.push({
-                  start: ev.startDate.toJSDate(),
-                  end: ev.endDate.toJSDate(),
-                  source: source.name,
-                });
-              }
-            }
-          } catch (sourceError) {
-            sourceErrors.push(
-              `${source.name}: ${sourceError.message || "no se pudo leer"}`
+          if (!resp.ok) {
+            throw new Error(
+              `No se pudo obtener el ICS de ${source.name} para ${cal.name}`
             );
           }
-        }
 
-        if (calendarSources.length > 0 && successfulSources === 0) {
-          throw new Error(`No se pudo leer ningún calendario de ${cal.name}`);
-        }
+          const text = await resp.text();
+          if (!text || !text.includes("BEGIN:VCALENDAR")) {
+            throw new Error(
+              `${source.name} devolvió un calendario inválido para ${cal.name}`
+            );
+          }
 
-        if (sourceErrors.length > 0) errorMsg = sourceErrors.join(" | ");
+          const jcalData = ICAL.parse(text);
+          const comp = new ICAL.Component(jcalData);
+          const events = comp.getAllSubcomponents("vevent");
+
+          for (const eventComponent of events) {
+            const ev = new ICAL.Event(eventComponent);
+            if (ev.startDate && ev.endDate) {
+              reservas.push({
+                start: ev.startDate.toJSDate(),
+                end: ev.endDate.toJSDate(),
+              });
+            }
+          }
+        }
 
         if (["Chacao", "Altamira 1"].includes(cal.name) && reservas.length === 0) {
           throw new Error(

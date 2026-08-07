@@ -1,6 +1,5 @@
-import {
+﻿import {
   getCalendarHealth,
-  getCalendarSources,
   parseIcalReservas,
   rangesOverlap,
   snapshotRangesToReservations,
@@ -108,7 +107,7 @@ test("blocks Chacao when every configured calendar is empty", () => {
   expect(health.warning).toContain("llegaron vacíos");
 });
 
-test("keeps successful calendars usable when one source fails", () => {
+test("blocks availability when any calendar source fails", () => {
   const health = getCalendarHealth({
     propertyName: "Chacao",
     configuredSources: 2,
@@ -117,33 +116,6 @@ test("keeps successful calendars usable when one source fails", () => {
     warnings: ["No se pudo leer el iCal de Estéi para Chacao."],
   });
 
-  expect(health.forceUnavailable).toBe(false);
-  expect(health.warning).toContain("Estéi");
-});
-
-test("combines Airbnb, Estei, Booking and VRBO without duplicate URLs", () => {
-  const sources = getCalendarSources({
-    url: "https://example.com/airbnb.ics",
-    esteiUrl: "https://example.com/estei.ics",
-    bookingUrl: "https://example.com/booking.ics",
-    vrboUrl: "https://example.com/booking.ics",
-  });
-
-  expect(sources.map((source) => source.name)).toEqual([
-    "Airbnb",
-    "Estéi",
-    "Booking",
-  ]);
-});
-
-test("blocks availability when every configured calendar fails", () => {
-  const health = getCalendarHealth({
-    propertyName: "Campiña",
-    configuredSources: 4,
-    successfulSources: 0,
-    reservations: [],
-    warnings: ["No se pudo leer ningún calendario."],
-  });
-
   expect(health.forceUnavailable).toBe(true);
+  expect(health.warning).toContain("Estéi");
 });
