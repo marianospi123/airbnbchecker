@@ -925,110 +925,6 @@ const calendars = [
   },
 },
 
-{
-  name: "Cabudare",
-  estado: "Barquisimeto",
-  url: "https://www.airbnb.com/calendar/ical/1545049910848115258.ics?t=4d5db8850d614a78bfb1e59301f7b412&locale=es-XL",
-  esteiUrl: "https://api.estei.app/api/calendars/3200063677-stay-17661842698973151059.ics",
-  capacity: 6,
-  rooms: 2,
-  baths: 2,
-  airbnbLink: "https://airbnb.com/h/cabudare",
-  esteiLink: "https://estei.app/stay/17661842698973151059/profile",
-  airbnb: {
-    pricePerNight: 65,
-    cleaningFee: 35,
-    extraGuestFeePerNight: 5,
-    maxGuestsIncluded: 3,
-    discountWeek: 0,
-    discountMonth: 0,
-    platformFeePercentage: 0.1411
-  },
-  estei: {
-    pricePerNight: 110,
-    cleaningFee: 45,
-    platformFeePercentage: 0.15
-  }
-},
-
-{
-  name: "Bqto - Aeropuerto",
-  estado: "Barquisimeto",
-  url: "https://www.airbnb.com/calendar/ical/1477157897191458411.ics?t=926ce559fe304df0a958b9460a7e6660&locale=es-XL",
-  esteiUrl: "https://api.estei.app/api/calendars/1116721807-stay-17623544190746887185.ics",
-  capacity: 7,
-  rooms: 3,
-  baths: 4,
-  airbnbLink: "https://es-l.airbnb.com/rooms/1477157897191458411",
-  esteiLink: "https://estei.app/stay/17623544190746887185/profile",
-  airbnb: {
-    pricePerNight: 65,
-    cleaningFee: 35,
-    extraGuestFeePerNight: 5,
-    maxGuestsIncluded: 3,
-    discountWeek: 0,
-    discountMonth: 0,
-    platformFeePercentage: 0.1411
-  },
-  estei: {
-    pricePerNight: 145,
-    cleaningFee: 15,
-    platformFeePercentage: 0.15
-  }
-},
-
-{
-  name: "Bqto - El Pedregal",
-  estado: "Barquisimeto",
-  url: "https://www.airbnb.com/calendar/ical/1742790075940529000.ics?t=b42f62e4ee734e539408bf6bc33b7feb&locale=es-XL",
-  esteiUrl: null,
-  capacity: 5,
-  rooms: 2,
-  baths: 2,
-  airbnbLink: "https://es-l.airbnb.com/rooms/1742790075940529000",
-  esteiLink: null,
-  airbnb: {
-    pricePerNight: 85,
-    cleaningFee: 35,
-    extraGuestFeePerNight: 0,
-    maxGuestsIncluded: 5,
-    discountWeek: 0,
-    discountMonth: 0,
-    platformFeePercentage: 0.1411
-  },
-  estei: {
-    pricePerNight: 120,
-    cleaningFee: 45,
-    platformFeePercentage: 0.15
-  }
-},
-
-{
-  name: "Bqto - Monte Real",
-  estado: "Barquisimeto",
-  url: "https://www.airbnb.com/calendar/ical/1705444277231632043.ics?t=2de32d1a242c45a2a62951469eb3c1c3&locale=es-XL",
-  esteiUrl: null,
-  capacity: 6,
-  rooms: 2,
-  baths: 2,
-  airbnbLink: "https://es-l.airbnb.com/rooms/1705444277231632043",
-  esteiLink: null,
-  airbnb: {
-    pricePerNight: 75,
-    cleaningFee: 15,
-    extraGuestFeePerNight: 0,
-    maxGuestsIncluded: 6,
-    discountWeek: 0,
-    discountMonth: 0,
-    platformFeePercentage: 0.1411
-  },
-  estei: {
-    pricePerNight: null,
-    cleaningFee: null,
-    platformFeePercentage: 0.15
-  }
-},
-
 ]
 
 for (const calendar of calendars) {
@@ -1222,9 +1118,6 @@ function App() {
 
         // ---------- ESTEI PRICE ----------
         const e = cal.estei || {};
-        const hasEsteiPrice = Number(e.pricePerNight) > 0;
-        const esteiLink = String(cal.esteiLink || "").trim();
-        const hasEstei = hasEsteiPrice && esteiLink !== "" && esteiLink !== "#";
 
         const eNightsPrice = (e.pricePerNight || 0) * nights;
         const eExtraGuests = Math.max(0, people - (e.maxGuestsIncluded || 2));
@@ -1270,8 +1163,6 @@ function App() {
           baths: cal.baths,
           airbnbLink: cal.airbnbLink,
           esteiLink: cal.esteiLink,
-          hasEstei,
-          hasEsteiPrice,
           reservas,
           isAvailable,
           calendarWarning,
@@ -1355,19 +1246,13 @@ Si no puedes usar las aplicaciones, puedes reservar directo.
 
           return `📍 *${r.name} - ${nightsLabel} | ${r.rooms} H / ${r.baths} B | Máx. ${r.capacity} pers.)*
 
-USD: $${r.airbnbPrice} vía App Airbnb (DESCUENTO)${
-            r.hasEstei ? `
-Bs. (BCV): $${r.esteiPrice} vía ESTEI App` : ""
-          }
+USD: $${r.airbnbPrice} vía App Airbnb (DESCUENTO)
+Bs. (BCV): $${r.esteiPrice} vía ESTEI App
 
-Ver fotos y características: ${r.esteiLink || r.airbnbLink}
+Ver fotos y características: ${r.esteiLink}
 
-Directo: USD: $${r.directUsdBase} + Depósito: $${deposit}${
-            r.hasEsteiPrice
-              ? `
-Directo: Bs. (BCV): $${r.directBsBase} + Depósito: $${deposit}`
-              : ""
-          }${
+Directo: USD: $${r.directUsdBase} + Depósito: $${deposit}
+Directo: Bs. (BCV): $${r.directBsBase} + Depósito: $${deposit}${
             index !== availableApts.length - 1
               ? "\n\n────────────────────────\n\n"
               : ""
@@ -1393,8 +1278,7 @@ Directo: Bs. (BCV): $${r.directBsBase} + Depósito: $${deposit}`
 
     const deposit = getDeposit(apt.nights);
 
-    const paymentInfo = apt.hasEstei
-      ? `Cómo reservar y pagar
+    const paymentInfo = `Cómo reservar y pagar
 
 1️⃣ Por aplicaciones (Airbnb / Estéi)
 
@@ -1407,38 +1291,17 @@ No requiere depósito.
 
 Si no puedes usar las aplicaciones, puedes reservar directo.
 • Requiere depósito reembolsable, devuelto al finalizar la estadía.
-`
-      : `Cómo reservar y pagar
-
-1️⃣ Por Airbnb
-
-Reserva directamente desde el link del apartamento.
-• Pago con tarjeta internacional o PayPal
-• No requiere depósito.
-
-2️⃣ Directo con nosotros
-
-Si no puedes usar Airbnb, puedes reservar directo.
-• Requiere depósito reembolsable, devuelto al finalizar la estadía.
 `;
 
     const text = `${paymentInfo}
 
 📍 *${apt.name}* — ${nightsLabel} (${apt.rooms}H / ${apt.baths}B / máx. ${apt.capacity} pers.)
 
-USD: $${apt.airbnbPrice} → ${apt.airbnbLink || ""}${
-      apt.hasEstei
-        ? `
-Bolívares (BCV): $${apt.esteiPrice} → ${apt.esteiLink}`
-        : ""
-    }
+USD: $${apt.airbnbPrice} → ${apt.airbnbLink || ""}
+Bolívares (BCV): $${apt.esteiPrice} → ${apt.esteiLink || apt.airbnbLink || ""}
 
-Directo USD: $${apt.directUsdBase} + Depósito $${deposit}${
-      apt.hasEsteiPrice
-        ? `
-Directo Bs.: $${apt.directBsBase} + Depósito $${deposit}`
-        : ""
-    }
+Directo USD: $${apt.directUsdBase} + Depósito $${deposit}
+Directo Bs.: $${apt.directBsBase} + Depósito $${deposit}
 `;
 
     copyToClipboard(text);
@@ -1613,15 +1476,13 @@ Directo Bs.: $${apt.directBsBase} + Depósito $${deposit}`
                     {r.isAvailable ? (
                       <>
                         <p>
-                          ✅ Disponible — Airbnb: ${r.airbnbPrice}
-                          {r.hasEstei && <> / Estei: ${r.esteiPrice}</>} en {r.nights}{" "}
-                          noches
+                          ✅ Disponible — Airbnb: ${r.airbnbPrice} / Estei: $
+                          {r.esteiPrice} en {r.nights} noches
                         </p>
 
                         <p>
-                          {r.hasEstei
-                            ? "💳 Pay via Airbnb o Pago móvil, Tasa BCV, Transferencia y Zelle para Estei"
-                            : "💳 Reserva disponible vía Airbnb"}
+                          💳 Pay via Airbnb o Pago móvil, Tasa BCV, Transferencia y
+                          Zelle para Estei
                         </p>
 
                         <p>

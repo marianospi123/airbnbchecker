@@ -103,19 +103,5 @@
     "esteiUrl": "https://api.estei.app/api/calendars/1473257424-stay-17432889927468941438.ics",
     "bookingUrl": "https://ical.booking.com/v1/export?t=15671fd9-9271-4a01-821f-e2542787d68a",
     "vrboUrl": "https://www.vrbo.com/icalendar/4b5bec8c0c36420d90e90ad8938dd3a0.ics?nonTentative"
-  },
-  "Cabudare": {
-    "url": "https://www.airbnb.com/calendar/ical/1545049910848115258.ics?t=4d5db8850d614a78bfb1e59301f7b412&locale=es-XL",
-    "esteiUrl": "https://api.estei.app/api/calendars/3200063677-stay-17661842698973151059.ics"
-  },
-  "Bqto - Aeropuerto": {
-    "url": "https://www.airbnb.com/calendar/ical/1477157897191458411.ics?t=926ce559fe304df0a958b9460a7e6660&locale=es-XL",
-    "esteiUrl": "https://api.estei.app/api/calendars/1116721807-stay-17623544190746887185.ics"
-  },
-  "Bqto - El Pedregal": {
-    "url": "https://www.airbnb.com/calendar/ical/1742790075940529000.ics?t=b42f62e4ee734e539408bf6bc33b7feb&locale=es-XL"
-  },
-  "Bqto - Monte Real": {
-    "url": "https://www.airbnb.com/calendar/ical/1705444277231632043.ics?t=2de32d1a242c45a2a62951469eb3c1c3&locale=es-XL"
   }
 }
