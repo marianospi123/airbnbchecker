@@ -5,6 +5,8 @@ const cors = require("cors");
 const admin = require("firebase-admin");
 const fetch = require("node-fetch");
 const ICAL = require("ical.js");
+const calendarFetch =
+  typeof globalThis.fetch === "function" ? globalThis.fetch.bind(globalThis) : fetch;
 
 // =======================
 // GOOGLE APPS SCRIPT CONFIG
@@ -37,9 +39,54 @@ const TOKENS_FILE = path.join(__dirname, "tokens.json");
 // -------------------
 const availabilityCache = new Map();
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutos
+const CALENDAR_FETCH_TIMEOUT_MS = 15000;
+const CHACAO_ESTEI_ICAL_URL =
+  "https://api.estei.app/api/calendars/1473257424-stay-17432889927468941438.ics";
 
 function getCacheKey(params) {
   return JSON.stringify(params);
+}
+
+function getCalendarResponseMeta(response) {
+  return {
+    status: response.status,
+    contentType: response.headers.get("content-type"),
+    server: response.headers.get("server"),
+    cfRay: response.headers.get("cf-ray"),
+  };
+}
+
+async function fetchWithTimeout(url, options = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), CALENDAR_FETCH_TIMEOUT_MS);
+
+  try {
+    return await calendarFetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+async function fetchCalendarResource(url) {
+  const response = await fetchWithTimeout(url, {
+    redirect: "follow",
+    headers: {
+      "User-Agent": "AirbnbChecker/1.0",
+      Accept: "text/calendar,text/plain,*/*",
+      "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
+      "Cache-Control": "no-cache",
+      Pragma: "no-cache",
+    },
+  });
+  const body = await response.text();
+  const meta = getCalendarResponseMeta(response);
+
+  return {
+    ok: response.ok,
+    body,
+    ...meta,
+    attempts: [{ profile: "native-fetch", ...meta }],
+  };
 }
 
 // -------------------
@@ -414,6 +461,31 @@ app.post("/api/gs/delete-reserva", async (req, res) => {
 // -------------------
 // PROXY ICS
 // -------------------
+app.get("/debug/estei", async (req, res) => {
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate");
+
+  try {
+    const result = await fetchCalendarResource(CHACAO_ESTEI_ICAL_URL);
+
+    return res.json({
+      url: CHACAO_ESTEI_ICAL_URL,
+      ok: result?.ok || false,
+      status: result?.status || null,
+      contentType: result?.contentType || null,
+      server: result?.server || null,
+      cfRay: result?.cfRay || null,
+      attempts: result?.attempts || [],
+      body: String(result?.body || "").slice(0, 10000),
+    });
+  } catch (error) {
+    console.error("Error en diagnóstico de Estéi:", error);
+    return res.status(500).json({
+      ok: false,
+      error: error.name === "AbortError" ? "Tiempo de espera agotado" : error.message,
+    });
+  }
+});
+
 app.get("/proxy", async (req, res) => {
   const icalUrl = req.query.url;
 
@@ -422,26 +494,36 @@ app.get("/proxy", async (req, res) => {
   }
 
   try {
-    const response = await fetch(icalUrl, {
-      headers: {
-        "User-Agent": "Mozilla/5.0",
-        Accept: "text/calendar, text/plain, */*",
-        "Cache-Control": "no-cache",
-        Pragma: "no-cache",
-      },
-    });
+    const result = await fetchCalendarResource(icalUrl);
 
-    if (!response.ok) {
-      return res.status(response.status).send("No se pudo obtener el calendario");
+    if (!result?.ok) {
+      console.warn("El proveedor rechazó el calendario", {
+        host: new URL(icalUrl).hostname,
+        attempts: result?.attempts || [],
+      });
+
+      if (result?.status) res.set("X-Calendar-Upstream-Status", String(result.status));
+      if (result?.cfRay) res.set("X-Calendar-Cf-Ray", result.cfRay);
+
+      return res
+        .status(result?.status || 502)
+        .send("No se pudo obtener el calendario");
     }
 
-    const text = await response.text();
+    const text = result.body;
+
+    if (!text || !text.includes("BEGIN:VCALENDAR")) {
+      return res.status(502).send("El proveedor devolvió un calendario inválido");
+    }
 
     res.set("Cache-Control", "no-store, no-cache, must-revalidate");
+    if (result.cfRay) res.set("X-Calendar-Cf-Ray", result.cfRay);
+    res.set("X-Calendar-Fetch-Attempts", String(result.attempts.length));
     res.type("text/calendar").send(text);
   } catch (error) {
-    console.error("Error fetching ICS:", error.message);
-    res.status(500).send("Error al obtener el calendario");
+    console.error("Error fetching ICS:", error);
+    const status = error.name === "AbortError" ? 504 : 500;
+    res.status(status).send("Error al obtener el calendario");
   }
 });
 
