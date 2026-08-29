@@ -63,11 +63,6 @@
     "esteiUrl": "https://estei.nyc3.digitaloceanspaces.com/stg/ical/1996747011-stay-17382856932068656972.ics",
     "vrboUrl": "https://www.vrbo.com/icalendar/fafe969721b54e95a482e4dbb1b9359b.ics?nonTentative"
   },
-  "Barquisimeto": {
-    "url": "https://www.airbnb.co.ve/calendar/ical/1329992387476344688.ics?t=6176c1422a71412789922668bef5a20f",
-    "esteiUrl": "https://estei.nyc3.digitaloceanspaces.com/stg/ical/3761257520-stay-17361284393152580414.ics",
-    "vrboUrl": "https://www.vrbo.com/icalendar/e8fe2cd26eef43c7a1d7c661dff8757d.ics?nonTentative"
-  },
   "Rosal 2": {
     "url": "https://www.airbnb.co.ve/calendar/ical/1373858155228586698.ics?t=b474e11bdcb54d96a7a51c230e2f1007",
     "esteiUrl": "https://estei.nyc3.digitaloceanspaces.com/stg/ical/3178869625-stay-17411824245292709348.ics",
@@ -117,5 +112,13 @@
   },
   "Bqto - Monte Real": {
     "url": "https://www.airbnb.com/calendar/ical/1705444277231632043.ics?t=2de32d1a242c45a2a62951469eb3c1c3&locale=es-XL"
+  },
+  "Bqto - Aeropuerto II": {
+    "url": "https://www.airbnb.com/calendar/ical/1494140663126142099.ics?t=fbd63d2159324890bda29d5cf0cc6981&locale=es-XL",
+    "esteiUrl": "https://api.estei.app/api/calendars/1567321451-stay-17872696802590506410.ics"
+  },
+  "Bqto - Pozo Blanco": {
+    "url": "https://www.airbnb.com/calendar/ical/1408677551533094760.ics?t=7482cbdfde994472b6d1c2c94be45497&locale=es-XL",
+    "esteiUrl": "https://api.estei.app/api/calendars/4241910998-stay-17873521842414594647.ics"
   }
 }

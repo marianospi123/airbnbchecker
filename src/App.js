@@ -509,32 +509,6 @@ const calendars = [
   },
 },
 
-  {
-    name: "Barquisimeto",
-    estado: "Barquisimeto",
-    url: "https://www.airbnb.com/calendar/ical/1329992387476344688.ics?s=240d6400f1397c4acbfb22187cc80029&locale=en",
-     esteiUrl:"https://estei.nyc3.digitaloceanspaces.com/stg/ical/3761257520-stay-17361284393152580414.ics",
-    capacity: 6,
-    rooms: 3,
-    baths: 2,
-    airbnbLink: "https://www.airbnb.com/l/qr0k7RQY",
-    esteiLink: "https://surl.li/esteibqto",
-    airbnb: {
-      pricePerNight: 60,
-      cleaningFee: 40,
-      extraGuestFeePerNight: 5,
-      maxGuestsIncluded: 2,
-      discountWeek: 0.05,
-      discountMonth: 0.20,
-      platformFeePercentage: 0.14
-    },
-    estei: {
-      pricePerNight: 100,
-      cleaningFee: 47,
-      platformFeePercentage: 0.15
-    },
-  },
-
   // ----------------------------- Margarita -----------------------------
   {
     name: "Margarita 1",
@@ -1025,6 +999,58 @@ const calendars = [
   estei: {
     pricePerNight: null,
     cleaningFee: null,
+    platformFeePercentage: 0.15
+  }
+},
+
+{
+  name: "Bqto - Aeropuerto II",
+  estado: "Barquisimeto",
+  url: "https://www.airbnb.com/calendar/ical/1494140663126142099.ics?t=fbd63d2159324890bda29d5cf0cc6981&locale=es-XL",
+  esteiUrl: "https://api.estei.app/api/calendars/1567321451-stay-17872696802590506410.ics",
+  capacity: 12,
+  rooms: 3,
+  baths: 3,
+  airbnbLink: "https://www.airbnb.com/h/bqtoaeropuerto2",
+  esteiLink: "https://estei.app/stay/17872696802590506410/profile",
+  airbnb: {
+    pricePerNight: 60,
+    cleaningFee: 35,
+    extraGuestFeePerNight: 5,
+    maxGuestsIncluded: 2,
+    discountWeek: 0,
+    discountMonth: 0,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 140,
+    cleaningFee: 45,
+    platformFeePercentage: 0.15
+  }
+},
+
+{
+  name: "Bqto - Pozo Blanco",
+  estado: "Barquisimeto",
+  url: "https://www.airbnb.com/calendar/ical/1408677551533094760.ics?t=7482cbdfde994472b6d1c2c94be45497&locale=es-XL",
+  esteiUrl: "https://api.estei.app/api/calendars/4241910998-stay-17873521842414594647.ics",
+  capacity: 7,
+  rooms: 3,
+  baths: 2,
+  airbnbLink: "https://www.airbnb.com/h/bqtopozoblanco",
+  esteiLink: "https://estei.app/stay/17873521842414594647/profile",
+  airbnb: {
+    pricePerNight: 80,
+    cleaningFee: 25,
+    extraGuestFeePerNight: 5,
+    maxGuestsIncluded: 2,
+    discountWeek: 0,
+    discountMonth: 0,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 120,
+    cleaningFee: 45,
     platformFeePercentage: 0.15
   }
 },
@@ -1574,7 +1600,7 @@ Directo Bs.: $${apt.directBsBase} + Depósito $${deposit}`
           <label style={{ display: "block", margin: "1rem 0" }}>
             Personas:{" "}
             <select value={people} onChange={(e) => setPeople(Number(e.target.value))}>
-              {[...Array(8).keys()].map((n) => (
+              {[...Array(12).keys()].map((n) => (
                 <option key={n + 1} value={n + 1}>
                   {n + 1}
                 </option>
