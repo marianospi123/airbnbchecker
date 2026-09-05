@@ -701,7 +701,7 @@ const calendars = [
   capacity: 8,
   rooms: 4,
   baths: 4,
-  airbnbLink: "https://airbnb.co.ve/h/ph6",
+  airbnbLink: "http://airbnb.com/h/phzaparamcbo",
   esteiLink: "https://estei.app/stay/17261876211180782474/profile",
   airbnb: {
     pricePerNight: 59,
