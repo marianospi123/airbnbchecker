@@ -1352,6 +1352,7 @@ Si no puedes usar las aplicaciones, puedes reservar directo.
 `;
 
     const getDeposit = (nights) => {
+      if (nights === 1) return 150;
       if (nights === 2) return 130;
       if (nights === 3) return 150;
       if (nights >= 4 && nights <= 7) return 250;
@@ -1409,6 +1410,7 @@ Directo: Bs. (BCV): $${r.directBsBase} + Depósito: $${deposit}`
       apt.nights === 1 ? `${apt.nights} noche` : `${apt.nights} noches`;
 
     const getDeposit = (n) => {
+      if (n === 1) return 150;
       if (n === 2) return 130;
       if (n === 3) return 150;
       if (n >= 4 && n <= 7) return 250;
