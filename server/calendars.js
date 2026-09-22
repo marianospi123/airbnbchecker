@@ -662,6 +662,56 @@ const calendars = [
       cleaningFee: 45,
       platformFeePercentage: 0.15
     }
+  },
+  {
+    name: "Mgta - Playa El Angel 1",
+    estado: "Margarita",
+    url: "https://www.airbnb.com/calendar/ical/1291392237582387437.ics?t=2c10658f74174867b21fc828d5cdad67",
+    esteiUrl: "https://api.estei.app/api/calendars/2971641759-stay-17891306388317592823.ics",
+    capacity: 5,
+    rooms: 2,
+    baths: 2,
+    airbnbLink: "https://airbnb.com/h/mgtaplayaelangel1",
+    esteiLink: "https://surl.li/esteimgtaplayaelangel1",
+    airbnb: {
+      pricePerNight: 90,
+      cleaningFee: 35,
+      extraGuestFeePerNight: 0,
+      maxGuestsIncluded: 5,
+      discountWeek: 0,
+      discountMonth: 0,
+      platformFeePercentage: 0.1411
+    },
+    estei: {
+      pricePerNight: 120,
+      cleaningFee: 55,
+      platformFeePercentage: 0.15
+    }
+  },
+  {
+    name: "Mgta - Playa El Angel 2",
+    estado: "Margarita",
+    url: "https://www.airbnb.com/calendar/ical/1291280896133732435.ics?t=6df097eeca454d73b577bafbc8202e53",
+    esteiUrl: "https://api.estei.app/api/calendars/3994542871-stay-17893508142605805992.ics",
+    capacity: 5,
+    rooms: 2,
+    baths: 2,
+    airbnbLink: "https://airbnb.com/h/mgtaplayaelangel2",
+    esteiLink: "https://surl.li/esteimgtaplayaelangel2",
+    airbnb: {
+      pricePerNight: 90,
+      cleaningFee: 35,
+      extraGuestFeePerNight: 0,
+      maxGuestsIncluded: 5,
+      discountWeek: 0,
+      discountMonth: 0,
+      platformFeePercentage: 0.1411
+    },
+    estei: {
+      pricePerNight: 120,
+      cleaningFee: 55,
+      platformFeePercentage: 0.15
+    }
   }
 ];
 

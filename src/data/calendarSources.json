@@ -120,5 +120,13 @@
   "Bqto - Pozo Blanco": {
     "url": "https://www.airbnb.com/calendar/ical/1408677551533094760.ics?t=7482cbdfde994472b6d1c2c94be45497&locale=es-XL",
     "esteiUrl": "https://api.estei.app/api/calendars/4241910998-stay-17873521842414594647.ics"
+  },
+  "Mgta - Playa El Angel 1": {
+    "url": "https://www.airbnb.com/calendar/ical/1291392237582387437.ics?t=2c10658f74174867b21fc828d5cdad67",
+    "esteiUrl": "https://api.estei.app/api/calendars/2971641759-stay-17891306388317592823.ics"
+  },
+  "Mgta - Playa El Angel 2": {
+    "url": "https://www.airbnb.com/calendar/ical/1291280896133732435.ics?t=6df097eeca454d73b577bafbc8202e53",
+    "esteiUrl": "https://api.estei.app/api/calendars/3994542871-stay-17893508142605805992.ics"
   }
 }
