@@ -712,6 +712,56 @@ const calendars = [
       cleaningFee: 55,
       platformFeePercentage: 0.15
     }
+  },
+  {
+    name: "Base Aragua - Parque Choroni 3",
+    estado: "Maracay",
+    url: "https://es.airbnb.com/calendar/ical/915929743193024221.ics?t=56bfe76b72e64b98b8e3e1b805d74b8a",
+    esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/2301126440-stay-17364515228003869012.ics",
+    capacity: 4,
+    rooms: 2,
+    baths: 2,
+    airbnbLink: "https://es.airbnb.com/hosting/listings/editor/915929743193024221/view-your-space",
+    esteiLink: "https://surl.li/mcyparque",
+    airbnb: {
+      pricePerNight: 70,
+      cleaningFee: 35,
+      extraGuestFeePerNight: 15,
+      maxGuestsIncluded: 5,
+      discountWeek: 0.05,
+      discountMonth: 0.15,
+      platformFeePercentage: 0.1411
+    },
+    estei: {
+      pricePerNight: 70,
+      cleaningFee: 37,
+      platformFeePercentage: 0.15
+    }
+  },
+  {
+    name: "San Jacinto II MCY",
+    estado: "Maracay",
+    url: "https://www.airbnb.com/calendar/ical/1411732896711046461.ics?t=02a3f17c041b442c930583f5de71954f&locale=es-XL",
+    esteiUrl: "https://estei.nyc3.digitaloceanspaces.com/stg/ical/1292278534-stay-17464790159203345592.ics",
+    capacity: 10,
+    rooms: 4,
+    baths: 5,
+    airbnbLink: "https://es-l.airbnb.com/rooms/1411732896711046461?viralityEntryPoint=1&s=76",
+    esteiLink: "https://estei.app/stay/17464790159203345592/profile?guests=6&arrival_date=2025-12-25&departure_date=2025-12-27",
+    airbnb: {
+      pricePerNight: 170,
+      cleaningFee: 25,
+      extraGuestFeePerNight: 15,
+      maxGuestsIncluded: 7,
+      discountWeek: 0.05,
+      discountMonth: 0.15,
+      platformFeePercentage: 0.1411
+    },
+    estei: {
+      pricePerNight: 200,
+      cleaningFee: 37,
+      platformFeePercentage: 0.15
+    }
   }
 ];
 

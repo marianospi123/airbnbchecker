@@ -128,5 +128,13 @@
   "Mgta - Playa El Angel 2": {
     "url": "https://www.airbnb.com/calendar/ical/1291280896133732435.ics?t=6df097eeca454d73b577bafbc8202e53",
     "esteiUrl": "https://api.estei.app/api/calendars/3994542871-stay-17893508142605805992.ics"
+  },
+  "Base Aragua - Parque Choroni 3": {
+    "url": "https://es.airbnb.com/calendar/ical/915929743193024221.ics?t=56bfe76b72e64b98b8e3e1b805d74b8a",
+    "esteiUrl": "https://estei.nyc3.digitaloceanspaces.com/stg/ical/2301126440-stay-17364515228003869012.ics"
+  },
+  "San Jacinto II MCY": {
+    "url": "https://www.airbnb.com/calendar/ical/1411732896711046461.ics?t=02a3f17c041b442c930583f5de71954f&locale=es-XL",
+    "esteiUrl": "https://estei.nyc3.digitaloceanspaces.com/stg/ical/1292278534-stay-17464790159203345592.ics"
   }
 }
