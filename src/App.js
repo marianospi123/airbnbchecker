@@ -1107,6 +1107,58 @@ const calendars = [
   }
 },
 
+{
+  name: "Bello Monte - CCS",
+  estado: "Caracas",
+  url: "https://www.airbnb.com/calendar/ical/1779827565783286075.ics?t=8822f8196da042c6854feaa3ac997057&locale=es-XL",
+  esteiUrl: "https://api.estei.app/api/calendars/3534477995-stay-17904011306571662139.ics",
+  capacity: 4,
+  rooms: 1,
+  baths: 1,
+  airbnbLink: "https://airbnb.com/h/ccsbellomonte",
+  esteiLink: "https://surl.li/esteibellomonte",
+  airbnb: {
+    pricePerNight: 70,
+    cleaningFee: 40,
+    extraGuestFeePerNight: 0,
+    maxGuestsIncluded: 4,
+    discountWeek: 0,
+    discountMonth: 0,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 100,
+    cleaningFee: 55,
+    platformFeePercentage: 0.15
+  }
+},
+
+{
+  name: "Mañongo 2 - VAL - Sambil",
+  estado: "Valencia",
+  url: "https://www.airbnb.com/calendar/ical/1781492511681554204.ics?t=502127cdd662447eab627912ca7deb55",
+  esteiUrl: "https://api.estei.app/api/calendars/1022599411-stay-17907744638593631144.ics",
+  capacity: 5,
+  rooms: 2,
+  baths: 2,
+  airbnbLink: "https://airbnb.com/h/naguanagua2n",
+  esteiLink: "https://surl.li/esteinaguanagua2",
+  airbnb: {
+    pricePerNight: 70,
+    cleaningFee: 35,
+    extraGuestFeePerNight: 6,
+    maxGuestsIncluded: 1,
+    discountWeek: 0,
+    discountMonth: 0,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 100,
+    cleaningFee: 55,
+    platformFeePercentage: 0.15
+  }
+},
+
 ]
 
 for (const calendar of calendars) {

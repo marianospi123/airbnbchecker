@@ -136,5 +136,13 @@
   "San Jacinto II MCY": {
     "url": "https://www.airbnb.com/calendar/ical/1411732896711046461.ics?t=02a3f17c041b442c930583f5de71954f&locale=es-XL",
     "esteiUrl": "https://estei.nyc3.digitaloceanspaces.com/stg/ical/1292278534-stay-17464790159203345592.ics"
+  },
+  "Bello Monte - CCS": {
+    "url": "https://www.airbnb.com/calendar/ical/1779827565783286075.ics?t=8822f8196da042c6854feaa3ac997057&locale=es-XL",
+    "esteiUrl": "https://api.estei.app/api/calendars/3534477995-stay-17904011306571662139.ics"
+  },
+  "Mañongo 2 - VAL - Sambil": {
+    "url": "https://www.airbnb.com/calendar/ical/1781492511681554204.ics?t=502127cdd662447eab627912ca7deb55",
+    "esteiUrl": "https://api.estei.app/api/calendars/1022599411-stay-17907744638593631144.ics"
   }
 }
