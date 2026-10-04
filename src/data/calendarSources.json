@@ -144,5 +144,17 @@
   "Mañongo 2 - VAL - Sambil": {
     "url": "https://www.airbnb.com/calendar/ical/1781492511681554204.ics?t=502127cdd662447eab627912ca7deb55",
     "esteiUrl": "https://api.estei.app/api/calendars/1022599411-stay-17907744638593631144.ics"
+  },
+  "Lecherias - Sol Suite 1": {
+    "url": "https://www.airbnb.com/calendar/ical/1785226862287507449.ics?t=9a64e96f42df47319d85383b15ecccc6",
+    "esteiUrl": "https://api.estei.app/api/calendars/3385595852-stay-17905038809073512040.ics"
+  },
+  "Lecherias - Sol Suite 2": {
+    "url": "https://www.airbnb.com/calendar/ical/1785226862287507449.ics?t=9a64e96f42df47319d85383b15ecccc6",
+    "esteiUrl": "https://api.estei.app/api/calendars/3304177777-stay-17902418749280511651.ics"
+  },
+  "Lecherias - Sol Suite 3": {
+    "url": "https://www.airbnb.com/calendar/ical/1786238739261880517.ics?t=c84f6c552f45440a8bcd2cf1d4154705",
+    "esteiUrl": "https://api.estei.app/api/calendars/459205470-stay-17904876045408131747.ics"
   }
 }

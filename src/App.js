@@ -1159,6 +1159,84 @@ const calendars = [
   }
 },
 
+{
+  name: "Lecherias - Sol Suite 1",
+  estado: "Lechería",
+  url: "https://www.airbnb.com/calendar/ical/1785226862287507449.ics?t=9a64e96f42df47319d85383b15ecccc6",
+  esteiUrl: "https://api.estei.app/api/calendars/3385595852-stay-17905038809073512040.ics",
+  capacity: 6,
+  rooms: 2,
+  baths: 2,
+  airbnbLink: "https://airbnb.co.ve/h/lecheriasolsuite1",
+  esteiLink: "https://surl.li/esteilecheriasolsuite1",
+  airbnb: {
+    pricePerNight: 120,
+    cleaningFee: 40,
+    extraGuestFeePerNight: 5,
+    maxGuestsIncluded: 1,
+    discountWeek: 0,
+    discountMonth: 0,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 150,
+    cleaningFee: 55,
+    platformFeePercentage: 0.15
+  }
+},
+
+{
+  name: "Lecherias - Sol Suite 2",
+  estado: "Lechería",
+  url: "https://www.airbnb.com/calendar/ical/1785226862287507449.ics?t=9a64e96f42df47319d85383b15ecccc6",
+  esteiUrl: "https://api.estei.app/api/calendars/3304177777-stay-17902418749280511651.ics",
+  capacity: 4,
+  rooms: 2,
+  baths: 2,
+  airbnbLink: "https://airbnb.com/h/lecheriasolsuite2",
+  esteiLink: "https://surl.li/esteilecheriasolsuite2",
+  airbnb: {
+    pricePerNight: 100,
+    cleaningFee: 40,
+    extraGuestFeePerNight: 5,
+    maxGuestsIncluded: 1,
+    discountWeek: 0,
+    discountMonth: 0,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 135,
+    cleaningFee: 55,
+    platformFeePercentage: 0.15
+  }
+},
+
+{
+  name: "Lecherias - Sol Suite 3",
+  estado: "Lechería",
+  url: "https://www.airbnb.com/calendar/ical/1786238739261880517.ics?t=c84f6c552f45440a8bcd2cf1d4154705",
+  esteiUrl: "https://api.estei.app/api/calendars/459205470-stay-17904876045408131747.ics",
+  capacity: 2,
+  rooms: 1,
+  baths: 2,
+  airbnbLink: "https://airbnb.com/h/lecheriasolsuite3",
+  esteiLink: "https://surl.li/esteilecheriasolsuite3",
+  airbnb: {
+    pricePerNight: 70,
+    cleaningFee: 35,
+    extraGuestFeePerNight: 0,
+    maxGuestsIncluded: 2,
+    discountWeek: 0,
+    discountMonth: 0,
+    platformFeePercentage: 0.1411
+  },
+  estei: {
+    pricePerNight: 100,
+    cleaningFee: 45,
+    platformFeePercentage: 0.15
+  }
+},
+
 ]
 
 for (const calendar of calendars) {
