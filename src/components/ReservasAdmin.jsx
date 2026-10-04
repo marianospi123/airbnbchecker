@@ -2,11 +2,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import { getMeta, getReservas, updateReserva, createReserva, deleteReserva } from "../api";
 import "../ReservasAdmin.css";
 
+const ALL_MONTHS = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"];
+
 export default function ReservasAdmin() {
   // ✅ meta ahora soporta apartments (catalogo bonito + real)
   const [meta, setMeta] = useState({ apartments: [], apartamentos: [], meses: [], anos: [] });
-
-  const ALL_MONTHS = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"];
 
 
 
@@ -68,23 +68,26 @@ useEffect(() => {
     const m = await getMeta();
     setMeta(m);
 
-   const firstSheetName =
-  (m.apartments && m.apartments[0] && m.apartments[0].sheetName) ||
-  (m.apartamentos && m.apartamentos[0]) ||
-  "";
+    const firstSheetName =
+      (m.apartments && m.apartments[0] && m.apartments[0].sheetName) ||
+      (m.apartamentos && m.apartamentos[0]) ||
+      "";
+    const now = new Date();
+    const currentMonth = ALL_MONTHS[now.getMonth()];
+    const currentYear = String(now.getFullYear());
+    const initialMonth = m.meses?.includes(currentMonth)
+      ? currentMonth
+      : m.meses?.[0] || "";
+    const initialYear = (m.anos || []).some((year) => String(year) === currentYear)
+      ? currentYear
+      : String(m.anos?.[0] || "");
 
-setFilters((f) => ({
-  ...f,
-  apartamento: firstSheetName, // ✅ sheetName real
-  mes: m.meses?.[0] || "",
-  ano: m.anos?.[0] || "",
-}));
-
-setNewFields((p) => ({
-  ...p,
-  Apartamento: firstSheetName, // ✅ sheetName real
-}));
-
+    setFilters((f) => ({
+      ...f,
+      apartamento: firstSheetName,
+      mes: initialMonth,
+      ano: initialYear,
+    }));
 
     setNewFields((p) => ({
       ...p,
@@ -209,14 +212,25 @@ async function onEliminar(r) {
     if (!newFields["Check-out"]) return alert("Falta Check-out");
 
     // ✅ Validar fechas
-    const ci = new Date(newFields["Check-in"]);
-    const co = new Date(newFields["Check-out"]);
-    if (isNaN(ci) || isNaN(co)) return alert("Fechas inválidas");
-    if (co <= ci) return alert("Check-out debe ser mayor que Check-in");
+    const parseDateInput = (value) => {
+      const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (!match) return null;
+      return {
+        year: match[1],
+        month: match[2],
+        time: Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])),
+      };
+    };
+    const ci = parseDateInput(newFields["Check-in"]);
+    const co = parseDateInput(newFields["Check-out"]);
+    if (!ci || !co || Number.isNaN(ci.time) || Number.isNaN(co.time)) {
+      return alert("Fechas inválidas");
+    }
+    if (co.time <= ci.time) return alert("Check-out debe ser mayor que Check-in");
 
     // ✅ Calcular noches
     const MS_PER_DAY = 1000 * 60 * 60 * 24;
-    const nights = Math.round((co - ci) / MS_PER_DAY);
+    const nights = Math.round((co.time - ci.time) / MS_PER_DAY);
     if (!nights || nights <= 0) return alert("Noches inválidas");
 
     // ✅ Mes / Año desde Check-in
@@ -226,8 +240,8 @@ async function onEliminar(r) {
       "09": "SEP", "10": "OCT", "11": "NOV", "12": "DIC",
     };
 
-    const yyyy = String(ci.getFullYear());
-    const mm = String(ci.getMonth() + 1).padStart(2, "0");
+    const yyyy = ci.year;
+    const mm = ci.month;
     const mesTxt = mesesMap[mm] || "";
 
     const payload = {
@@ -243,9 +257,24 @@ async function onEliminar(r) {
     setCreating(true);
     try {
       await createReserva(payload);
-      alert("✅ Reserva creada");
       setShowCreate(false);
-      await onBuscar();
+      const createdReservationFilters = {
+        apartamento: newFields.Apartamento,
+        mes: mesTxt,
+        ano: yyyy,
+      };
+      setFilters(createdReservationFilters);
+      alert("✅ Reserva creada");
+
+      try {
+        const list = await getReservas(createdReservationFilters);
+        setReservas(list);
+      } catch (refreshError) {
+        alert(
+          "✅ La reserva fue creada, pero no se pudo actualizar la lista: " +
+          (refreshError?.message || "Error buscando")
+        );
+      }
     } catch (e) {
       alert("❌ " + (e?.message || "Error creando"));
     } finally {
