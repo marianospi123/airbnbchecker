@@ -36,7 +36,7 @@ const calendars = [
     airbnbLink: "https://www.airbnb.com/l/KQlHkFXF",
     esteiLink:  "https://surl.li/esteiboleita",
     airbnb: {
-      pricePerNight: 60,
+      pricePerNight: 65,
       cleaningFee: 45,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 3,
@@ -45,7 +45,7 @@ const calendars = [
        platformFeePercentage: 0.1411
     },
     estei: {
-      pricePerNight: 80,
+      pricePerNight: 90,
       cleaningFee: 47,
       platformFeePercentage: 0.15 // 13.05%
     },
@@ -61,7 +61,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/sebucanii",
     esteiLink: "https://surl.li/esteisebucan2",
     airbnb: {
-      pricePerNight: 55,
+      pricePerNight: 60,
       cleaningFee: 40,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -70,7 +70,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 80,
+      pricePerNight: 90,
       cleaningFee: 47,
       platformFeePercentage: 0.15
     },
@@ -86,7 +86,7 @@ const calendars = [
   airbnbLink: "https://airbnb.co.ve/h/naguanagua",
   esteiLink: "https://surl.li/esteivalencia",
   airbnb: {
-    pricePerNight: 70,
+    pricePerNight: 75,
     cleaningFee: 35,
     extraGuestFeePerNight: 5,
     maxGuestsIncluded: 2,
@@ -95,7 +95,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 100,
+    pricePerNight: 110,
     cleaningFee: 47,
     platformFeePercentage: 0.15
   }
@@ -112,7 +112,7 @@ const calendars = [
   airbnbLink: "https://es.airbnb.com/hosting/listings/editor/915929743193024221/view-your-space",
   esteiLink: "https://surl.li/mcyparque",
   airbnb: {
-    pricePerNight: 70,
+    pricePerNight: 75,
     cleaningFee: 35,
     extraGuestFeePerNight: 15,
     maxGuestsIncluded: 5,
@@ -121,7 +121,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 70,
+    pricePerNight: 80,
     cleaningFee: 37,
     platformFeePercentage: 0.15
   }
@@ -139,7 +139,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/elparaisoccs",
     esteiLink: "https://surl.li/esteiparaiso",
     airbnb: {
-      pricePerNight: 55,
+      pricePerNight: 60,
       cleaningFee: 55,
       extraGuestFeePerNight: 7,
       maxGuestsIncluded: 2,
@@ -148,7 +148,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 100,
+      pricePerNight: 110,
       cleaningFee: 65,
       platformFeePercentage: 0.15
     },
@@ -164,7 +164,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/chacaoccs",
     esteiLink:  "https://surl.li/mzmqcd",
     airbnb: {
-      pricePerNight: 85,
+      pricePerNight: 90,
       cleaningFee: 40,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -173,7 +173,7 @@ const calendars = [
        platformFeePercentage: 0.1411
     },
     estei: {
-      pricePerNight: 120,
+      pricePerNight: 130,
       cleaningFee: 47,
       platformFeePercentage: 0.15 // 13.05%
     },
@@ -189,7 +189,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/lacampinaccs",
     esteiLink: "https://surl.li/esteicampina",
     airbnb: {
-      pricePerNight: 65,
+      pricePerNight: 70,
       cleaningFee: 40,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -198,7 +198,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 90,
+      pricePerNight: 100,
       cleaningFee: 52,
       platformFeePercentage: 0.15
     },
@@ -215,7 +215,7 @@ const calendars = [
   airbnbLink: "https://airbnb.com/h/elrosal4",
   esteiLink: "https://surl.li/esteirosal4",
   airbnb: {
-    pricePerNight: 80,
+    pricePerNight: 85,
     cleaningFee: 50,
     extraGuestFeePerNight: 10,
     maxGuestsIncluded: 2,
@@ -224,7 +224,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 130,
+    pricePerNight: 140,
     cleaningFee: 62,
     platformFeePercentage: 0.15
   }
@@ -242,7 +242,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/aptosebucanccs",
     esteiLink: "https://surl.li/esteisebucan1",
     airbnb: {
-      pricePerNight: 60,
+      pricePerNight: 65,
       cleaningFee: 40,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -251,7 +251,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 80,
+      pricePerNight: 90,
       cleaningFee: 52,
       platformFeePercentage: 0.15
     },
@@ -267,7 +267,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/lacastellanaccs",
     esteiLink: "https://surl.li/esteicastellana",
     airbnb: {
-      pricePerNight: 90,
+      pricePerNight: 95,
       cleaningFee: 45,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -276,7 +276,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 110,
+      pricePerNight: 120,
       cleaningFee: 47,
       platformFeePercentage: 0.15
     },
@@ -292,7 +292,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/poz",
     esteiLink: "https://surl.lu/vszytm",
     airbnb: {
-      pricePerNight: 60,
+      pricePerNight: 65,
       cleaningFee: 40,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -301,7 +301,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 80,
+      pricePerNight: 90,
       cleaningFee: 47,
       platformFeePercentage: 0.15
     },
@@ -318,7 +318,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/latrinidadccs",
     esteiLink: "https://surl.li/esteitrinidad",
     airbnb: {
-      pricePerNight: 50,
+      pricePerNight: 55,
       cleaningFee: 40,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -327,7 +327,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 80,
+      pricePerNight: 90,
       cleaningFee: 47,
       platformFeePercentage: 0.15
     },
@@ -343,7 +343,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/altamiraccs2",
     esteiLink: "https://surl.li/esteialtamira2",
     airbnb: {
-      pricePerNight: 90,
+      pricePerNight: 95,
       cleaningFee: 55,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -352,7 +352,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 140,
+      pricePerNight: 150,
       cleaningFee: 62,
       platformFeePercentage: 0.15
     },
@@ -369,7 +369,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/elrosalccs2",
     esteiLink: "https://surl.li/esteirosal2",
     airbnb: {
-      pricePerNight: 90,
+      pricePerNight: 95,
       cleaningFee: 45,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -378,7 +378,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 120,
+      pricePerNight: 130,
       cleaningFee: 52,
       platformFeePercentage: 0.15
     },
@@ -394,7 +394,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/elbosqueccs",
     esteiLink: "https://surl.li/esteibosque",
     airbnb: {
-      pricePerNight: 65,
+      pricePerNight: 70,
       cleaningFee: 45,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -403,7 +403,7 @@ const calendars = [
       platformFeePercentage: 0.10
     },
     estei: {
-      pricePerNight: 90,
+      pricePerNight: 100,
       cleaningFee: 47,
       platformFeePercentage: 0.15
     },
@@ -419,7 +419,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/campoalegreccs",
     esteiLink: "https://surl.li/esteicampoalegre",
     airbnb: {
-      pricePerNight: 90,
+      pricePerNight: 95,
       cleaningFee: 45,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -428,7 +428,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 120,
+      pricePerNight: 130,
       cleaningFee: 47,
       platformFeePercentage: 0.15
     },
@@ -444,7 +444,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/elrosalccs",
     esteiLink: "https://surl.li/esteirosal",
     airbnb: {
-      pricePerNight: 75,
+      pricePerNight: 80,
       cleaningFee: 40,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -453,7 +453,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 100,
+      pricePerNight: 110,
       cleaningFee: 47,
       platformFeePercentage: 0.15
     },
@@ -469,7 +469,7 @@ const calendars = [
     airbnbLink: "airbnb.com/h/rosal3-2hab",
     esteiLink: "https://surl.li/esteirosal3",
     airbnb: {
-      pricePerNight: 90,
+      pricePerNight: 95,
       cleaningFee: 50,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -478,7 +478,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 120,
+      pricePerNight: 130,
       cleaningFee: 47,
       platformFeePercentage: 0.15
     },
@@ -494,7 +494,7 @@ const calendars = [
   airbnbLink: "https://airbnb.com/h/lafloresta-altamira",
   esteiLink: "https://surl.li/esteialtamira1",
   airbnb: {
-    pricePerNight: 70,
+    pricePerNight: 75,
     cleaningFee: 50,
     extraGuestFeePerNight: 5,
     maxGuestsIncluded: 2,
@@ -503,7 +503,7 @@ const calendars = [
     platformFeeRate: 0.14
   },
   estei: {
-    pricePerNight: 105,
+    pricePerNight: 115,
     cleaningFee: 57,
     platformFeePercentage: 0.15
   },
@@ -520,7 +520,7 @@ const calendars = [
     airbnbLink: "https://www.airbnb.com/l/Lwvqrtz5",
     esteiLink: "#",
     airbnb: {
-      pricePerNight: 49,
+      pricePerNight: 54,
       cleaningFee: 40,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -529,7 +529,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 85,
+      pricePerNight: 95,
       cleaningFee: 42,
       platformFeePercentage: 0.15
     },
@@ -547,7 +547,7 @@ const calendars = [
     airbnbLink: "https://www.airbnb.com/l/WlpePz5e",
     esteiLink: "https://estei.app/stay/17362578953146424770/profile?guests=1&arrival_date=2026-02-01&departure_date=2026-02-03",
     airbnb: {
-      pricePerNight: 120,
+      pricePerNight: 125,
       cleaningFee: 50,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -556,7 +556,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 150,
+      pricePerNight: 160,
       cleaningFee: 57,
       platformFeePercentage: 0.15
     },
@@ -572,7 +572,7 @@ const calendars = [
     airbnbLink: "https://www.airbnb.com/h/lasoledadmcy",
     esteiLink: "https://estei.app/stay/17754790055589832972/profile",
     airbnb: {
-      pricePerNight: 60,
+      pricePerNight: 65,
       cleaningFee: 40,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 3,
@@ -581,7 +581,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 100,
+      pricePerNight: 110,
       cleaningFee: 52,
       platformFeePercentage: 0.15
     },
@@ -600,7 +600,7 @@ const calendars = [
     airbnbLink: "https://www.airbnb.com/l/x3VtyZDq",
     esteiLink: "https://surl.li/scjhju",
     airbnb: {
-      pricePerNight: 55,
+      pricePerNight: 60,
       cleaningFee: 40,
       extraGuestFeePerNight: 5,
       maxGuestsIncluded: 2,
@@ -609,7 +609,7 @@ const calendars = [
       platformFeePercentage: 0.14
     },
     estei: {
-      pricePerNight: 85,
+      pricePerNight: 95,
       cleaningFee: 47,
       platformFeePercentage: 0.15
     },
@@ -627,7 +627,7 @@ const calendars = [
   airbnbLink: "https://airbnb.co.ve/h/cdl8",
   esteiLink: "https://estei.app/stay/17377878151510675621/profile",
   airbnb: {
-    pricePerNight: 100,
+    pricePerNight: 105,
     cleaningFee: 40,
     extraGuestFeePerNight: 15,
     maxGuestsIncluded: 1,
@@ -636,7 +636,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 140,
+    pricePerNight: 150,
     cleaningFee: 52,
     platformFeePercentage: 0.15
   },
@@ -654,7 +654,7 @@ const calendars = [
   airbnbLink: "https://airbnb.co.ve/h/islanorte",
   esteiLink: "https://estei.app/stay/17481197854059978676/profile",
   airbnb: {
-    pricePerNight: 55,
+    pricePerNight: 60,
     cleaningFee: 30,
     extraGuestFeePerNight: 7,
     maxGuestsIncluded: 1,
@@ -663,7 +663,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 75,
+    pricePerNight: 85,
     cleaningFee: 42,
     platformFeePercentage: 0.15
   },
@@ -679,7 +679,7 @@ const calendars = [
   airbnbLink: "https://airbnb.co.ve/h/alejandrasofia2",
   esteiLink: "https://estei.app/stay/17624979618330213286/profile",
   airbnb: {
-    pricePerNight: 36,
+    pricePerNight: 41,
     cleaningFee: 30,
     extraGuestFeePerNight: 7,
     maxGuestsIncluded: 1,
@@ -688,7 +688,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 75,
+    pricePerNight: 85,
     cleaningFee: 42,
     platformFeePercentage: 0.15
   },
@@ -704,7 +704,7 @@ const calendars = [
   airbnbLink: "http://airbnb.com/h/phzaparamcbo",
   esteiLink: "https://estei.app/stay/17261876211180782474/profile",
   airbnb: {
-    pricePerNight: 59,
+    pricePerNight: 64,
     cleaningFee: 40,
     extraGuestFeePerNight: 15,
     maxGuestsIncluded: 1,
@@ -713,7 +713,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 145,
+    pricePerNight: 155,
     cleaningFee: 52,
     platformFeePercentage: 0.15
   },
@@ -731,7 +731,7 @@ const calendars = [
   airbnbLink: "https://airbnb.com/h/mcysanjacinto",
   esteiLink: "https://surl.li/esteisanjacinto",
   airbnb: {
-    pricePerNight: 70,
+    pricePerNight: 75,
     cleaningFee: 40,
     extraGuestFeePerNight: 5,
     maxGuestsIncluded: 2,
@@ -740,7 +740,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 120,
+    pricePerNight: 130,
     cleaningFee: 57,
     platformFeePercentage: 0.15
   }
@@ -756,7 +756,7 @@ const calendars = [
   airbnbLink: "https://es-l.airbnb.com/rooms/1411732896711046461?viralityEntryPoint=1&s=76",
   esteiLink: "https://estei.app/stay/17464790159203345592/profile?guests=6&arrival_date=2025-12-25&departure_date=2025-12-27",
   airbnb: {
-    pricePerNight: 170,
+    pricePerNight: 175,
     cleaningFee: 25,
     extraGuestFeePerNight: 15,
     maxGuestsIncluded: 7,
@@ -765,7 +765,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 200,
+    pricePerNight: 210,
     cleaningFee: 37,
     platformFeePercentage: 0.15
   }
@@ -781,7 +781,7 @@ const calendars = [
   airbnbLink: "https://www.airbnb.co.ve/hosting/listings/editor/982666610125158253/view-your-space",
   esteiLink: "https://estei.app/stay/17473201623688294439/settings/profile/basic-info",
   airbnb: {
-    pricePerNight: 110,
+    pricePerNight: 115,
     cleaningFee: 25,
     extraGuestFeePerNight: 15,
     maxGuestsIncluded: 8,
@@ -790,7 +790,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 140,
+    pricePerNight: 150,
     cleaningFee: 27,
     platformFeePercentage: 0.15
   }
@@ -807,7 +807,7 @@ const calendars = [
   airbnbLink: "https://www.airbnb.co.ve/hosting/listings/editor/1638442866536316067/view-your-space",
   esteiLink: "https://estei.app/stay/17731920350168058630/profile",
   airbnb: {
-    pricePerNight: 90,
+    pricePerNight: 95,
     cleaningFee: 25,
     extraGuestFeePerNight: 0,
     maxGuestsIncluded: 9,
@@ -816,7 +816,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 170,
+    pricePerNight: 180,
     cleaningFee: 27,
     platformFeePercentage: 0.15
   }
@@ -832,7 +832,7 @@ const calendars = [
   airbnbLink: "https://www.airbnb.co.ve/hosting/listings/editor/1257351696352930087/view-your-space",
   esteiLink: "https://estei.app/stay/17471411218787671669/settings/profile/preview",
   airbnb: {
-    pricePerNight: 90,
+    pricePerNight: 95,
     cleaningFee: 25,
     extraGuestFeePerNight: 15,
     maxGuestsIncluded: 5,
@@ -841,7 +841,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 160,
+    pricePerNight: 170,
     cleaningFee: 27,
     platformFeePercentage: 0.15
   }
@@ -858,7 +858,7 @@ const calendars = [
   airbnbLink: "https://airbnb.com/h/basearagua2",
   esteiLink: "https://surl.li/esteibasearagua",
   airbnb: {
-    pricePerNight: 70,
+    pricePerNight: 75,
     cleaningFee: 40,
     extraGuestFeePerNight: 5,
     maxGuestsIncluded: 2,
@@ -867,7 +867,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 90,
+    pricePerNight: 100,
     cleaningFee: 37,
     platformFeePercentage: 0.15
   }
@@ -884,7 +884,7 @@ const calendars = [
   airbnbLink: "https://www.airbnb.com/l/BmUrVF9g",
   esteiLink: "https://estei.app/stay/17651549041258793067/profile",
   airbnb: {
-    pricePerNight: 75,
+    pricePerNight: 80,
     cleaningFee: 40,
     extraGuestFeePerNight: 10,
     maxGuestsIncluded: 2,
@@ -893,7 +893,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 70,
+    pricePerNight: 80,
     cleaningFee: 37,
     platformFeePercentage: 0.15
   },
@@ -910,7 +910,7 @@ const calendars = [
   airbnbLink: "https://airbnb.com/h/cabudare",
   esteiLink: "https://estei.app/stay/17661842698973151059/profile",
   airbnb: {
-    pricePerNight: 65,
+    pricePerNight: 70,
     cleaningFee: 35,
     extraGuestFeePerNight: 5,
     maxGuestsIncluded: 3,
@@ -919,7 +919,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 110,
+    pricePerNight: 120,
     cleaningFee: 45,
     platformFeePercentage: 0.15
   }
@@ -936,7 +936,7 @@ const calendars = [
   airbnbLink: "https://es-l.airbnb.com/rooms/1477157897191458411",
   esteiLink: "https://estei.app/stay/17623544190746887185/profile",
   airbnb: {
-    pricePerNight: 65,
+    pricePerNight: 70,
     cleaningFee: 35,
     extraGuestFeePerNight: 5,
     maxGuestsIncluded: 3,
@@ -945,7 +945,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 145,
+    pricePerNight: 155,
     cleaningFee: 15,
     platformFeePercentage: 0.15
   }
@@ -962,7 +962,7 @@ const calendars = [
   airbnbLink: "https://es-l.airbnb.com/rooms/1742790075940529000",
   esteiLink: null,
   airbnb: {
-    pricePerNight: 85,
+    pricePerNight: 90,
     cleaningFee: 35,
     extraGuestFeePerNight: 0,
     maxGuestsIncluded: 5,
@@ -971,7 +971,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 120,
+    pricePerNight: 130,
     cleaningFee: 45,
     platformFeePercentage: 0.15
   }
@@ -988,7 +988,7 @@ const calendars = [
   airbnbLink: "https://es-l.airbnb.com/rooms/1705444277231632043",
   esteiLink: null,
   airbnb: {
-    pricePerNight: 75,
+    pricePerNight: 80,
     cleaningFee: 15,
     extraGuestFeePerNight: 0,
     maxGuestsIncluded: 6,
@@ -1014,7 +1014,7 @@ const calendars = [
   airbnbLink: "https://www.airbnb.com/h/bqtoaeropuerto2",
   esteiLink: "https://estei.app/stay/17872696802590506410/profile",
   airbnb: {
-    pricePerNight: 60,
+    pricePerNight: 65,
     cleaningFee: 35,
     extraGuestFeePerNight: 5,
     maxGuestsIncluded: 2,
@@ -1023,7 +1023,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 140,
+    pricePerNight: 150,
     cleaningFee: 45,
     platformFeePercentage: 0.15
   }
@@ -1040,7 +1040,7 @@ const calendars = [
   airbnbLink: "https://www.airbnb.com/h/bqtopozoblanco",
   esteiLink: "https://estei.app/stay/17873521842414594647/profile",
   airbnb: {
-    pricePerNight: 80,
+    pricePerNight: 85,
     cleaningFee: 25,
     extraGuestFeePerNight: 5,
     maxGuestsIncluded: 2,
@@ -1049,7 +1049,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 120,
+    pricePerNight: 130,
     cleaningFee: 45,
     platformFeePercentage: 0.15
   }
@@ -1066,7 +1066,7 @@ const calendars = [
   airbnbLink: "https://airbnb.com/h/mgtaplayaelangel1",
   esteiLink: "https://surl.li/esteimgtaplayaelangel1",
   airbnb: {
-    pricePerNight: 90,
+    pricePerNight: 95,
     cleaningFee: 35,
     extraGuestFeePerNight: 0,
     maxGuestsIncluded: 5,
@@ -1075,7 +1075,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 120,
+    pricePerNight: 130,
     cleaningFee: 55,
     platformFeePercentage: 0.15
   }
@@ -1092,7 +1092,7 @@ const calendars = [
   airbnbLink: "https://airbnb.com/h/mgtaplayaelangel2",
   esteiLink: "https://surl.li/esteimgtaplayaelangel2",
   airbnb: {
-    pricePerNight: 90,
+    pricePerNight: 95,
     cleaningFee: 35,
     extraGuestFeePerNight: 0,
     maxGuestsIncluded: 5,
@@ -1101,7 +1101,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 120,
+    pricePerNight: 130,
     cleaningFee: 55,
     platformFeePercentage: 0.15
   }
@@ -1118,7 +1118,7 @@ const calendars = [
   airbnbLink: "https://airbnb.com/h/ccsbellomonte",
   esteiLink: "https://surl.li/esteibellomonte",
   airbnb: {
-    pricePerNight: 70,
+    pricePerNight: 75,
     cleaningFee: 40,
     extraGuestFeePerNight: 0,
     maxGuestsIncluded: 4,
@@ -1127,7 +1127,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 100,
+    pricePerNight: 110,
     cleaningFee: 55,
     platformFeePercentage: 0.15
   }
@@ -1144,7 +1144,7 @@ const calendars = [
   airbnbLink: "https://airbnb.com/h/naguanagua2n",
   esteiLink: "https://surl.li/esteinaguanagua2",
   airbnb: {
-    pricePerNight: 70,
+    pricePerNight: 75,
     cleaningFee: 35,
     extraGuestFeePerNight: 6,
     maxGuestsIncluded: 1,
@@ -1153,7 +1153,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 100,
+    pricePerNight: 110,
     cleaningFee: 55,
     platformFeePercentage: 0.15
   }
@@ -1170,7 +1170,7 @@ const calendars = [
   airbnbLink: "https://airbnb.co.ve/h/lecheriasolsuite1",
   esteiLink: "https://surl.li/esteilecheriasolsuite1",
   airbnb: {
-    pricePerNight: 120,
+    pricePerNight: 125,
     cleaningFee: 40,
     extraGuestFeePerNight: 5,
     maxGuestsIncluded: 1,
@@ -1179,7 +1179,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 150,
+    pricePerNight: 160,
     cleaningFee: 55,
     platformFeePercentage: 0.15
   }
@@ -1196,7 +1196,7 @@ const calendars = [
   airbnbLink: "https://airbnb.com/h/lecheriasolsuite2",
   esteiLink: "https://surl.li/esteilecheriasolsuite2",
   airbnb: {
-    pricePerNight: 100,
+    pricePerNight: 105,
     cleaningFee: 40,
     extraGuestFeePerNight: 5,
     maxGuestsIncluded: 1,
@@ -1205,7 +1205,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 135,
+    pricePerNight: 145,
     cleaningFee: 55,
     platformFeePercentage: 0.15
   }
@@ -1222,7 +1222,7 @@ const calendars = [
   airbnbLink: "https://airbnb.com/h/lecheriasolsuite3",
   esteiLink: "https://surl.li/esteilecheriasolsuite3",
   airbnb: {
-    pricePerNight: 70,
+    pricePerNight: 75,
     cleaningFee: 35,
     extraGuestFeePerNight: 0,
     maxGuestsIncluded: 2,
@@ -1231,7 +1231,7 @@ const calendars = [
     platformFeePercentage: 0.1411
   },
   estei: {
-    pricePerNight: 100,
+    pricePerNight: 110,
     cleaningFee: 45,
     platformFeePercentage: 0.15
   }
